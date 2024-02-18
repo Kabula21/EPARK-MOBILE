@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "epark-mobile",
-    "slug": "epark-mobile",
+    "name": "login-register-ui",
+    "slug": "login-register-ui",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
