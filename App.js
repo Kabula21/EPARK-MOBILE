@@ -2,9 +2,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { Login, Cadastro, BemVindo, Painel } from "./screens";
 import { NavigationContainer } from "@react-navigation/native";
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  
   
   return (
     <NavigationContainer>

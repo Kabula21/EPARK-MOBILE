@@ -5,11 +5,31 @@ import COLORS  from '../constants/colors';
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
+import { auth } from '../src/firebase.config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const Login = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+
+    const [userMail, setUserMail] = useState('');
+    const [userPass, setUserPass] = useState('');
+
+    function userLogin() {
+        signInWithEmailAndPassword(auth, userMail, userPass)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                alert('Login Efetuado com Sucesso!');
+                console.log(user);
+                navigation.navigate("Painel")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage);
+            })
+    }
     
     
     return (        
@@ -61,6 +81,8 @@ const Login = ({ navigation }) => {
                             placeholder='Digite seu E-mail'
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
+                            value={userMail}
+                            onChangeText={setUserMail}
                             style={{
                                 width: "100%"
                             }}
@@ -89,6 +111,8 @@ const Login = ({ navigation }) => {
                             placeholder='Insira a Senha'
                             placeholderTextColor={COLORS.black}
                             secureTextEntry={isPasswordShown}
+                            value={userPass}
+                            onChangeText={setUserPass}
                             style={{
                                 width: "100%"
                             }}
@@ -129,7 +153,8 @@ const Login = ({ navigation }) => {
 
                 <Button
                     title="Entrar"
-                    onPress={() => navigation.navigate("Painel")}
+                    onPress={userLogin}
+                    //onPress={() => navigation.navigate("Painel")}
                     filled
                     style={{
                         marginLeft:70,

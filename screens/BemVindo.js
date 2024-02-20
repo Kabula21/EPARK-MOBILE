@@ -5,6 +5,8 @@ import Button from '../components/Button';
 
 const BemVindo = ({ navigation }) => {
 
+    
+
     return (
         <ImageBackground
             source={require('../assets/background.png')}
