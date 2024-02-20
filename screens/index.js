@@ -7,5 +7,5 @@ export {
     Login,
     BemVindo,
     Cadastro,
-    Painel
+    Painel,
 }

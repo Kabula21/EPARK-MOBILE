@@ -11,6 +11,7 @@ const Login = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     
+    
     return (        
 <ImageBackground
             source={require('../assets/background.png')}
@@ -128,7 +129,7 @@ const Login = ({ navigation }) => {
 
                 <Button
                     title="Entrar"
-                    onPress={() => navigation.navigate("index")}
+                    onPress={() => navigation.navigate("Painel")}
                     filled
                     style={{
                         marginLeft:70,
@@ -136,41 +137,14 @@ const Login = ({ navigation }) => {
                         marginBottom: 4,
                         backgroundColor: '#191970'
                     }}
-                />
-
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
-                    <View
-                        style={{
-                            flex: 1,
-                            height: 1,
-                            backgroundColor: COLORS.grey,
-                            marginHorizontal: 10
-                        }}
-                    />
-                    <Text style={{ fontSize: 14 }}>ou entre com</Text>
-                    <View
-                        style={{
-                            flex: 1,
-                            height: 1,
-                            backgroundColor: COLORS.grey,
-                            marginHorizontal: 10
-                        }}
-                    />
-                </View>
-
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center'
-                }}>
-                    
-                </View>
+                />              
 
                 <View style={{
                     flexDirection: "row",
                     justifyContent: "center",
                     marginVertical: 22
                 }}>
-                    <Text style={{ fontSize: 16, color: COLORS.black }}>Ainda não é cadastrado ? </Text>
+                    <Text style={{ fontSize: 16, marginTop: 20, color: COLORS.black }}>Ainda não é cadastrado ? </Text>
                     <Pressable
                         onPress={() => navigation.navigate("Cadastro")}
                     >
@@ -178,11 +152,12 @@ const Login = ({ navigation }) => {
                             fontSize: 16,
                             color: COLORS.primary,
                             fontWeight: "bold",
-                            marginLeft: 6
+                            marginLeft: 6,
+                            marginTop: 20
                         }}>Criar</Text>
                     </Pressable>
                 </View>
-                <Text style={{ color: 'black', marginTop: 150, marginLeft: 100 }}>powered by TTG-Group </Text>
+                <Text style={{ color: 'black', marginTop: 200, marginLeft: 100 }}>powered by TTG-Group </Text>
             </View>
             </TouchableWithoutFeedback>            
         </SafeAreaView>

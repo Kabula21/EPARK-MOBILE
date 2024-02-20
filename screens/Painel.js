@@ -1,212 +1,77 @@
-
-import { View, Text, Image, Pressable, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import COLORS from '../constants/colors';
-import { Ionicons } from "@expo/vector-icons";
-import Checkbox from "expo-checkbox"
-import Button from '../components/Button';
 
+const Painel = ({ navigation }) => {
+    const [activeButton, setActiveButton] = useState('Perfil'); // Definir el estado inicial del botón activo
 
+    const handleButtonClick = (buttonName) => {
+        setActiveButton(buttonName);
+    };
 
-const Signup = ({ navigation }) => {
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
-
-    
-
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={{ flex: 1, marginHorizontal: 22 }}>
-                <View style={{ marginVertical: 22 }}>
-                    <Text style={{
-                        fontSize: 22,
-                        fontWeight: 'bold',
-                        marginVertical: 12,
-                        color: COLORS.black
-                    }}>
-                        Crie Sua Conta
-                    </Text>
-                    
-                </View>
-
-                <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 400,
-                        marginVertical: 8
-                    }}>Nome</Text>
-
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
-                        <TextInput
-                            placeholder='Nome'
-                            placeholderTextColor={COLORS.black}
-                            keyboardType='default'
-                            style={{
-                                width: "100%"
-                            }}
-                        />
-                    </View>
-                </View> 
-
-                <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 400,
-                        marginVertical: 8
-                    }}>Email</Text>
-
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
-                        <TextInput
-                            placeholder='Insira seu Email'
-                            placeholderTextColor={COLORS.black}
-                            keyboardType='email-address'
-                            style={{
-                                width: "100%"
-                            }}
-                        />
-                    </View>
-                </View>                
-
-                <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 400,
-                        marginVertical: 8
-                    }}>Senha</Text>
-
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
-                        <TextInput
-                            placeholder='Enter your password'
-                            placeholderTextColor={COLORS.black}
-                            secureTextEntry={isPasswordShown}
-                            style={{
-                                width: "100%"
-                            }}
-                        />
+    return (  
+        <ImageBackground
+            source={require('../assets/background.png')}
+            style={{
+                flex: 1,                
+                justifyContent: 'center',                
+            }}
+        >
+            <SafeAreaView style={{ flex: 1 }}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <View style={styles.menuBar}> 
+                        <TouchableOpacity
+                            style={[styles.button, activeButton === 'Perfil' && styles.activeButton]}
+                            onPress={() => handleButtonClick('Perfil')}>
+                            <Text style={styles.buttonText}>Perfil</Text>
+                        </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => setIsPasswordShown(!isPasswordShown)}
-                            style={{
-                                position: "absolute",
-                                right: 12
-                            }}
-                        >
-                            {
-                                isPasswordShown == true ? (
-                                    <Ionicons name="eye-off" size={24} color={COLORS.black} />
-                                ) : (
-                                    <Ionicons name="eye" size={24} color={COLORS.black} />
-                                )
-                            }
+                            style={[styles.button, activeButton === 'Cartão' && styles.activeButton]}
+                            onPress={() => handleButtonClick('Cartão')}>
+                            <Text style={styles.buttonText}>Cartão</Text>
+                        </TouchableOpacity>
 
+                        <TouchableOpacity
+                            style={[styles.button, activeButton === 'Veículo' && styles.activeButton]}
+                            onPress={() => handleButtonClick('Veículo')}>
+                            <Text style={styles.buttonText}>Veículo</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={[styles.button, activeButton === 'Tíckets' && styles.activeButton]}
+                            onPress={() => handleButtonClick('Tíckets')}>
+                            <Text style={styles.buttonText}>Tíckets</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </TouchableWithoutFeedback>
+            </SafeAreaView>
+        </ImageBackground>
+    );
+};
 
-                <View style={{
-                    flexDirection: 'row',
-                    marginVertical: 6
-                }}>
-                    <Checkbox
-                        style={{ marginRight: 8 }}
-                        value={isChecked}
-                        onValueChange={setIsChecked}
-                        color={isChecked ? COLORS.primary : undefined}
-                    />
+const styles = StyleSheet.create({
+    menuBar: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: '#eee',
+        paddingVertical: 10,
+    },
+    button: {
+        flex: 1,
+        alignItems: 'center',
+        paddingVertical: 10,
+    },
+    buttonText: {
+        fontSize: 16,
+    },
+    activeButton: {
+        borderBottomWidth: 2,
+        borderBottomColor: 'blue',
+    },
+});
 
-                    <Text>Aceito os Termos e Condições</Text>
-                </View>
+export default Painel;
 
-                <Button
-                    title="Cadastrar"
-                    onPress={() => navigation.navigate("Login")}
-                    filled
-                    style={{
-                        marginLeft:70,
-                        marginTop: 18,
-                        marginBottom: 4,
-                        backgroundColor: '#191970'
-                        
-                    }}
-                />
-
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
-                    <View
-                        style={{
-                            flex: 1,
-                            height: 1,
-                            backgroundColor: COLORS.grey,
-                            marginHorizontal: 10
-                        }}
-                    />
-                    <Text style={{ fontSize: 14 }}>ou acesse com</Text>
-                    <View
-                        style={{
-                            flex: 1,
-                            height: 1,
-                            backgroundColor: COLORS.grey,
-                            marginHorizontal: 10
-                        }}
-                    />
-                </View>
-
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center'
-                }}>                    
-                </View>
-                <View style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    marginVertical: 22
-                }}>
-                    <Text style={{ fontSize: 16, color: COLORS.black }}>Já possuo uma conta</Text>
-                    <Pressable
-                        onPress={() => navigation.navigate("Login")}
-                    >
-                        <Text style={{
-                            fontSize: 16,
-                            color: COLORS.primary,
-                            fontWeight: "bold",
-                            marginLeft: 6
-                        }}>Entrar</Text>
-                    </Pressable>
-                </View>
-            </View>
-            </TouchableWithoutFeedback>
-        </SafeAreaView>
-    )
-}
-
-
-export default Signup
 
