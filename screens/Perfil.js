@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native'; // Adicionando Image
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; // Importação do hook useNavigation
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,6 +9,11 @@ const Perfil = () => {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [foto, setFoto] = useState(null); // Novo estado para a foto
+
+    const handleChoosePhoto = () => {
+        // Adicione lógica aqui para permitir ao usuário escolher uma foto da galeria
+    };
 
     const handleSubmit = () => {
         console.log('Nome:', nome);
@@ -57,15 +62,26 @@ const Perfil = () => {
 
                     <TouchableOpacity
                         style={styles.menuButton}
-                        onPress={() => navigation.navigate('Tíckets')}>
+                        onPress={() => navigation.navigate('Tickets')}>
                         <Icon name="ticket" size={24} color="black" />
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>
                 </View>
 
+                
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                    <View style={styles.container}>                        
+                    <View style={styles.container}>
+                    <TouchableOpacity onPress={handleChoosePhoto} style={styles.profileImageContainer}>
+                        {foto ? (
+                            <Image source={{ uri: foto }} style={styles.profileImage} />
+                        ) : (
+                            <>
+                                <Icon name="camera" size={24} color="gray" style={styles.cameraIcon} />
+                                <Text style={styles.addPhotoText}>Adicionar Foto</Text>
+                            </>
+                        )}
+                    </TouchableOpacity>
                         <Text style={styles.title}>Dados Pessoais</Text>
                         <TextInput
                             style={styles.input}
@@ -101,7 +117,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 100,
+        paddingBottom: 0,
     },
     menuBar: {
         flexDirection: 'row',
@@ -126,6 +142,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 10,
         paddingHorizontal: 10,
+        backgroundColor: 'white'
     },
     button: {
         width: '80%',
@@ -133,18 +150,44 @@ const styles = StyleSheet.create({
         backgroundColor: '#191970',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 5,
-        
-        
+        borderRadius: 5,    
     },
     buttonText: {
         fontSize: 12,        
     },
-
     buttonSend:{
         color: 'white'
-    }
+    },
+    profileImage: {
+        width: 200,
+        height: 200,
+        borderRadius: 50,
+        marginBottom: 20,
+    },
+    addPhotoText: {
+        fontSize: 16,
+        color: 'grey',
+        marginBottom: 0,
+    },
 
+    profileImageContainer: {
+        width: 200,
+        height: 200,
+        borderRadius: 200,
+        backgroundColor: '#ccc',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 50,
+    },
+    profileImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+    },
+
+    cameraIcon: {
+        marginBottom: 5,
+    },
 });
 
 export default Perfil;

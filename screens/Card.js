@@ -59,7 +59,7 @@ const Card = () => {
 
                     <TouchableOpacity
                         style={styles.menuButton}
-                        onPress={() => navigation.navigate('Tíckets')}>
+                        onPress={() => navigation.navigate('Tickets')}>
                         <Icon name="ticket" size={24} color="black" />
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>

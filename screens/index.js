@@ -5,6 +5,8 @@ import Painel from "./Painel";
 import Perfil from "./Perfil";
 import Card from "./Card";
 import Veiculo from "./Veiculo";
+import Tickets from "./Tickets";
+import Termos from "./Termos";
 
 export {
     Login,
@@ -14,4 +16,6 @@ export {
     Perfil,
     Card,
     Veiculo,
+    Tickets,
+    Termos,
 }
