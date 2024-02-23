@@ -92,16 +92,53 @@ const Painel = () => {
 
 
 
-                <View style={{ flexDirection: 'row', marginTop: 350, marginLeft: 85 }}>
-                    <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>
-                    <Pressable onPress={() => navigation.navigate("Termos")}>
-                        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Acesse</Text>
-                    </Pressable>
+                <View style={{ flexDirection: 'row', marginTop: 30, backgroundColor: '#fff', borderRadius: 0, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5 }}>
+                        <View style={{ flex: 1, padding: 10 }}>
+                            <Text>Placa: ABC-1234</Text>
+                            <View style={{ marginBottom: 5 }}></View>
+                            <Text>Veículo: Carro</Text>
+                            <View style={{ marginBottom: 5 }}></View>
+                            <Text>Data: {date.toLocaleDateString()}</Text>
+                            <View style={{ marginBottom: 5 }}></View>
+                            <Text>Hora: {date.toLocaleTimeString()}</Text>
+                            <View style={{ marginBottom: 5 }}></View>
+                            <Text>Regra: Até 2h + Taxa</Text>
+                            <View style={{ marginBottom: 5 }}></View>
+                            <Text>Total: R$10,00</Text>
+                        </View>
+
+
+
+    <View style={{ width: 1, backgroundColor: 'grey', marginRight: 10}} /> 
+
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                        <View style={{ alignItems: 'center', marginRight: 20 }}>                        
+                            <Text style={{fontSize: 40, color: "red", fontWeight: "bold"}}>5</Text>                             
+                            <Text style={{fontSize: 15}}>OCUPADAS</Text>
+                        </View>
+
+                        <View style={{ alignItems: 'center', marginRight: 20 }}>                        
+                            <Text style={{fontSize: 40, color: "green", fontWeight: "bold"}}>15</Text>                            
+                            <Text style={{fontSize: 15}}>LIVRE</Text>
+                        </View>
+
+                        <View style={{ alignItems: 'center', marginRight: 20 }}>                      
+                            <Text style={{fontSize: 40, color: "#191970", fontWeight: "bold"}}>20</Text>                                               
+                            <Text style={{fontSize: 15}}>TOTAL</Text>
+                        </View> 
+                    </View>           
                 </View>
 
 
 
 
+                <View style={{ flexDirection: 'row', marginTop: 50, marginLeft: 85 }}>
+                    <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>
+                    <Pressable onPress={() => navigation.navigate("Termos")}>
+                        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Acesse</Text>
+                    </Pressable>
+                </View>
                 <View style={{ marginTop: 30, width: 250, marginLeft: 70, borderRadius: 50, }}>
                     <Button onPress={showDatepicker} title="Selecione o Dia" />
                 </View>
@@ -120,7 +157,14 @@ const Painel = () => {
                         onChange={onChange}
                     />
                     
-                )}               
+                )}
+
+                    <TouchableOpacity onPress={() => setShow(false)} style={styles.generateTicketButton}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Icon name="ticket" size={50} color="black" />
+                            <Text style={{ marginLeft: 10 }}>Gerar Ticket</Text>
+                        </View>
+                    </TouchableOpacity>             
 
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                     <Icon name="sign-out" size={24} color="black" />
@@ -165,6 +209,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'black',
     },
+
+    generateTicketButton:{
+        marginLeft: 120,
+        marginTop: 50,
+    }
 });
 
 export default Painel;

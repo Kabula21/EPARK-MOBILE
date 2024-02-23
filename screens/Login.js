@@ -61,7 +61,7 @@ const Login = ({ navigation }) => {
                             <Text style={{
                                 fontSize: 16,
                                 color: COLORS.black
-                            }}>Olá novamente, você fez falta!</Text>
+                            }}>Olá nós somos o E-Park!</Text>
                         </View>
 
                         <View style={{ marginBottom: 12 }}>
@@ -79,7 +79,10 @@ const Login = ({ navigation }) => {
                                 borderRadius: 8,
                                 alignItems: "center",
                                 justifyContent: "center",
-                                paddingLeft: 22
+                                paddingLeft: 22,
+                                backgroundColor: "white"
+                               
+                                
                             }}>
                                 <TextInput
                                     placeholder='Digite seu E-mail'
@@ -88,7 +91,8 @@ const Login = ({ navigation }) => {
                                     value={userMail}
                                     onChangeText={setUserMail}
                                     style={{
-                                        width: "100%"
+                                        width: "100%",
+                                        color: "black"
                                     }}
                                 />
                             </View>
@@ -109,7 +113,8 @@ const Login = ({ navigation }) => {
                                 borderRadius: 8,
                                 alignItems: "center",
                                 justifyContent: "center",
-                                paddingLeft: 22
+                                paddingLeft: 22,
+                                backgroundColor: "white"
                             }}>
                                 <TextInput
                                     placeholder='Insira a Senha'
@@ -118,7 +123,8 @@ const Login = ({ navigation }) => {
                                     value={userPass}
                                     onChangeText={setUserPass}
                                     style={{
-                                        width: "100%"
+                                        width: "100%",
+                                        color: "black"
                                     }}
                                 />
 
