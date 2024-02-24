@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native'; // Adicionando Image
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from '@react-navigation/native'; // Importação do hook useNavigation
+import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Perfil = () => {
-    const navigation = useNavigation(); // Utilização do hook useNavigation
+    const navigation = useNavigation(); 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [foto, setFoto] = useState(null); // Novo estado para a foto
+    const [foto, setFoto] = useState(null);
+    const inputRef = useRef(null);
 
     const handleChoosePhoto = () => {
-        // Adicione lógica aqui para permitir ao usuário escolher uma foto da galeria
+        
+        const input = inputRef.current;
+        if (input) {
+            input.type = 'file';
+            input.accept = 'image/*'; 
+            
+            input.addEventListener('change', (event) => {
+                const file = event.target.files[0]; 
+                
+                if (file) {                    
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const imageUrl = event.target.result;                        
+                        console.log('URL da imagem selecionada:', imageUrl);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });           
+            input.click();
+        }
     };
 
     const handleSubmit = () => {
