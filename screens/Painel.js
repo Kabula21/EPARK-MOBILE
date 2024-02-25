@@ -10,11 +10,20 @@ const Painel = () => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
+    const [entryTime, setEntryTime] = useState(null);
+    const [exitTime, setExitTime] = useState(null);
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(false);
         setDate(currentDate);
+        if (mode === 'time') {
+            if (!entryTime) {
+                setEntryTime(currentDate);
+            } else {
+                setExitTime(currentDate);
+            }
+        }
     };
 
     const showMode = (currentMode) => {
@@ -23,19 +32,17 @@ const Painel = () => {
     };
 
     const showDatepicker = () => {
-        showMode('date');
+        showMode('date');        
     };
 
     const showTimepicker = () => {
         showMode('time');
     };
 
-    const confirmDate = () => {
-        // Faça alguma ação com a data selecionada
+    const confirmDate = () => {        
         console.log('Data selecionada:', date);
-        // Você pode adicionar aqui qualquer ação que deseja realizar com a data selecionada
-        // Por exemplo, enviar para o servidor, atualizar o estado do componente pai, etc.
-      };
+        
+    };
 
 
     const handleLogout = () => {
@@ -92,47 +99,49 @@ const Painel = () => {
 
 
 
-                <View style={{ flexDirection: 'row', marginTop: 30, backgroundColor: '#fff', borderRadius: 0, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5 }}>
-                        <View style={{ flex: 1, padding: 10 }}>
-                            <Text>Placa: ABC-1234</Text>
-                            <View style={{ marginBottom: 5 }}></View>
-                            <Text>Veículo: Carro</Text>
-                            <View style={{ marginBottom: 5 }}></View>
-                            <Text>Data: {date.toLocaleDateString()}</Text>
-                            <View style={{ marginBottom: 5 }}></View>
-                            <Text>Hora: {date.toLocaleTimeString()}</Text>
-                            <View style={{ marginBottom: 5 }}></View>
-                            <Text>Regra: Até 2h + Taxa</Text>
-                            <View style={{ marginBottom: 5 }}></View>
-                            <Text>Total: R$10,00</Text>
+                <View style={{ flexDirection: 'row', marginTop: 5, backgroundColor: '#fff', borderRadius: 0, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5 }}>
+                    <View style={{ flex: 1, padding: 10 }}>
+                        <Text>Placa: ABC-1234</Text>
+                        <View style={{ marginBottom: 5 }}></View>
+                        <Text>Veículo: Carro</Text>
+                        <View style={{ marginBottom: 5 }}></View>
+                        <Text>Data: {date.toLocaleDateString()}</Text>
+                        <View style={{ marginBottom: 5 }}></View>
+                        <Text>Hora de entrada: {entryTime ? entryTime.toLocaleTimeString() : '-'}</Text>
+                        <View style={{ marginBottom: 5 }}></View>
+                        <Text>Hora de saída: {exitTime ? exitTime.toLocaleTimeString() : '-'}</Text>
+                        <View style={{ marginBottom: 5 }}></View>
+                        <Text>Regra: Até 2h + Taxa</Text>
+                        <View style={{ marginBottom: 5 }}></View>
+                        <Text>Total: R$10,00</Text>
+                    </View>
+
+
+
+                    <View style={{ width: 1, backgroundColor: 'grey', marginRight: 10 }} />
+
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ alignItems: 'center', marginRight: 20 }}>
+                            <Text style={{ fontSize: 40, color: "red", fontWeight: "bold" }}>5</Text>
+                            <Text style={{ fontSize: 15 }}>OCUPADAS</Text>
                         </View>
 
-
-
-    <View style={{ width: 1, backgroundColor: 'grey', marginRight: 10}} /> 
-
-
-                    <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                        <View style={{ alignItems: 'center', marginRight: 20 }}>                        
-                            <Text style={{fontSize: 40, color: "red", fontWeight: "bold"}}>5</Text>                             
-                            <Text style={{fontSize: 15}}>OCUPADAS</Text>
+                        <View style={{ alignItems: 'center', marginRight: 20 }}>
+                            <Text style={{ fontSize: 40, color: "green", fontWeight: "bold" }}>15</Text>
+                            <Text style={{ fontSize: 15 }}>LIVRE</Text>
                         </View>
 
-                        <View style={{ alignItems: 'center', marginRight: 20 }}>                        
-                            <Text style={{fontSize: 40, color: "green", fontWeight: "bold"}}>15</Text>                            
-                            <Text style={{fontSize: 15}}>LIVRE</Text>
+                        <View style={{ alignItems: 'center', marginRight: 20 }}>
+                            <Text style={{ fontSize: 40, color: "#191970", fontWeight: "bold" }}>20</Text>
+                            <Text style={{ fontSize: 15 }}>TOTAL</Text>
                         </View>
-
-                        <View style={{ alignItems: 'center', marginRight: 20 }}>                      
-                            <Text style={{fontSize: 40, color: "#191970", fontWeight: "bold"}}>20</Text>                                               
-                            <Text style={{fontSize: 15}}>TOTAL</Text>
-                        </View> 
-                    </View>           
+                    </View>
                 </View>
 
 
 
-                <View style={{ flexDirection: 'row', marginTop: 30, marginLeft: 85 }}>
+                <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 85 }}>
                     <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>
                     <Pressable onPress={() => navigation.navigate("Termos")}>
                         <Text style={{ color: 'blue', fontWeight: 'bold' }}>Acesse</Text>
@@ -142,14 +151,18 @@ const Painel = () => {
                     <Button onPress={showDatepicker} title="Selecione o Dia" />
                 </View>
                 <View style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 50 }}>
-                    <Button onPress={showTimepicker} title="Horario Entrada!" />
+                    <Button onPress={showTimepicker} title="Horário de Entrada" />
                 </View>
 
                 <View style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 50 }}>
-                    <Button onPress={showTimepicker} title="Horario Saída!" />
+                    <Button onPress={showTimepicker} title="Horário de Saída" />
                 </View>
 
-                <Text style={{ marginTop: 20, backgroundColor: "#191970", padding: 20, color: "white", width: 250, marginLeft: 70, borderRadius: 5 }}>selected: {date.toLocaleString()}</Text>
+                <Text style={{ marginTop: 20, backgroundColor: "#191970", padding: 20, color: "white", width: 250, marginLeft: 70, borderRadius: 5 }}>
+                    Data selecionada: {date.toLocaleDateString()}{"\n"}
+                    Horário de entrada: {entryTime ? entryTime.toLocaleTimeString() : '-'}{"\n"}
+                    Horário de saída: {exitTime ? exitTime.toLocaleTimeString() : '-'}
+                </Text>
                 {show && (
                     <DateTimePicker
                         testID="dateTimePicker"
@@ -159,19 +172,16 @@ const Painel = () => {
                         display="default"
                         onChange={onChange}
                     />
-                    
                 )}
 
-
-
-                <TouchableOpacity onPress={() => navigation.navigate("Tickets")} style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 10, backgroundColor: 'green' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 50}}>
+                <TouchableOpacity onPress={() => navigation.navigate("Tickets")} style={{ marginTop: 20, width: 200, marginLeft: 90, alignItems: 'center', borderRadius: 10, backgroundColor: 'green' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Icon name="ticket" size={40} color="white" />
                         <Text style={{ marginLeft: 10, color: 'white' }}>Gerar Ticket</Text>
                     </View>
                 </TouchableOpacity>
 
-        
+
 
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                     <Icon name="sign-out" size={24} color="black" />
@@ -216,10 +226,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'black',
     },
-
-    
-        
-    
 });
 
 export default Painel;

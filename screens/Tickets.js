@@ -136,13 +136,13 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginTop: 50,
     },
     card: {
         backgroundColor: '#fff',
         borderRadius: 10,
         padding: 20,
-        marginBottom: 20,
+        marginBottom: 5,
         width: '80%',
         shadowColor: '#000',
         shadowOffset: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     cardTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 10,
+        marginTop: 0,
     },
 
     logoutButton: {

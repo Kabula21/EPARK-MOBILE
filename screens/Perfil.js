@@ -3,7 +3,8 @@ import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker'; 
+import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 const Perfil = () => {
     const navigation = useNavigation(); 
@@ -12,6 +13,21 @@ const Perfil = () => {
     const [senha, setSenha] = useState('');
     const [foto, setFoto] = useState(null);
     const inputRef = useRef(null);
+
+    useEffect(() => {      
+        carregarFotoSalva();
+    }, []);
+
+    const carregarFotoSalva = async () => {
+        try {
+            const fotoSalva = await AsyncStorage.getItem('fotoPerfil');
+            if (fotoSalva !== null) {
+                setFoto(fotoSalva);
+            }
+        } catch (error) {
+            console.error('Erro ao carregar foto salva:', error);
+        }
+    };
 
     const handleChoosePhoto = async () => {
         const permissionResult = await launchImageLibraryAsync({
@@ -23,6 +39,15 @@ const Perfil = () => {
         
         if (permissionResult.cancelled === false) {
             setFoto(permissionResult.uri);
+            salvarFoto(permissionResult.uri);
+        }
+    };
+
+    const salvarFoto = async (uri) => {
+        try {
+            await AsyncStorage.setItem('fotoPerfil', uri);
+        } catch (error) {
+            console.error('Erro ao salvar foto:', error);
         }
     };
 
@@ -80,17 +105,18 @@ const Perfil = () => {
                 </View>
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                    <View style={styles.container}>
-                        <TouchableOpacity onPress={handleChoosePhoto} style={styles.profileImageContainer}>
-                            {foto ? (
-                                <Image source={{ uri: foto }} style={styles.profileImage} />
-                            ) : (
-                                <>
-                                    <Icon name="camera" size={24} color="gray" style={styles.cameraIcon} />
-                                    <Text style={styles.addPhotoText}>Adicionar Foto</Text>
-                                </>
-                            )}
-                        </TouchableOpacity>
+            <View style={styles.container}>
+                <TouchableOpacity onPress={handleChoosePhoto} style={styles.profileImageContainer}>
+                    {foto ? (
+                        <Image source={{ uri: foto }} style={styles.profileImage} />
+                    ) : (
+                        <>
+                            <Icon name="camera" size={30} color="gray" style={styles.cameraIcon} />
+                            <Text style={styles.addPhotoText}>Adicionar Foto</Text>
+                        </>
+                    )}
+                </TouchableOpacity>
+
                         <Text style={styles.title}>Dados Pessoais</Text>
                         <TextInput
                             style={styles.input}
@@ -111,7 +137,7 @@ const Perfil = () => {
                             value={senha}
                             onChangeText={setSenha}
                         />
-                        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                        <TouchableOpacity style={styles.button} onPress={() => {handleSubmit(); handleChoosePhoto(); salvarFoto();}}>
                             <Text style={styles.buttonSend}>Salvar</Text>
                         </TouchableOpacity>
                     </View>
@@ -170,8 +196,8 @@ const styles = StyleSheet.create({
     profileImage: {
         width: 200,
         height: 200,
-        borderRadius: 50,
-        marginBottom: 20,
+        borderRadius: 100,
+        marginBottom: 0,
     },
     addPhotoText: {
         fontSize: 16,
@@ -189,7 +215,7 @@ const styles = StyleSheet.create({
         marginBottom: 50,
     },
     cameraIcon: {
-        marginBottom: 5,
+        marginBottom: 12,
     },
 });
 
