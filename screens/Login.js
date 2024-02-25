@@ -13,25 +13,34 @@ const Login = ({ navigation }) => {
     const [isChecked, setIsChecked] = useState(false);
     const [userMail, setUserMail] = useState('');
     const [userPass, setUserPass] = useState('');
-    const [isLoading, setIsLoading] = useState(false); // Estado para controlar a exibição do indicador de atividade
+    const [isLoading, setIsLoading] = useState(false); 
 
     function userLogin() {
-        setIsLoading(true); // Define isLoading como true para mostrar o indicador de atividade durante o login
+        setIsLoading(true); 
         signInWithEmailAndPassword(auth, userMail, userPass)
             .then((userCredential) => {
                 const user = userCredential.user;
-                alert('Login Efetuado com Sucesso!');
-                console.log(user);
-                navigation.navigate("Painel")
+                if (user) {
+                    alert('Login Efetuado com Sucesso!');
+                    console.log(user);                
+                    navigation.navigate("Painel");
+                }
             })
             .catch((error) => {
+                const errorCode = error.code;
                 const errorMessage = error.message;
-                alert(errorMessage);
+                if (errorCode === 'auth/user-not-found' || errorCode === 'auth/wrong-password') {
+                    alert('E-mail ou senha incorretos. Por favor, tente novamente.');
+                } else {
+                    alert(errorMessage);
+                }
             })
             .finally(() => {
-                setIsLoading(false); // Define isLoading como false após o login, independentemente do sucesso ou falha
+                setIsLoading(false);
             });
     }
+    
+    
     
     
     return (        
@@ -164,8 +173,7 @@ const Login = ({ navigation }) => {
                         <Button
                             title="Entrar"
                             onPress={() => {
-                                userLogin();
-                                navigation.navigate("Painel");
+                                userLogin();6                                
                             }}
                             filled
                             style={{

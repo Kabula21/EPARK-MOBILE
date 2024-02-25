@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native'; // Adicionando Image
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker'; 
 
 const Perfil = () => {
     const navigation = useNavigation(); 
@@ -12,26 +13,16 @@ const Perfil = () => {
     const [foto, setFoto] = useState(null);
     const inputRef = useRef(null);
 
-    const handleChoosePhoto = () => {
+    const handleChoosePhoto = async () => {
+        const permissionResult = await launchImageLibraryAsync({
+            mediaTypes: MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        });
         
-        const input = inputRef.current;
-        if (input) {
-            input.type = 'file';
-            input.accept = 'image/*'; 
-            
-            input.addEventListener('change', (event) => {
-                const file = event.target.files[0]; 
-                
-                if (file) {                    
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        const imageUrl = event.target.result;                        
-                        console.log('URL da imagem selecionada:', imageUrl);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });           
-            input.click();
+        if (permissionResult.cancelled === false) {
+            setFoto(permissionResult.uri);
         }
     };
 
@@ -39,7 +30,7 @@ const Perfil = () => {
         console.log('Nome:', nome);
         console.log('Email:', email);
         console.log('Senha:', senha);
-        // Você pode adicionar aqui a lógica para enviar os dados do perfil para o backend, por exemplo.
+        
     };
 
     return (  
@@ -88,20 +79,18 @@ const Perfil = () => {
                     </TouchableOpacity>
                 </View>
 
-                
-
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={styles.container}>
-                    <TouchableOpacity onPress={handleChoosePhoto} style={styles.profileImageContainer}>
-                        {foto ? (
-                            <Image source={{ uri: foto }} style={styles.profileImage} />
-                        ) : (
-                            <>
-                                <Icon name="camera" size={24} color="gray" style={styles.cameraIcon} />
-                                <Text style={styles.addPhotoText}>Adicionar Foto</Text>
-                            </>
-                        )}
-                    </TouchableOpacity>
+                        <TouchableOpacity onPress={handleChoosePhoto} style={styles.profileImageContainer}>
+                            {foto ? (
+                                <Image source={{ uri: foto }} style={styles.profileImage} />
+                            ) : (
+                                <>
+                                    <Icon name="camera" size={24} color="gray" style={styles.cameraIcon} />
+                                    <Text style={styles.addPhotoText}>Adicionar Foto</Text>
+                                </>
+                            )}
+                        </TouchableOpacity>
                         <Text style={styles.title}>Dados Pessoais</Text>
                         <TextInput
                             style={styles.input}
@@ -199,12 +188,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 50,
     },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-    },
-
     cameraIcon: {
         marginBottom: 5,
     },

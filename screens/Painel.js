@@ -164,7 +164,7 @@ const Painel = () => {
 
 
 
-                <TouchableOpacity onPress={() => setShow(false)} style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 10, backgroundColor: 'green' }}>
+                <TouchableOpacity onPress={() => navigation.navigate("Tickets")} style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 10, backgroundColor: 'green' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 50}}>
                         <Icon name="ticket" size={40} color="white" />
                         <Text style={{ marginLeft: 10, color: 'white' }}>Gerar Ticket</Text>
