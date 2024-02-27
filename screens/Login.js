@@ -15,8 +15,8 @@ const Login = ({ navigation }) => {
     const [userPass, setUserPass] = useState('');
     const [isLoading, setIsLoading] = useState(false); 
 
-    function userLogin() {
-        setIsLoading(true); 
+    const handleLogin = () => {
+        setIsLoading(true);
         signInWithEmailAndPassword(auth, userMail, userPass)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -38,25 +38,36 @@ const Login = ({ navigation }) => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }
-    
-    
-    
-    
+    };
+
+    const handleCreateAccount = () => {
+        setIsLoading(true);
+        // Implement your logic for creating account here
+        // For demonstration purposes, I'm just navigating to the "Cadastro" screen
+        navigation.navigate("Cadastro");
+        setIsLoading(false);
+    };
+
+    const handleForgotPassword = () => {
+        setIsLoading(true);
+        // Implement your logic for forgot password here
+        // For demonstration purposes, I'm just navigating to the "RedSenha" screen
+        navigation.navigate("RedSenha");
+        setIsLoading(false);
+    };
+
     return (        
         <ImageBackground
             source={require('../assets/background.png')}
             style={{
                 flex: 1,                
                 justifyContent: 'center',                
-                 
             }}
         >
             <SafeAreaView style={{ flex: 1, }}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={{ flex: 1, marginHorizontal: 22, }}>
-                        {/* Se isLoading for verdadeiro, mostra o indicador de atividade */}
-                        {isLoading && <ActivityIndicator size="large" color= "#191970" style={{ position: 'absolute', alignSelf: 'center', marginTop: '50%' }} />}
+                        {isLoading && <ActivityIndicator size="large" color="#191970" style={{ position: 'absolute', alignSelf: 'center', marginTop: '50%' }} />}
                         <View style={{ marginVertical: 22 }}>
                             <Text style={{
                                 fontSize: 22,
@@ -70,7 +81,7 @@ const Login = ({ navigation }) => {
                             <Text style={{
                                 fontSize: 16,
                                 color: COLORS.black
-                            }}>Olá nós somos o E-Park!</Text>
+                            }}>Olá, nós somos o E-Park!</Text>
                         </View>
 
                         <View style={{ marginBottom: 12 }}>
@@ -89,9 +100,7 @@ const Login = ({ navigation }) => {
                                 alignItems: "center",
                                 justifyContent: "center",
                                 paddingLeft: 22,
-                                backgroundColor: "white"
-                               
-                                
+                                backgroundColor: "white"                               
                             }}>
                                 <TextInput
                                     placeholder='Digite seu E-mail'
@@ -145,20 +154,20 @@ const Login = ({ navigation }) => {
                                     }}
                                 >
                                     {
-                                        isPasswordShown == true ? (
+                                        isPasswordShown ? (
                                             <Ionicons name="eye-off" size={24} color={COLORS.black} />
                                         ) : (
                                             <Ionicons name="eye" size={24} color={COLORS.black} />
                                         )
                                     }
-
                                 </TouchableOpacity>
                             </View>
                         </View>
 
                         <View style={{
                             flexDirection: 'row',
-                            marginVertical: 6
+                            marginVertical: 6,
+                            marginHorizontal: 0
                         }}>
                             <Checkbox
                                 style={{ marginRight: 8 }}
@@ -172,17 +181,16 @@ const Login = ({ navigation }) => {
 
                         <Button
                             title="Entrar"
-                            onPress={() => {
-                                userLogin();6                                
-                            }}
+                            onPress={handleLogin}
                             filled
                             style={{
                                 marginLeft: 70,
-                                marginTop: 18,
+                                marginTop: 50,
                                 marginBottom: 4,
                                 backgroundColor: '#191970'
                             }}
                         />  
+
                         <View style={{
                             flexDirection: "row",
                             justifyContent: "center",
@@ -190,11 +198,11 @@ const Login = ({ navigation }) => {
                         }}>
                             <Text style={{ fontSize: 16, marginTop: 0, color: COLORS.black }}>Esqueci minha senha. </Text>
                             <Pressable
-                                onPress={() => navigation.navigate("Senha")}
+                                onPress={handleForgotPassword}
                             >
                                 <Text style={{
-                                    fontSize: 16,
-                                    color: COLORS.primary,
+                                    fontSize: 14,
+                                    color: 'blue',
                                     fontWeight: "bold",
                                     marginLeft: 5,
                                     marginTop: 0
@@ -202,25 +210,14 @@ const Login = ({ navigation }) => {
                             </Pressable>
                         </View>
 
-                        <View style={{
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            marginVertical: 22
-                        }}>
-                            <Text style={{ fontSize: 16, marginTop: -10, color: COLORS.black }}>Ainda não é cadastrado ? </Text>
-                            <Pressable
-                                onPress={() => navigation.navigate("Cadastro")}
-                            >
-                                <Text style={{
-                                    fontSize: 16,
-                                    color: COLORS.primary,
-                                    fontWeight: "bold",
-                                    marginLeft: 5,
-                                    marginTop: -10
-                                }}>Criar Conta</Text>
+                        <View style={{ flexDirection: 'row', marginTop: 10 , marginLeft: 60}}>
+                            <Text style={{ color: 'black' }}>Não Possui Conta ainda? </Text>
+                            <Pressable onPress={handleCreateAccount}>
+                                <Text style={{ color: 'blue', fontWeight: 'bold' }}>Criar Conta</Text>
                             </Pressable>
                         </View>
-                        <Text style={{ color: 'black', marginTop: 200, marginLeft: 100 }}>powered by TTG-Group </Text>
+                        
+                        <Text style={{ color: 'black', marginTop: 150, marginLeft: 100 }}>powered by TTG-Group </Text>
                     </View>
                 </TouchableWithoutFeedback>            
             </SafeAreaView>

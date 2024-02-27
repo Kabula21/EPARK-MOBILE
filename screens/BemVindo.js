@@ -40,17 +40,12 @@ const BemVindo = ({ navigation }) => {
                     style={{
                         marginTop: 20,
                         backgroundColor: '#191970',
+                        height: 60
+
                     }}
                 />
 
-                <View style={{ flexDirection: 'row', marginTop: 40 }}>
-                    <Text style={{ color: 'black' }}>Não Possui Conta ainda? </Text>
-                    <Pressable onPress={() => navigation.navigate("Cadastro")}>
-                        <Text style={{ color: 'black', fontWeight: 'bold' }}>Criar Conta</Text>
-                    </Pressable>
-                </View>
-
-                <Text style={{ color: 'black', marginTop: 150 }}>powered by TTG-Group </Text>
+                <Text style={{ color: 'black', marginTop: 190 }}>powered by TTG-Group </Text>
 
                 {isLoading && (
                     <View style={styles.activityIndicatorContainer}>

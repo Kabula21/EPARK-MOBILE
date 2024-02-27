@@ -108,7 +108,8 @@ const Signup = ({ navigation }) => {
                                 borderRadius: 8,
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingLeft: 22
+                                paddingLeft: 22,
+                                backgroundColor: 'white'
                                 
                                 
                             }}>
@@ -128,7 +129,8 @@ const Signup = ({ navigation }) => {
                             <Text style={{
                                 fontSize: 16,
                                 fontWeight: '400',
-                                marginVertical: 8
+                                marginVertical: 8,
+                                
                             }}>Email</Text>
 
                             <View style={{
@@ -139,7 +141,8 @@ const Signup = ({ navigation }) => {
                                 borderRadius: 8,
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingLeft: 22
+                                paddingLeft: 22,
+                                backgroundColor: 'white'
                                 
                             }}>
                                 <TextInput
@@ -169,7 +172,8 @@ const Signup = ({ navigation }) => {
                                 borderRadius: 8,
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingLeft: 22
+                                paddingLeft: 22,
+                                backgroundColor: 'white'
                             }}>
                                 <TextInput
                                     placeholder='Digite sua senha'
@@ -214,7 +218,8 @@ const Signup = ({ navigation }) => {
                                 borderRadius: 8,
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingLeft: 22
+                                paddingLeft: 22,
+                                backgroundColor: 'white'
                             }}>
                                 <TextInput
                                     placeholder='Confirme a sua senha'
@@ -246,7 +251,9 @@ const Signup = ({ navigation }) => {
 
                         <View style={{
                             flexDirection: 'row',
-                            marginVertical: 6
+                            marginVertical: 6,
+                            marginHorizontal: 0,
+
                         }}>
                             <Checkbox
                                style={{ marginRight: 8 }}
@@ -278,11 +285,11 @@ const Signup = ({ navigation }) => {
                         }}>
                             <Text style={{ fontSize: 16, marginTop: 10, color: COLORS.black }}>Já tenho uma conta</Text>
                             <Pressable
-                               
+                               onPress={() => navigation.navigate("Login")}
                             >
                                 <Text style={{
                                     fontSize: 16,
-                                    color: COLORS.primary,
+                                    color: 'blue',
                                     fontWeight: 'bold',
                                     marginLeft: 6,
                                     marginTop: 10,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, Pressable } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -135,30 +135,34 @@ const Perfil = () => {
                 </TouchableOpacity>
 
                         <Text style={styles.title}>Dados Pessoais</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Nome"
-                            value={nome}
-                            onChangeText={setNome}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Email"
-                            value={email}
-                            onChangeText={setEmail}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Nova Senha"
-                            secureTextEntry={true}
-                            value={senha}
-                            onChangeText={setSenha}
-                        />
-                        <TouchableOpacity style={styles.button} onPress={() => {handleSubmit(); handleChoosePhoto(); salvarFoto();}}>
-                            <Text style={styles.buttonSend}>Salvar</Text>
-                        </TouchableOpacity>
+                        <Text style={{ color: 'black', marginTop: 10, fontSize: 25 }}>Nome do Perfil </Text>
+                         <Text style={{ color: 'black', marginTop: 10, fontSize: 25 }}>Email do Usuário</Text>
+
+                         
+                    <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            marginVertical: 22
+                        }}>
+                    <Text style={{ fontSize: 16, marginTop: 30, color: 'black' }}>Redefina sua senha</Text>
+                            <Pressable
+                               onPress={() => navigation.navigate("RedSenha")}
+                            >
+                                <Text style={{
+                                    fontSize: 16,
+                                    color: 'blue',
+                                    fontWeight: 'bold',
+                                    marginLeft: 6,
+                                    marginTop: 30,
+                                }}>Aqui!</Text>
+                            </Pressable>
+                        </View>
+
+                         <Text style={{ color: 'black', marginTop: 100 }}>powered by TTG-Group </Text>
                     </View>
+                    
                 </TouchableWithoutFeedback>
+                
             </SafeAreaView>
         </ImageBackground>
     );
@@ -229,7 +233,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ccc',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 50,
+        marginBottom: 40,
     },
     cameraIcon: {
         marginBottom: 12,
