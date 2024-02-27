@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
@@ -6,17 +6,34 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
+
 const Perfil = () => {
     const navigation = useNavigation(); 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [foto, setFoto] = useState(null);
-    const inputRef = useRef(null);
+    
 
-    useEffect(() => {      
+    useEffect(() => {
+        carregarDadosSalvos();
         carregarFotoSalva();
     }, []);
+
+    const carregarDadosSalvos = async () => {
+        try {
+            const nomeSalvo = await AsyncStorage.getItem('nome');
+            const emailSalvo = await AsyncStorage.getItem('email');
+            if (nomeSalvo !== null) {
+                setNome(nomeSalvo);
+            }
+            if (emailSalvo !== null) {
+                setEmail(emailSalvo);
+            }
+        } catch (error) {
+            console.error('Erro ao carregar dados salvos:', error);
+        }
+    };
 
     const carregarFotoSalva = async () => {
         try {

@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"
 
+import { getFirestore } from "firebase/firestore";
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyDp58GS-Gb_l6UwMXypt019T5I_w-iCbV4",
   authDomain: "epark-mobile.firebaseapp.com",
@@ -11,5 +14,7 @@ const firebaseConfig = {
 };
 
 
-export const firebase = initializeApp(firebaseConfig);
-export const auth = getAuth(firebase);
+const firebase = initializeApp(firebaseConfig);
+const auth = getAuth(firebase);
+const db = getFirestore(firebase);
+export { auth };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, Pressable, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native'
+import { View, Text, Alert, ImageBackground, Pressable, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 if (user) {
-                    alert('Login Efetuado com Sucesso!');
+                    Alert.alert("Sucesso!", "Login efetuado com sucesso!");
                     console.log(user);                
                     navigation.navigate("Painel");
                 }
@@ -30,9 +30,9 @@ const Login = ({ navigation }) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 if (errorCode === 'auth/user-not-found' || errorCode === 'auth/wrong-password') {
-                    alert('E-mail ou senha incorretos. Por favor, tente novamente.');
+                    Alert.alert('E-mail ou senha incorretos. Por favor, tente novamente.');
                 } else {
-                    alert(errorMessage);
+                    Alert.alert("E-mail ou senha incorretos.", "\nPor favor, tente novamente.");
                 }
             })
             .finally(() => {
@@ -182,14 +182,32 @@ const Login = ({ navigation }) => {
                                 marginBottom: 4,
                                 backgroundColor: '#191970'
                             }}
-                        />              
+                        />  
+                        <View style={{
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            marginVertical: 22
+                        }}>
+                            <Text style={{ fontSize: 16, marginTop: 0, color: COLORS.black }}>Esqueci minha senha. </Text>
+                            <Pressable
+                                onPress={() => navigation.navigate("Senha")}
+                            >
+                                <Text style={{
+                                    fontSize: 16,
+                                    color: COLORS.primary,
+                                    fontWeight: "bold",
+                                    marginLeft: 5,
+                                    marginTop: 0
+                                }}>Trocar Senha</Text>
+                            </Pressable>
+                        </View>
 
                         <View style={{
                             flexDirection: "row",
                             justifyContent: "center",
                             marginVertical: 22
                         }}>
-                            <Text style={{ fontSize: 16, marginTop: 20, color: COLORS.black }}>Ainda não é cadastrado ? </Text>
+                            <Text style={{ fontSize: 16, marginTop: -10, color: COLORS.black }}>Ainda não é cadastrado ? </Text>
                             <Pressable
                                 onPress={() => navigation.navigate("Cadastro")}
                             >
@@ -197,9 +215,9 @@ const Login = ({ navigation }) => {
                                     fontSize: 16,
                                     color: COLORS.primary,
                                     fontWeight: "bold",
-                                    marginLeft: 6,
-                                    marginTop: 20
-                                }}>Criar</Text>
+                                    marginLeft: 5,
+                                    marginTop: -10
+                                }}>Criar Conta</Text>
                             </Pressable>
                         </View>
                         <Text style={{ color: 'black', marginTop: 200, marginLeft: 100 }}>powered by TTG-Group </Text>

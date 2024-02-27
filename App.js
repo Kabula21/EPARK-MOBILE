@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Login, Cadastro, BemVindo, Painel, Perfil, Card, Veiculo, Tickets, Termos, } from "./screens";
+import { Login, Cadastro, BemVindo, Painel, Perfil, Card, Veiculo, Tickets, Termos } from "./screens";
 import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
@@ -81,7 +81,7 @@ export default function App() {
           options={{
             headerShown: false
           }}
-        />       
+        />      
 
       </Stack.Navigator>
     </NavigationContainer>
