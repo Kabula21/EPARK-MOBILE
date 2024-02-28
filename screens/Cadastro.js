@@ -79,6 +79,7 @@ const Signup = ({ navigation }) => {
         >
             <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                
                     <View style={{ flex: 1, marginHorizontal: 22 }}>
                         {isLoading && <ActivityIndicator size="large" color= "#191970" style={{ position: 'absolute', alignSelf: 'center', marginTop: '50%' }} />}
                         <View style={{ marginVertical: 22 }}>
@@ -296,8 +297,9 @@ const Signup = ({ navigation }) => {
                                 }}>Entrar</Text>
                             </Pressable>
                         </View>
-                        <Text style={{ color: 'black', marginTop: 100, marginLeft: 100 }}>powered by TTG-Group </Text>
+                        <Text style={{ color: 'black', marginTop: 30, marginLeft: 100 }}>powered by TTG-Group </Text>
                     </View>
+                    
                 </TouchableWithoutFeedback>
             </SafeAreaView>
         </ImageBackground>

@@ -15,20 +15,26 @@ const RedSenha = () => {
         navigation.navigate('Login'); 
     };
 
+    const handleLogout = () => {
+        navigation.navigate('Login');
+    };
+
     return (  
-        <ImageBackground
-            source={require('../assets/background.png')}
-            style={{
-                flex: 1,                
-                justifyContent: 'center',                
-            }}
-        >
-            <SafeAreaView style={{ flex: 1 }}>
-            <Image
-                    source={require('../assets/senha.png')}
-                    style={{ alignSelf: 'center', width: 200, height: 200, marginTop: 100}}
-                />
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>                
+        
+            <ImageBackground
+                source={require('../assets/background.png')}
+                style={{
+                    flex: 1,                
+                    justifyContent: 'center',                
+                }}
+            >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <SafeAreaView style={{ flex: 1 }}>
+                    <Image
+                        source={require('../assets/senha.png')}
+                        style={{ alignSelf: 'center', width: 200, height: 200, marginTop: 30}}
+                    />
+                        
                     <View style={styles.container}>
                         <Text style={styles.texto}>Nova Senha</Text>
                         <TextInput
@@ -36,6 +42,7 @@ const RedSenha = () => {
                             onChangeText={setNovaSenha}
                             value={novaSenha}
                             secureTextEntry={true}
+                            placeholder='Insira a Nova Senha'
                         />
                         <Text style={styles.texto}>Confirmar Senha</Text>
                         <TextInput
@@ -43,15 +50,24 @@ const RedSenha = () => {
                             onChangeText={setConfirmarSenha}
                             value={confirmarSenha}
                             secureTextEntry={true}
+                            placeholder='Confirmar a Senha'
                         />
                         <TouchableOpacity style={styles.button} onPress={handleSalvarSenha}>
                             <Text style={styles.buttonText}>Salvar Senha</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>                          
                     </View>
-                </TouchableWithoutFeedback>
-            </SafeAreaView>
-        </ImageBackground>
+
+                <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                        <Icon name="sign-out" size={24} color="black" />
+                        <Text style={styles.logoutText}>Sair</Text>
+                </TouchableOpacity>
+                                    
+                </SafeAreaView>                
+                </TouchableWithoutFeedback>                
+            </ImageBackground>
+        
     );
+        
 };
 
 const styles = StyleSheet.create({   
@@ -59,16 +75,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingBottom: 100
         
     },
     texto: {
         fontSize: 16,
         marginBottom: 10,
-        paddingHorizontal: 20,
-        textAlign: 'left',
+        textAlign: 'auto',
     },
     input: {
-        height: 40,
+        height: 50,
         width: '80%',
         borderColor: 'gray',
         borderWidth: 1,
@@ -79,7 +95,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     button: {
-        backgroundColor: '#007bff',
+        backgroundColor: '#191970',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 8,
@@ -88,6 +104,15 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         textAlign: 'center',
+    },
+
+    logoutButton: {        
+        bottom: 0,
+        left: 0,
+        right: 0,
+        alignItems: 'center',        
+        paddingVertical: 10,
+        backgroundColor: '#eee',
     },
 });
 

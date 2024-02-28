@@ -40,12 +40,12 @@ const BemVindo = ({ navigation }) => {
                     style={{
                         marginTop: 20,
                         backgroundColor: '#191970',
-                        height: 60
+                        height: 50
 
                     }}
                 />
 
-                <Text style={{ color: 'black', marginTop: 190 }}>powered by TTG-Group </Text>
+                <Text style={{ color: 'black', marginTop: 150, marginLeft: 0 }}>powered by TTG-Group </Text>
 
                 {isLoading && (
                     <View style={styles.activityIndicatorContainer}>

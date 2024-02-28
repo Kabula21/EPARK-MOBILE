@@ -65,7 +65,7 @@ const Login = ({ navigation }) => {
             }}
         >
             <SafeAreaView style={{ flex: 1, }}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>                
                     <View style={{ flex: 1, marginHorizontal: 22, }}>
                         {isLoading && <ActivityIndicator size="large" color="#191970" style={{ position: 'absolute', alignSelf: 'center', marginTop: '50%' }} />}
                         <View style={{ marginVertical: 22 }}>
@@ -201,7 +201,7 @@ const Login = ({ navigation }) => {
                                 onPress={handleForgotPassword}
                             >
                                 <Text style={{
-                                    fontSize: 14,
+                                    fontSize: 16,
                                     color: 'blue',
                                     fontWeight: "bold",
                                     marginLeft: 5,
@@ -210,16 +210,15 @@ const Login = ({ navigation }) => {
                             </Pressable>
                         </View>
 
-                        <View style={{ flexDirection: 'row', marginTop: 10 , marginLeft: 60}}>
+                        <View style={{ flexDirection: 'row', marginTop: 10 , marginLeft: 55}}>
                             <Text style={{ color: 'black' }}>Não Possui Conta ainda? </Text>
                             <Pressable onPress={handleCreateAccount}>
-                                <Text style={{ color: 'blue', fontWeight: 'bold' }}>Criar Conta</Text>
+                                <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 16 }}>Criar Conta</Text>                                
                             </Pressable>
-                        </View>
-                        
-                        <Text style={{ color: 'black', marginTop: 150, marginLeft: 100 }}>powered by TTG-Group </Text>
+                        </View> 
+                        <Text style={{ color: 'black', marginTop: 150, marginLeft: 100 }}>powered by TTG-Group </Text> 
                     </View>
-                </TouchableWithoutFeedback>            
+                </TouchableWithoutFeedback>
             </SafeAreaView>
         </ImageBackground>
     )

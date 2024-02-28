@@ -27,7 +27,8 @@ const Card = () => {
                 justifyContent: 'center',                
             }}
         >
-            <SafeAreaView style={{ flex: 1 }}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <SafeAreaView style={{ flex: 1 }}>            
                 <View style={styles.menuBar}>
                     <TouchableOpacity
                         style={styles.menuButton}
@@ -47,7 +48,7 @@ const Card = () => {
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Cartão')}>
                         <Icon name="credit-card" size={24} color="blue" />
-                        <Text style={[styles.buttonText, { color: 'blue' }]}>Cartão</Text>
+                        <Text style={styles.buttonText}>Cartão</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -71,7 +72,7 @@ const Card = () => {
                     style={{ width: 300, height: 300, marginLeft: 50 }}
                 />
 
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>   
+                
                     <View style={styles.container}>
                         <Text style={styles.title}>Cadastro do Cartão</Text>
                         <TextInput
@@ -103,8 +104,9 @@ const Card = () => {
                             <Text style={styles.buttonSend}>Cadastrar</Text>
                         </TouchableOpacity>
                     </View>
-                </TouchableWithoutFeedback>
+               
             </SafeAreaView>
+            </TouchableWithoutFeedback>
         </ImageBackground>
     );
 };

@@ -26,6 +26,7 @@ const Veiculo = () => {
                 justifyContent: 'center',                
             }}
         >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}> 
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.menuBar}>
                     <TouchableOpacity
@@ -63,14 +64,13 @@ const Veiculo = () => {
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>
                 </View>
-
                 
                 <Image
                     source={require('../assets/veiculo.png')}
                     style={{ width: 300, height: 200, marginLeft: 50 }}
                 />
 
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>   
+                  
                     <View style={styles.container}>
                         <Text style={styles.title}>Cadastro de Veículo</Text>
                         <TextInput
@@ -102,8 +102,8 @@ const Veiculo = () => {
                             <Text style={styles.buttonSend}>Cadastrar</Text>
                         </TouchableOpacity>
                     </View>
-                </TouchableWithoutFeedback>
-            </SafeAreaView>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
         </ImageBackground>
     );
 };
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 200,
+        paddingBottom: 100,
     },
     menuBar: {
         flexDirection: 'row',
