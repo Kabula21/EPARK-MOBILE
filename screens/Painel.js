@@ -10,7 +10,7 @@ const Painel = () => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-    const [entryTime, setEntryTime] = useState(null);
+    const [entryTime, setEntryTime] = useState();
     const [exitTime, setExitTime] = useState(null);
 
     const onChange = (event, selectedDate) => {
@@ -42,7 +42,13 @@ const Painel = () => {
     const confirmDate = () => {        
         console.log('Data selecionada:', date);
         
+        
     };
+    
+    const formatDate = (date) => {
+        const options = { day: '2-digit', month: '2-digit' };
+        return date.toLocaleDateString('pt-BR', options).split('/').reverse().join('/');
+      };
 
 
     const handleLogout = () => {
@@ -104,13 +110,12 @@ const Painel = () => {
                         <Text>Placa: ABC-1234</Text>
                         <View style={{ marginBottom: 5 }}></View>
                         <Text>Veículo: Carro</Text>
+                        <View style={{ marginBottom: 5 }}></View>                        
+                        <Text>Data: {date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}</Text>
                         <View style={{ marginBottom: 5 }}></View>
-                        <Text>Data: {date.toLocaleDateString()}</Text>
+                        <Text>Hora de entrada: {entryTime ? entryTime.getHours().toString().padStart(2, '0') + ':' + entryTime.getMinutes().toString().padStart(2, '0') : '-'}</Text>
                         <View style={{ marginBottom: 5 }}></View>
-                        <Text>Hora de entrada: {entryTime ? entryTime.toLocaleTimeString() : '-'}</Text>
-                        <View style={{ marginBottom: 5 }}></View>
-                        <Text>Hora de saída: {exitTime ? exitTime.toLocaleTimeString() : '-'}</Text>
-                        <View style={{ marginBottom: 5 }}></View>
+                        <Text>Hora de saída: {exitTime ? exitTime.getHours().toString().padStart(2, '0') + ':' + exitTime.getMinutes().toString().padStart(2, '0') : '-'}</Text>
                         <Text>Regra: Até 2h + Taxa</Text>
                         <View style={{ marginBottom: 5 }}></View>
                         <Text>Total: R$10,00</Text>
@@ -159,9 +164,9 @@ const Painel = () => {
                 </View>
 
                 <Text style={{ marginTop: 20, backgroundColor: "#191970", padding: 20, color: "white", width: 250, marginLeft: 70, borderRadius: 5 }}>
-                    Data selecionada: {date.toLocaleDateString()}{"\n"}
-                    Horário de entrada: {entryTime ? entryTime.toLocaleTimeString() : '-'}{"\n"}
-                    Horário de saída: {exitTime ? exitTime.toLocaleTimeString() : '-'}
+                    Data selecionada: {date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}{"\n"}
+                    Horário de entrada: {entryTime ? entryTime.getHours().toString().padStart(2, '0') + ':' + entryTime.getMinutes().toString().padStart(2, '0') : '-'}{"\n"}
+                    Horário de saída: {exitTime ? exitTime.getHours().toString().padStart(2, '0') + ':' + exitTime.getMinutes().toString().padStart(2, '0') : '-'}
                 </Text>
                 {show && (
                     <DateTimePicker
