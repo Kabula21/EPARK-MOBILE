@@ -106,13 +106,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 
-    logoutButton: {        
+    logoutButton: {
+        position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        alignItems: 'center',        
-        paddingVertical: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 5,
         backgroundColor: '#eee',
+        flexDirection: 'row',
+    },
+
+    logoutText: {
+        marginLeft: 5,
+        fontSize: 16,
+        color: 'black',
     },
 });
 

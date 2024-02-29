@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 50,
+        marginTop: 100,
     },
     card: {
         backgroundColor: '#fff',
@@ -166,10 +166,12 @@ const styles = StyleSheet.create({
         right: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 10,
+        paddingVertical: 5,
         backgroundColor: '#eee',
+        flexDirection: 'row',
     },
     logoutText: {
+        marginLeft: 5,
         fontSize: 16,
         color: 'black',
     },

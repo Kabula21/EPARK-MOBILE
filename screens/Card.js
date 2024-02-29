@@ -69,41 +69,47 @@ const Card = () => {
                 
                 <Image
                     source={require('../assets/card.png')}
-                    style={{ width: 300, height: 300, marginLeft: 50 }}
+                    style={{ width: 300, height: 300, marginLeft: 50, marginTop: 0 }}
                 />
 
                 
-                    <View style={styles.container}>
-                        <Text style={styles.title}>Cadastro do Cartão</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Número do Cartão"
-                            value={numero}
-                            onChangeText={setNumero}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Nome do Titular"
-                            value={nome}
-                            onChangeText={setNome}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Validade (MM/YY)"
-                            value={validade}
-                            onChangeText={setValidade}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="CVV"
-                            secureTextEntry={true}
-                            value={cvv}
-                            onChangeText={setCvv}
-                        />
-                        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                            <Text style={styles.buttonSend}>Cadastrar</Text>
-                        </TouchableOpacity>
-                    </View>
+<View style={styles.container}>
+    <Text style={styles.title}>Cadastro do Cartão</Text>
+    <TextInput
+        style={styles.input}
+        placeholder="Número do Cartão *"
+        value={numero}
+        onChangeText={setNumero}
+        importantForAccessibility="yes"
+    />
+    <TextInput
+        style={styles.input}
+        placeholder="Nome do Titular *"
+        value={nome}
+        onChangeText={setNome}
+        importantForAccessibility="yes"
+    />
+    <TextInput
+        style={styles.input}
+        placeholder="Validade (MM/YY) *"
+        value={validade}
+        onChangeText={setValidade}
+        importantForAccessibility="yes"
+    />
+    <TextInput
+        style={styles.input}
+        placeholder="CVV *"
+        secureTextEntry={true}
+        value={cvv}
+        onChangeText={setCvv}
+        importantForAccessibility="yes"
+    />
+    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonSend}>Cadastrar</Text>
+    </TouchableOpacity>
+</View>
+
+
                
             </SafeAreaView>
             </TouchableWithoutFeedback>

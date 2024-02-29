@@ -216,7 +216,7 @@ const Login = ({ navigation }) => {
                                 <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 16 }}>Criar Conta</Text>                                
                             </Pressable>
                         </View> 
-                        <Text style={{ color: 'black', marginTop: 150, marginLeft: 100 }}>powered by TTG-Group </Text> 
+                        <Text style={{ color: 'black', marginTop: 80, marginLeft: 100 }}>powered by TTG-Group </Text> 
                     </View>
                 </TouchableWithoutFeedback>
             </SafeAreaView>

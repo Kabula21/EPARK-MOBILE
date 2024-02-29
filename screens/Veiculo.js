@@ -18,6 +18,8 @@ const Veiculo = () => {
         // Você pode adicionar aqui a lógica para enviar os dados do veículo para o backend, por exemplo.
     };
 
+    
+
     return (  
         <ImageBackground
             source={require('../assets/background.png')}
@@ -71,37 +73,57 @@ const Veiculo = () => {
                 />
 
                   
-                    <View style={styles.container}>
-                        <Text style={styles.title}>Cadastro de Veículo</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Marca do Veículo"
-                            value={marca}
-                            onChangeText={setMarca}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Modelo do Veículo"
-                            value={modelo}
-                            onChangeText={setModelo}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Ano do Veículo"
-                            value={ano}
-                            onChangeText={setAno}
-                        />
+<View style={styles.container}>
+    <Text style={styles.title}>Cadastro de Veículo</Text>
+    <TextInput
+        style={styles.input}
+        placeholder="Marca do Veículo"
+        value={marca}
+        onChangeText={setMarca}
+        importantForAccessibility="yes"
+    />
+    <TextInput
+        style={styles.input}
+        placeholder="Modelo do Veículo *"
+        value={modelo}
+        onChangeText={setModelo}
+        importantForAccessibility="yes"
+    />
+    <TextInput
+        style={styles.input}
+        placeholder="Ano do Veículo"
+        value={ano}
+        onChangeText={setAno}
+        importantForAccessibility="yes"
+    />
+    <TextInput
+    style={styles.input}
+    placeholder="Placa *"
+    value={placa}
+    onChangeText={(text) => {
+       
+        switch(text.length){
+            
+        }
+        if (text.length <= 7) {
+            if (/^[A-Za-z]{0,3}?\d{0,1}\dA-Za-z]{0,2}$/.test(text)) {
+                setPlaca(text.toUpperCase());
+            }
+        }
+        if(text.length <= 8)
+            (/^[A-Za-z]{0,3}?\d{0,4}$/.test(text))
+                setPlaca(text.toUpperCase());
+        }
+        
+    }
+    importantForAccessibility="yes"
+/>
 
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Placa"
-                            value={placa}
-                            onChangeText={setPlaca}
-                        />
-                        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                            <Text style={styles.buttonSend}>Cadastrar</Text>
-                        </TouchableOpacity>
-                    </View>
+    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonSend}>Cadastrar</Text>
+    </TouchableOpacity>
+</View>
+
                 </SafeAreaView>
             </TouchableWithoutFeedback>
         </ImageBackground>

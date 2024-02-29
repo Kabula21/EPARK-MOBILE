@@ -174,7 +174,7 @@ const Painel = () => {
                         value={date}
                         mode={mode}
                         is24Hour={true}
-                        display="default"
+                        display="spinner"
                         onChange={onChange}
                     />
                 )}
@@ -224,10 +224,12 @@ const styles = StyleSheet.create({
         right: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 10,
+        paddingVertical: 5,
         backgroundColor: '#eee',
+        flexDirection: 'row',
     },
     logoutText: {
+        marginLeft: 5,
         fontSize: 16,
         color: 'black',
     },
