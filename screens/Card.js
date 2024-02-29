@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView} from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from '@react-navigation/native'; // Importação do hook useNavigation
+import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons } from "@expo/vector-icons";
+import COLORS  from '../constants/colors';
+
+
 
 const Card = () => {
-    const navigation = useNavigation(); // Utilização do hook useNavigation
+    const [isPasswordShown, setIsPasswordShown] = useState(true);
+    const navigation = useNavigation(); 
     const [numero, setNumero] = useState('');
     const [nome, setNome] = useState('');
     const [validade, setValidade] = useState('');
@@ -18,6 +23,21 @@ const Card = () => {
         console.log('CVV:', cvv);
         // Você pode adicionar aqui a lógica para enviar os dados do cartão para o backend, por exemplo.
     };
+
+    const formatarNumeroCartao = (numero) => {        
+        const numerosApenas = numero.replace(/[^\d]/g, ""); 
+        const numeroFormatado = numerosApenas.replace(/(\d{4})/g, '$1 ').trim();
+        return numeroFormatado;
+    }        
+    const numeroCartao = "1234567890123456";
+    const numeroFormatado = formatarNumeroCartao(numeroCartao);
+    console.log(numeroFormatado);
+
+    
+      const handleCvvChange = (input) => {
+        const formattedCvv = formatCvv(input);
+        setCvv(formattedCvv);
+      };
 
     return (  
         <ImageBackground
@@ -66,53 +86,82 @@ const Card = () => {
                     </TouchableOpacity>
                 </View>
 
-                
+                <ScrollView>
                 <Image
                     source={require('../assets/card.png')}
                     style={{ width: 300, height: 300, marginLeft: 50, marginTop: 0 }}
                 />
 
-                
-<View style={styles.container}>
-    <Text style={styles.title}>Cadastro do Cartão</Text>
-    <TextInput
-        style={styles.input}
-        placeholder="Número do Cartão *"
-        value={numero}
-        onChangeText={setNumero}
-        importantForAccessibility="yes"
-    />
-    <TextInput
-        style={styles.input}
-        placeholder="Nome do Titular *"
-        value={nome}
-        onChangeText={setNome}
-        importantForAccessibility="yes"
-    />
-    <TextInput
-        style={styles.input}
-        placeholder="Validade (MM/YY) *"
-        value={validade}
-        onChangeText={setValidade}
-        importantForAccessibility="yes"
-    />
-    <TextInput
-        style={styles.input}
-        placeholder="CVV *"
-        secureTextEntry={true}
-        value={cvv}
-        onChangeText={setCvv}
-        importantForAccessibility="yes"
-    />
-    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonSend}>Cadastrar</Text>
-    </TouchableOpacity>
-</View>
 
+        <View style={styles.container}>
+            <Text style={styles.title}>Cadastro do Cartão</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Número do Cartão *"
+                value={formatarNumeroCartao(numero)}
+                onChangeText={(text) => setNumero(formatarNumeroCartao(text))}
+                keyboardType="numeric"
+                maxLength={19}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Nome do Titular *"
+                value={nome}
+                onChangeText={setNome}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Validade (MM/YY) *"
+                keyboardType="numeric" // Isso garante que apenas números sejam inseridos
+                maxLength={5} // Limita o número máximo de caracteres para 5
+                value={validade}
+                onChangeText={text => {
+                // Aplicar a máscara MM/YY
+                if (text.length <= 5) {
+                    // Permite até 5 caracteres (MM/YY)
+                    let formattedText = text.replace(/\D/g, '').substring(0, 4);
+                    if (formattedText.length > 2) {
+                    // Insere a barra (/) após os primeiros 2 caracteres (MM)
+                    formattedText = formattedText.replace(/(\d{2})(\d)/, '$1/$2');
+                    }
+                    setValidade(formattedText);
+                }
+                }}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="CVV *"
+                secureTextEntry={!isPasswordShown}
+                value={cvv}                                
+                onChangeText={text => {                    
+                    if (text.length <= 3) {
+                        const formattedText = text.replace(/[^0-9]/g, '');                        
+                        setCvv(formattedText);
+                    }
+                    
+                }}
+                keyboardType="numeric"
+            />
 
-               
-            </SafeAreaView>
-            </TouchableWithoutFeedback>
+                <TouchableOpacity
+                    onPress={() => setIsPasswordShown(!isPasswordShown)}
+                    style={{
+                        position: "absolute",
+                        right: 50
+                    }}
+                >
+                    {
+                        isPasswordShown ? (
+                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                        ) : (
+                            <Ionicons name="eye" size={24} color={COLORS.black} />
+                        )
+                    }
+                </TouchableOpacity>
+            </View>
+            </ScrollView>               
+        </SafeAreaView>
+        </TouchableWithoutFeedback>
         </ImageBackground>
     );
 };

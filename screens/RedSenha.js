@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from "@expo/vector-icons";
+import COLORS  from '../constants/colors';
 
-const RedSenha = () => {    
+const RedSenha = () => {   
+    const [isPasswordShown, setIsPasswordShown] = useState(true);
     const navigation = useNavigation();  
     const [novaSenha, setNovaSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
@@ -30,33 +33,69 @@ const RedSenha = () => {
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <SafeAreaView style={{ flex: 1 }}>
+                <ScrollView>
                     <Image
                         source={require('../assets/senha.png')}
                         style={{ alignSelf: 'center', width: 200, height: 200, marginTop: 30}}
                     />
-                        
+                
                     <View style={styles.container}>
                         <Text style={styles.texto}>Nova Senha</Text>
                         <TextInput
                             style={styles.input}
                             onChangeText={setNovaSenha}
                             value={novaSenha}
-                            secureTextEntry={true}
+                            secureTextEntry={isPasswordShown}
                             placeholder='Insira a Nova Senha'
+                            
                         />
                         <Text style={styles.texto}>Confirmar Senha</Text>
                         <TextInput
                             style={styles.input}
                             onChangeText={setConfirmarSenha}
                             value={confirmarSenha}
-                            secureTextEntry={true}
+                            secureTextEntry={isPasswordShown}
                             placeholder='Confirmar a Senha'
                         />
+
+                    <TouchableOpacity
+                        onPress={() => setIsPasswordShown(!isPasswordShown)}
+                        style={{
+                            position: "absolute",
+                            bottom: 175, 
+                            right: 50, 
+                        }}
+                    >
+                        {isPasswordShown ? (
+                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                        ) : (
+                            <Ionicons name="eye" size={24} color={COLORS.black} />
+                        )}
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => setIsPasswordShown(!isPasswordShown)}
+                        style={{
+                            position: "absolute",
+                            bottom: 75, 
+                            right: 50, 
+                        }}
+                    >
+                        {isPasswordShown ? (
+                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                        ) : (
+                            <Ionicons name="eye" size={24} color={COLORS.black} />
+                        )}
+                    </TouchableOpacity>
+
+
+
+
                         <TouchableOpacity style={styles.button} onPress={handleSalvarSenha}>
                             <Text style={styles.buttonText}>Salvar Senha</Text>
                         </TouchableOpacity>                          
                     </View>
-
+                    </ScrollView>
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                         <Icon name="sign-out" size={24} color="black" />
                         <Text style={styles.logoutText}>Sair</Text>
@@ -75,7 +114,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 100
+        paddingTop: 50
         
     },
     texto: {

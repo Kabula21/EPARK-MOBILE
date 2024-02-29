@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; // Importação do hook useNavigation
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -66,64 +66,64 @@ const Veiculo = () => {
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>
                 </View>
-                
+                <ScrollView>
                 <Image
                     source={require('../assets/veiculo.png')}
                     style={{ width: 300, height: 200, marginLeft: 50 }}
                 />
 
                   
-<View style={styles.container}>
-    <Text style={styles.title}>Cadastro de Veículo</Text>
-    <TextInput
-        style={styles.input}
-        placeholder="Marca do Veículo"
-        value={marca}
-        onChangeText={setMarca}
-        importantForAccessibility="yes"
-    />
-    <TextInput
-        style={styles.input}
-        placeholder="Modelo do Veículo *"
-        value={modelo}
-        onChangeText={setModelo}
-        importantForAccessibility="yes"
-    />
-    <TextInput
-        style={styles.input}
-        placeholder="Ano do Veículo"
-        value={ano}
-        onChangeText={setAno}
-        importantForAccessibility="yes"
-    />
-    <TextInput
-    style={styles.input}
-    placeholder="Placa *"
-    value={placa}
-    onChangeText={(text) => {
-       
-        switch(text.length){
-            
-        }
-        if (text.length <= 7) {
-            if (/^[A-Za-z]{0,3}?\d{0,1}\dA-Za-z]{0,2}$/.test(text)) {
-                setPlaca(text.toUpperCase());
-            }
-        }
-        if(text.length <= 8)
-            (/^[A-Za-z]{0,3}?\d{0,4}$/.test(text))
-                setPlaca(text.toUpperCase());
-        }
-        
-    }
-    importantForAccessibility="yes"
-/>
+                <View style={styles.container}>
+                    <Text style={styles.title}>Cadastro de Veículo</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Marca do Veículo"
+                        value={marca}
+                        onChangeText={setMarca}
+                        importantForAccessibility="yes"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Modelo do Veículo *"
+                        value={modelo}
+                        onChangeText={setModelo}
+                        importantForAccessibility="yes"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Ano do Veículo"
+                        value={ano}
+                        onChangeText={setAno}
+                        importantForAccessibility="yes"
+                    />
+                    <TextInput
+                    style={styles.input}
+                    placeholder="Placa *"
+                    value={placa}
+                    onChangeText={(text) => {
+                    
+                        switch(text.length){
+                            
+                        }
+                        if (text.length <= 7) {
+                            if (/^[A-Za-z]{0,3}?\d{0,1}\dA-Za-z]{0,2}$/.test(text)) {
+                                setPlaca(text.toUpperCase());
+                            }
+                        }
+                        if(text.length <= 8)
+                            (/^[A-Za-z]{0,3}?\d{0,4}$/.test(text))
+                                setPlaca(text.toUpperCase());
+                        }
+                        
+                    }
+                    importantForAccessibility="yes"
+                />
 
-    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonSend}>Cadastrar</Text>
-    </TouchableOpacity>
-</View>
-
+                    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                        <Text style={styles.buttonSend}>Cadastrar</Text>
+                    </TouchableOpacity>
+                </View>
+                </ScrollView>
                 </SafeAreaView>
             </TouchableWithoutFeedback>
         </ImageBackground>

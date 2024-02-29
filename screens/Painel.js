@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, Button, Pressable } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, Button, Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -63,6 +63,7 @@ const Painel = () => {
                 justifyContent: 'center',
             }}
         >
+            
             <SafeAreaView style={{ flex: 1 }}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={styles.menuBar}>
@@ -103,7 +104,7 @@ const Painel = () => {
                     </View>
                 </TouchableWithoutFeedback>
 
-
+                <ScrollView>
 
                 <View style={{ flexDirection: 'row', marginTop: 5, backgroundColor: '#fff', borderRadius: 0, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5 }}>
                     <View style={{ flex: 1, padding: 10 }}>
@@ -186,7 +187,7 @@ const Painel = () => {
                     </View>
                 </TouchableOpacity>
 
-
+                </ScrollView>
 
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                     <Icon name="sign-out" size={24} color="black" />

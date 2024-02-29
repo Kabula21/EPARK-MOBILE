@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator, Alert, Pressable } from 'react-native';
+import { View, Text, ImageBackground, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator, Alert, Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from '../constants/colors';
 import { Ionicons } from "@expo/vector-icons";
@@ -79,7 +79,7 @@ const Signup = ({ navigation }) => {
         >
             <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                
+                <ScrollView>
                     <View style={{ flex: 1, marginHorizontal: 22 }}>
                         {isLoading && <ActivityIndicator size="large" color= "#191970" style={{ position: 'absolute', alignSelf: 'center', marginTop: '50%' }} />}
                         <View style={{ marginVertical: 22 }}>
@@ -297,8 +297,10 @@ const Signup = ({ navigation }) => {
                                 }}>Entrar</Text>
                             </Pressable>
                         </View>
+                        
                         <Text style={{ color: 'black', marginTop: 30, marginLeft: 100 }}>powered by TTG-Group </Text>
                     </View>
+                    </ScrollView>
                     
                 </TouchableWithoutFeedback>
             </SafeAreaView>

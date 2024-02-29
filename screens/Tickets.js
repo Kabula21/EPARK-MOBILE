@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, Modal, Button } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, Modal, Button, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -38,7 +38,9 @@ const Tickets = () => {
                 justifyContent: 'center',                
             }}
         >
-            <SafeAreaView style={{ flex: 1 }}>
+            
+            <SafeAreaView style={{ flex: 1 }}> 
+                      
                 <View style={styles.menuBar}>
                     <TouchableOpacity
                         style={styles.menuButton}
@@ -74,7 +76,8 @@ const Tickets = () => {
                         <Icon name="ticket" size={24} color="blue" />
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>
-                </View>   
+                </View>
+                  
 
                 <View style={styles.container}>
                     <Text style={styles.title}>Tickets</Text>

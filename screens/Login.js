@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Alert, ImageBackground, Pressable, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native'
+import { View, Text, Alert, ImageBackground, Pressable, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator, ScrollView } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
@@ -65,7 +65,8 @@ const Login = ({ navigation }) => {
             }}
         >
             <SafeAreaView style={{ flex: 1, }}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>                
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <ScrollView>                
                     <View style={{ flex: 1, marginHorizontal: 22, }}>
                         {isLoading && <ActivityIndicator size="large" color="#191970" style={{ position: 'absolute', alignSelf: 'center', marginTop: '50%' }} />}
                         <View style={{ marginVertical: 22 }}>
@@ -218,6 +219,7 @@ const Login = ({ navigation }) => {
                         </View> 
                         <Text style={{ color: 'black', marginTop: 80, marginLeft: 100 }}>powered by TTG-Group </Text> 
                     </View>
+                    </ScrollView>
                 </TouchableWithoutFeedback>
             </SafeAreaView>
         </ImageBackground>
