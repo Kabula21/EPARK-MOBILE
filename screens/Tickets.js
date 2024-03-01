@@ -3,15 +3,16 @@ import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, Modal, Butto
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import QRCode from 'react-native-qrcode-svg';
 
 
 const Tickets = () => {
     const navigation = useNavigation(); 
     const [tickets, setTickets] = useState([
-        { id: 1, title: 'Ticket 1', description: 'Nome: Anderson / Carro: Agile / Placa: OLP-2345 / Horario: 10h às 12h / Dia: 25/03 / Pagamento: Confirmado ' },
-        { id: 2, title: 'Ticket 1', description: 'Nome: Gabriel / Carro: Corsa / Placa: OLP-2345 / Horario: 9h às 13h / Dia: 27/03 / Pagamento: Confirmado ' },
-        { id: 3, title: 'Ticket 1', description: 'Nome: Leonardo / Carro: Siena / Placa: OLP-2345 / Horario: 10h às 12h / Dia: 25/03 / Pagamento: Confirmado ' },
-        { id: 4, title: 'Ticket 1', description: 'Nome: Matheus / Carro: Fusca / Placa: OLP-2345 / Horario: 10h às 12h / Dia: 25/03 / Pagamento: Confirmado' },
+        { id: 1, title: 'Ticket 1', description: 'Nome: Anderson / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
+        { id: 2, title: 'Ticket 1', description: 'Nome: Matheus / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
+        { id: 3, title: 'Ticket 1', description: 'Nome: Gabriel / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
+        { id: 4, title: 'Ticket 1', description: 'Nome: Leonardo / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
     ]);
     const [selectedTicket, setSelectedTicket] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -92,20 +93,22 @@ const Tickets = () => {
                     ))}
 
                    
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={closeModal}
-                    >
-                        <View style={styles.modalView}>
-                            <Text style={styles.modalTitle}>{selectedTicket && selectedTicket.title}</Text>
-                            <Text>{selectedTicket && selectedTicket.description}</Text>
-                            <Text></Text><Text></Text><Text></Text><Text></Text><Text></Text>
-                            <Text></Text><Text></Text><Text></Text><Text></Text><Text></Text><Text></Text><Text></Text>
-                            <Button title="Fechar" onPress={closeModal} />
-                        </View>
-                    </Modal>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={closeModal}
+                >
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalTitle}>{selectedTicket && selectedTicket.title}</Text>                                              
+                        <QRCode
+                            value={JSON.stringify(selectedTicket)}
+                            size={200} 
+                        />
+                        
+                        <Button title="Fechar" onPress={closeModal} style={styles.fechar} />
+                    </View>
+                </Modal>
                 </View>
                 
                 <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
@@ -181,7 +184,7 @@ const styles = StyleSheet.create({
 
     modalView: {
         margin: 20,
-        height: 400,
+        height: 350,
         backgroundColor: 'white',
         borderRadius: 20,
         padding: 15,
@@ -200,6 +203,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 25,
     },
+    
 });
 
 export default Tickets;

@@ -9,16 +9,34 @@ const Veiculo = () => {
     const [marca, setMarca] = useState('');
     const [modelo, setModelo] = useState('');
     const [ano, setAno] = useState('');
-    const [placa, setPlaca] = useState('');
+    const [plate, setPlate] = useState('');    
 
     const handleSubmit = () => {
         console.log('Marca:', marca);
         console.log('Modelo:', modelo);
         console.log('Ano:', ano);
-        // Você pode adicionar aqui a lógica para enviar os dados do veículo para o backend, por exemplo.
+        console.log('Placa do veículo:', plate);
+       
     };
-
-    
+      
+    const handlePlateChange = (text) => {
+        let formattedText = '';
+        text = text.toUpperCase().replace(/[^a-zA-Z0-9]/g, '');
+        for (let i = 0; i < text.length && i < 3; i++) {
+          if (/[a-zA-Z]/.test(text[i])) {
+            formattedText += text[i];
+          }
+        }
+        if (formattedText.length >= 3) {
+          formattedText += '-';
+        }
+        for (let i = 3; i < text.length && i < 7; i++) {
+          if (/[0-9]/.test(text[i])) {
+            formattedText += text[i];
+          }
+        }
+        setPlate(formattedText);
+      };
 
     return (  
         <ImageBackground
@@ -77,47 +95,35 @@ const Veiculo = () => {
                     <Text style={styles.title}>Cadastro de Veículo</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Marca do Veículo"
+                        placeholder="Marca"
                         value={marca}
                         onChangeText={setMarca}
                         importantForAccessibility="yes"
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder="Modelo do Veículo *"
+                        placeholder="Modelo *"
                         value={modelo}
                         onChangeText={setModelo}
                         importantForAccessibility="yes"
                     />
                     <TextInput
                         style={styles.input}
-                        placeholder="Ano do Veículo"
+                        placeholder="Ano"
                         value={ano}
                         onChangeText={setAno}
                         importantForAccessibility="yes"
+                        keyboardType="numeric" 
+                        maxLength={4} 
                     />
                     <TextInput
-                    style={styles.input}
-                    placeholder="Placa *"
-                    value={placa}
-                    onChangeText={(text) => {
-                    
-                        switch(text.length){
-                            
-                        }
-                        if (text.length <= 7) {
-                            if (/^[A-Za-z]{0,3}?\d{0,1}\dA-Za-z]{0,2}$/.test(text)) {
-                                setPlaca(text.toUpperCase());
-                            }
-                        }
-                        if(text.length <= 8)
-                            (/^[A-Za-z]{0,3}?\d{0,4}$/.test(text))
-                                setPlaca(text.toUpperCase());
-                        }
-                        
-                    }
-                    importantForAccessibility="yes"
-                />
+                        style={styles.input}
+                        placeholder="Placa *"
+                        onChangeText={handlePlateChange}
+                        value={plate}
+                        maxLength={8} 
+                        autoCapitalize="characters"
+                    />
 
                     <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                         <Text style={styles.buttonSend}>Cadastrar</Text>
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 100,
+        paddingBottom: 0,
     },
     menuBar: {
         flexDirection: 'row',

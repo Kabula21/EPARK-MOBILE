@@ -24,7 +24,7 @@ const Painel = () => {
                 setExitTime(currentDate);
             }
         }
-    };
+    };    
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -171,12 +171,12 @@ const Painel = () => {
                 </Text>
                 {show && (
                     <DateTimePicker
-                        testID="dateTimePicker"
-                        value={date}
-                        mode={mode}
-                        is24Hour={true}
-                        display="spinner"
-                        onChange={onChange}
+                    testID="dateTimePicker"
+                    value={date}
+                    mode={mode}
+                    is24Hour={true}
+                    display="spinner"
+                    onChange={onChange}                    
                     />
                 )}
 

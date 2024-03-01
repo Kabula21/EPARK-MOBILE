@@ -143,21 +143,9 @@ const Card = () => {
                 keyboardType="numeric"
             />
 
-                <TouchableOpacity
-                    onPress={() => setIsPasswordShown(!isPasswordShown)}
-                    style={{
-                        position: "absolute",
-                        right: 50
-                    }}
-                >
-                    {
-                        isPasswordShown ? (
-                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
-                        ) : (
-                            <Ionicons name="eye" size={24} color={COLORS.black} />
-                        )
-                    }
-                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                        <Text style={styles.buttonSend}>Cadastrar</Text>
+                    </TouchableOpacity>
             </View>
             </ScrollView>               
         </SafeAreaView>
@@ -171,7 +159,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 200,
+        paddingBottom: 0,
     },
     menuBar: {
         flexDirection: 'row',
