@@ -154,21 +154,24 @@ const Painel = () => {
                     </Pressable>
                 </View>
                 <View style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 50, }}>
-                    <Button onPress={showDatepicker} title="Selecione o Dia" />
+                    <Button onPress={showDatepicker} title="Dia Entrada" />
                 </View>
                 <View style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 50 }}>
                     <Button onPress={showTimepicker} title="Horário de Entrada" />
+                </View>
+                <View style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 50, }}>
+                    <Button onPress={showDatepicker} title="Dia Saída" />
                 </View>
 
                 <View style={{ marginTop: 20, width: 250, marginLeft: 70, borderRadius: 50 }}>
                     <Button onPress={showTimepicker} title="Horário de Saída" />
                 </View>
 
-                <Text style={{ marginTop: 20, backgroundColor: "#191970", padding: 20, color: "white", width: 250, marginLeft: 70, borderRadius: 5 }}>
+                {/* <Text style={{ marginTop: 20, backgroundColor: "#191970", padding: 20, color: "white", width: 250, marginLeft: 70, borderRadius: 5 }}>
                     Data selecionada: {date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}{"\n"}
                     Horário de entrada: {entryTime ? entryTime.getHours().toString().padStart(2, '0') + ':' + entryTime.getMinutes().toString().padStart(2, '0') : '-'}{"\n"}
                     Horário de saída: {exitTime ? exitTime.getHours().toString().padStart(2, '0') + ':' + exitTime.getMinutes().toString().padStart(2, '0') : '-'}
-                </Text>
+                </Text> */}
                 {show && (
                     <DateTimePicker
                     testID="dateTimePicker"
