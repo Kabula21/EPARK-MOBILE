@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
-import { auth } from '../src/firebase.config';
+import { auth } from '../src/firebase.config'; 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import COLORS  from '../constants/colors';
 
@@ -34,6 +34,7 @@ const Login = ({ navigation }) => {
                 } else {
                     Alert.alert("E-mail ou senha incorretos.", "\nPor favor, tente novamente.");
                 }
+                console.log(errorMessage);
             })
             .finally(() => {
                 setIsLoading(false);
