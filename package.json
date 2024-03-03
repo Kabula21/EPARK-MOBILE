@@ -16,6 +16,7 @@
     "@react-navigation/drawer": "^6.6.7",
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.12",
+    "date-fns": "^3.3.1",
     "expo": "^49.0.23",
     "expo-checkbox": "~2.4.0",
     "expo-image-picker": "~14.3.2",
