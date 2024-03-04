@@ -7,12 +7,11 @@ const BemVindo = ({ navigation }) => {
 
     const handleButtonPress = () => {
         setIsLoading(true);
-
-        // Simulando uma operação assíncrona, por exemplo, uma requisição à API
+        
         setTimeout(() => {
             setIsLoading(false);
             navigation.navigate("Login");
-        }, 2000); // Tempo de simulação: 2 segundos
+        }, 1000); 
     };
 
     return (

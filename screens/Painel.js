@@ -16,6 +16,8 @@ const Painel = () => {
     const [dateSaida, setDateSaida] = useState(new Date());
     const [showEntrada, setShowEntrada] = useState(false);
     const [showSaida, setShowSaida] = useState(false);
+    const [vagasOcupadas, setVagasOcupadas] = useState(0);
+    const [vagasLivres, setVagasLivres] = useState(20);
 
     const onChange = (event, selectedDateTime) => {
         const currentDate = selectedDateTime || date;
@@ -53,6 +55,15 @@ const Painel = () => {
         const formattedDate = formatter.format(date);
         return formattedDate;
     };
+
+    const gerarTicket = () => {
+        if (vagasLivres > 0) {
+          setVagasOcupadas(vagasOcupadas + 1);
+          setVagasLivres(vagasLivres - 1);
+        } else {
+          alert("Não há vagas disponíveis.");
+        }
+      };
 
     const handleLogout = () => {
         navigation.navigate('Login');
@@ -141,20 +152,20 @@ const Painel = () => {
 
                 <View style={{ flexDirection: 'column', alignItems: 'center', marginRight: 60 }}>
 
-                        <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                            <Text style={{ fontSize: 35, color: "red", fontWeight: "bold" }}>5</Text>
-                            <Text style={{ fontSize: 12 }}>OCUPADAS</Text>
-                        </View>
+                <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                    <Text style={{ fontSize: 35, color: "red", fontWeight: "bold" }}>{vagasOcupadas}</Text>
+                    <Text style={{ fontSize: 12 }}>OCUPADAS</Text>
+                </View>
 
-                        <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                            <Text style={{ fontSize: 35, color: "green", fontWeight: "bold" }}>15</Text>
-                            <Text style={{ fontSize: 12 }}>LIVRE</Text>
-                        </View>
+                <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                    <Text style={{ fontSize: 35, color: "green", fontWeight: "bold" }}>{vagasLivres}</Text>
+                    <Text style={{ fontSize: 12 }}>LIVRE</Text>
+                </View>
 
-                        <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                            <Text style={{ fontSize: 35, color: "#191970", fontWeight: "bold" }}>20</Text>
-                            <Text style={{ fontSize: 12 }}>TOTAL</Text>
-                        </View>
+                <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                    <Text style={{ fontSize: 35, color: "#191970", fontWeight: "bold" }}>20</Text>
+                    <Text style={{ fontSize: 12 }}>TOTAL</Text>
+                </View>
                     </View>
                 </View>
 
@@ -169,19 +180,19 @@ const Painel = () => {
 
                 <View style={{ marginVertical: 15, marginTop: 20 }}>
                     <View style={{ marginHorizontal: 50 }}>
-                        <Button onPress={() => showMode('date')} title="Data Entrada" />
+                        <Button onPress={() => showMode('date')} title="Data Entrada" color= '#191970' />
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
                         <Icon name="chevron-down" size={20} color="black" />
                         </View>
-                        <Button onPress={() => showMode('time')} title="Hora Entrada" />
+                        <Button onPress={() => showMode('time')} title="Hora Entrada" color= '#191970' />
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
                         <Icon name="chevron-down" size={20} color="black" />
                         </View>
-                        <Button onPress={() => showMode('date')} title="Data Saída" />
+                        <Button onPress={() => showMode('date')} title="Data Saída" color= '#191970' />
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
                         <Icon name="chevron-down" size={20} color="black" />
                         </View>
-                        <Button onPress={() => showMode('time')} title="Hora Saída" />
+                        <Button onPress={() => showMode('time')} title="Hora Saída" color= '#191970'  />
                     </View>
                     </View>
                 
@@ -192,16 +203,17 @@ const Painel = () => {
                     mode={mode}
                     is24Hour={true}
                     display="default"
-                    onChange={onChange}                    
+                    onChange={onChange}
+                                        
                 />
             )}
                
 
-                <TouchableOpacity onPress={() => navigation.navigate("Tickets")} style={{ marginTop: 5, width: 200, marginLeft: 90, alignItems: 'center', borderRadius: 5, backgroundColor: 'green' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Icon name="ticket" size={40} color="white" />
-                        <Text style={{ marginLeft: 10, color: 'white' }}>Gerar Ticket</Text>
-                    </View>
+               <TouchableOpacity onPress={() => { gerarTicket(); navigation.navigate("Tickets"); }} style={{ marginTop: 5, width: 200, marginLeft: 90, alignItems: 'center', borderRadius: 5, backgroundColor: 'green' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Icon name="ticket" size={40} color="white" />
+                    <Text style={{ marginLeft: 10, color: 'white' }}>Gerar Ticket</Text>
+                </View>
                 </TouchableOpacity>
 
                 </ScrollView>

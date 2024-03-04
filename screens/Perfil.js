@@ -54,7 +54,7 @@ const Perfil = () => {
             quality: 1,
         });
         
-        if (permissionResult.cancelled === false) {
+        if (permissionResult.canceled === false) {
             setFoto(permissionResult.uri);
             salvarFoto(permissionResult.uri);
         }
@@ -135,6 +135,7 @@ const Perfil = () => {
                 </TouchableOpacity>
 
                         <Text style={styles.title}>Dados Pessoais</Text>
+                        
                         <Text style={{ color: 'black', marginTop: 10, fontSize: 25 }}>Nome do Perfil </Text>
                          <Text style={{ color: 'black', marginTop: 10, fontSize: 25 }}>Email do Usuário</Text>
 
