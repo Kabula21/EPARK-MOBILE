@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from '@react-navigation/native'; // Importação do hook useNavigation
+import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesome } from '@expo/vector-icons';
 
 const Veiculo = () => {
     const navigation = useNavigation(); // Utilização do hook useNavigation
@@ -38,9 +39,12 @@ const Veiculo = () => {
         setPlate(formattedText);
       };
 
+      const handlePainel = () => {        
+        navigation.navigate('Painel'); 
+    };
+
     return (  
-        <ImageBackground
-            source={require('../assets/background.png')}
+        <ImageBackground            
             style={{
                 flex: 1,                
                 justifyContent: 'center',                
@@ -52,47 +56,51 @@ const Veiculo = () => {
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Painel')}>
-                        <Icon name="bars" size={24} color="black" />
+                        <Icon name="bars" size={24} color="white" />
                         <Text style={styles.buttonText}>Painel</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Perfil')}>
-                        <Icon name="user" size={24} color="black" />
+                        <Icon name="user" size={24} color="white" />
                         <Text style={styles.buttonText}>Perfil</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Card')}>
-                        <Icon name="credit-card" size={24} color="black" />
+                        <Icon name="credit-card" size={24} color="white" />
                         <Text style={styles.buttonText}>Cartão</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Veículo')}>
-                        <Icon name="car" size={24} color="blue" />
-                        <Text style={styles.buttonText}>Veículo</Text>
+                        <Icon name="car" size={24} color="#F1C40F" />
+                        <Text style={styles.activeButton}>Veículo</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Tickets')}>
-                        <Icon name="ticket" size={24} color="black" />
+                        <Icon name="ticket" size={24} color="white" />
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView>
-                <Image
-                    source={require('../assets/veiculo.png')}
-                    style={{ width: 300, height: 200, marginLeft: 50 }}
-                />
+            <ScrollView>
+                
 
-                  
-                <View style={styles.container}>
-                    <Text style={styles.title}>Cadastro de Veículo</Text>
+                <Text style={styles.title}>Cadastro de Veículo</Text>
+                <View style={styles.separator}></View>                
+                <View style={styles.card}>               
+                <View style={{ backgroundColor: '#191970', height: 40, borderTopLeftRadius: 5, borderTopRightRadius: 5, width: 359, marginLeft: -15, marginTop: -12 }}> 
+                <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
+                        <View style={styles.infoIcon}><Icon name="info-circle" size={25} color="white" /></View>
+                        <Text style={{ color: 'white', marginLeft: 40 }}>Informações Obrigatórias*</Text>
+                    </View>                  
+              </View>
+                <FontAwesome name="car" size={50} color="black" style={styles.icon} />                            
                     <TextInput
                         style={styles.input}
                         placeholder="Marca"
@@ -123,15 +131,24 @@ const Veiculo = () => {
                         value={plate}
                         maxLength={8} 
                         autoCapitalize="characters"
-                    />
-
-                    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                        <Text style={styles.buttonSend}>Cadastrar</Text>
-                    </TouchableOpacity>
+                    />                    
                 </View>
-                </ScrollView>
-                </SafeAreaView>
+
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                    <Text style={styles.buttonSend}>Cadastrar</Text>
+                    </TouchableOpacity>              
+
+                
+
+                <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
+                <Icon name="sign-out" size={24} color="black" />
+                <Text style={styles.logoutText}>Voltar</Text>
+                </TouchableOpacity>
+            </ScrollView>
+                
+            </SafeAreaView>
             </TouchableWithoutFeedback>
+            
         </ImageBackground>
     );
 };
@@ -147,43 +164,134 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: '#eee',
+        backgroundColor: '#191970',
         paddingVertical: 10,
     },
+
+    buttonText: {
+        fontSize: 12,
+        color: 'white'
+        
+    },
+
+    activeButton: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#F1C40F',
+        color: 'white'
+    },
+    
     menuButton: {
         alignItems: 'center',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginTop: 26,
+        textAlign: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#191970'
     },
+
+    separator: {
+        borderBottomColor: '#F1C40F',
+        borderBottomWidth: 2,
+        marginVertical: 20,
+        marginHorizontal: 23,
+        width: 350
+      },
+
+      card: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        padding: 16,
+        marginVertical: 22,
+        marginHorizontal: 16,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+
+    icon: {
+        alignSelf: 'center',
+        color: '#191970'
+    },
+
     input: {
-        width: '80%',
         height: 40,
-        borderColor: 'gray',
+        borderColor: '#ccc',
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 4,
+        paddingHorizontal: 8,
+        marginBottom: 8,
+    },
+
+
+    input: {
+        width: '100%',
+        height: 40,
+        borderColor: 'grey',
+        borderBottomWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 10,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        justifyContent: 'center',
+        alignItems: 'center',
     },
+
     button: {
-        width: '80%',
+        width: '70%',
         height: 40,
         backgroundColor: '#191970',
         justifyContent: 'center',
         alignItems: 'center',
+        marginHorizontal: 60,
+        marginTop: 30,
         borderRadius: 5,
-    },
-    buttonText: {
-        fontSize: 12,
-        
-    },
+        marginBottom: 150
+      },
+    
 
     buttonSend: {
-        fontSize: 16,
+        fontSize: 18,
         color: 'white',
+        fontWeight: 'bold',
+       
+        
+    },
+    logoutButton: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 5,
+        backgroundColor: '#DCDCDC',
+        flexDirection: 'row',
+    },
+    logoutText: {
+        marginLeft: 5,
+        fontSize: 16,
+        color: 'black',
+    },
+
+    infoIcon: {
+        position: 'absolute',
+        top: 8,
+        left: 0,
+        width: 50,
+        backgroundColor: '#191970',
+        borderRadius: 100,
+        borderColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
 

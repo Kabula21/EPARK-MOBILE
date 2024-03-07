@@ -76,8 +76,7 @@ const Perfil = () => {
     };
 
     return (  
-        <ImageBackground
-            source={require('../assets/background.png')}
+        <ImageBackground            
             style={{
                 flex: 1,                
                 justifyContent: 'center',                
@@ -88,39 +87,40 @@ const Perfil = () => {
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Painel')}>
-                        <Icon name="bars" size={24} color="black" />
+                        <Icon name="bars" size={24} color="white" />
                         <Text style={styles.buttonText}>Painel</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Perfil')}>
-                        <Icon name="user" size={24} color="blue" />
-                        <Text style={[styles.buttonText, { color: 'blue' }]}>Perfil</Text>
+                        <Icon name="user" size={24} color="#F1C40F" />
+                        <Text style={[styles.activeButton, { color: 'white' }]}>Perfil</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Card')}>
-                        <Icon name="credit-card" size={24} color="black" />
+                        <Icon name="credit-card" size={24} color="white" />
                         <Text style={styles.buttonText}>Cartão</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Veículo')}>
-                        <Icon name="car" size={24} color="black" />
+                        <Icon name="car" size={24} color="white" />
                         <Text style={styles.buttonText}>Veículo</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.menuButton}
                         onPress={() => navigation.navigate('Tickets')}>
-                        <Icon name="ticket" size={24} color="black" />
+                        <Icon name="ticket" size={24} color="white" />
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>
                 </View>
-
+                
+                <View style={styles.separator}></View>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.container}>
                 <TouchableOpacity onPress={handleChoosePhoto} style={styles.profileImageContainer}>
@@ -151,7 +151,7 @@ const Perfil = () => {
                             >
                                 <Text style={{
                                     fontSize: 16,
-                                    color: 'blue',
+                                    color: '#F1C40F',
                                     fontWeight: 'bold',
                                     marginLeft: 6,
                                     marginTop: 30,
@@ -179,9 +179,10 @@ const styles = StyleSheet.create({
     menuBar: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: '#eee',
+        alignItems: 'center',                    
         paddingVertical: 10,
+        backgroundColor: '#191970',
+        
     },
     menuButton: {
         alignItems: 'center',
@@ -190,7 +191,16 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+        color: '#191970'
+        
     },
+
+    activeButton: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#F1C40F',
+        color: 'white'
+    },
+
     input: {
         width: '80%',
         height: 40,
@@ -210,7 +220,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,    
     },
     buttonText: {
-        fontSize: 12,        
+        fontSize: 12,
+        color: 'white'        
     },
     buttonSend:{
         color: 'white'
@@ -239,6 +250,15 @@ const styles = StyleSheet.create({
     cameraIcon: {
         marginBottom: 12,
     },
+
+    separator: {
+        borderBottomColor: '#00BFFF',
+        borderBottomWidth: 10,
+        marginVertical: 0,
+        marginHorizontal: 0,        
+        borderBottomEndRadius: 100,
+        borderBottomStartRadius: 100
+      },
 });
 
 export default Perfil;

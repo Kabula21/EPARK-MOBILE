@@ -70,11 +70,10 @@ const Painel = () => {
     };
 
     return (
-        <ImageBackground
-            source={require('../assets/background.png')}
+        <ImageBackground            
             style={{
                 flex: 1,
-                justifyContent: 'center',
+                justifyContent: 'center',                
             }}
         >
             
@@ -84,118 +83,96 @@ const Painel = () => {
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => navigation.navigate('Painel')}>
-                            <Icon name="bars" size={24} color="blue" />
-                            <Text style={styles.buttonText}>Painel</Text>
+                            <Icon name="bars" size={24} color="#F1C40F" />
+                            <Text style={styles.activeButton}>Painel</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => navigation.navigate('Perfil')}>
-                            <Icon name="user" size={24} color="black" />
+                            <Icon name="user" size={24} color="white" />
                             <Text style={styles.buttonText}>Perfil</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => navigation.navigate('Card')}>
-                            <Icon name="credit-card" size={24} color="black" />
+                            <Icon name="credit-card" size={24} color="white" />
                             <Text style={styles.buttonText}>Cartão</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => navigation.navigate('Veículo')}>
-                            <Icon name="car" size={24} color="black" />
+                            <Icon name="car" size={24} color="white" />
                             <Text style={styles.buttonText}>Veículo</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => navigation.navigate('Tickets')}>
-                            <Icon name="ticket" size={24} color="black" />
+                            <Icon name="ticket" size={24} color="white" />
                             <Text style={styles.buttonText}>Tíckets</Text>
                         </TouchableOpacity>
                     </View>
+
+                    <View style={styles.separator}></View> 
                 </TouchableOpacity>
 
                 <ScrollView>
 
-                <View style={{ flexDirection: 'row', marginTop: 5, backgroundColor: '#fff', borderRadius: 0, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5 }}>
-                    <View style={{ flex: 1, padding: 15 }}>
-                    <Text>Placa: ABC-1234</Text>
-                    <View style={{ marginBottom: 10 }}></View>
-
-                    <Text>Veículo: Carro</Text>
-                    <View style={{ marginBottom: 10 }}></View>
-
-                    <Text>Data Entrada: {formatDate(dateEntrada)}</Text>
-                    <View style={{ marginBottom: 10 }}></View>
-
-                    <Text>Hora de entrada: {entryTime ? entryTime.getHours().toString().padStart(2, '0') + ':' + entryTime.getMinutes().toString().padStart(2, '0') : '-'}</Text>
-                    <View style={{ marginBottom: 10 }}></View>
-
-                    <Text>Data Saída: {formatDate(dateSaida)}</Text>
-                    <View style={{ marginBottom: 10 }}></View>
-
-                    <Text>Hora de saída: {exitTime ? exitTime.getHours().toString().padStart(2, '0') + ':' + exitTime.getMinutes().toString().padStart(2, '0') : '-'}</Text>
-                    <View style={{ marginBottom: 10 }}></View>
-
-                    <Text>Regra: (Até 2h + Taxa)</Text>
-                    <View style={{ marginBottom: 10 }}></View>
-
-                    <Text>Total: R$10,00</Text>
-                    </View>                 
-
-
-                <View style={{ width: 1, backgroundColor: 'grey', marginRight: 70 }} />
-
-
-                <View style={{ flexDirection: 'column', alignItems: 'center', marginRight: 60 }}>
-
-                <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                    <Text style={{ fontSize: 35, color: "red", fontWeight: "bold" }}>{vagasOcupadas}</Text>
-                    <Text style={{ fontSize: 12 }}>OCUPADAS</Text>
-                </View>
-
-                <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                    <Text style={{ fontSize: 35, color: "green", fontWeight: "bold" }}>{vagasLivres}</Text>
-                    <Text style={{ fontSize: 12 }}>LIVRE</Text>
-                </View>
-
-                <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                    <Text style={{ fontSize: 35, color: "#191970", fontWeight: "bold" }}>20</Text>
-                    <Text style={{ fontSize: 12 }}>TOTAL</Text>
-                </View>
-                    </View>
-                </View>
-
-
-
-                <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 85 }}>
-                    <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>
-                    <Pressable onPress={() => navigation.navigate("Termos")}>
-                        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Acesse</Text>
-                    </Pressable>
-                </View>
-
-                <View style={{ marginVertical: 15, marginTop: 20 }}>
-                    <View style={{ marginHorizontal: 50 }}>
-                        <Button onPress={() => showMode('date')} title="Data Entrada" color= '#191970' />
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
-                        <Icon name="chevron-down" size={20} color="black" />
-                        </View>
-                        <Button onPress={() => showMode('time')} title="Hora Entrada" color= '#191970' />
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
-                        <Icon name="chevron-down" size={20} color="black" />
-                        </View>
-                        <Button onPress={() => showMode('date')} title="Data Saída" color= '#191970' />
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
-                        <Icon name="chevron-down" size={20} color="black" />
-                        </View>
-                        <Button onPress={() => showMode('time')} title="Hora Saída" color= '#191970'  />
-                    </View>
-                    </View>
                 
+                <View style={{ flexDirection: 'column', marginTop: 5,  marginLeft: 15, justifyContent: 'center', backgroundColor: '#FFF', 
+                height: 130, width: 370, borderRadius: 5, borderBottomWidth: 2, borderBottomColor: '#DCDCDC'}}>
+                    <View style={{ backgroundColor: 'transparent', height: 40, width: '100%', borderTopLeftRadius: 5, borderTopRightRadius: 5, marginTop: 0 }}>
+                        <Text style={{ color: '#191970',fontWeight: 'bold',  marginLeft: 10, marginTop: 20, fontSize: 16 }}>Status</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginLeft: 50, marginBottom: 30 }}>
+                    <View style={{ alignItems: 'center', paddingRight: 25, marginRight: 25, borderRightWidth: 1, borderColor: '#191970' }}>
+                        <Text style={{ fontSize: 50, color: "red", fontWeight: "bold" }}>{vagasOcupadas}</Text>
+                        <Text style={{ fontSize: 15 }}>OCUPADAS</Text>
+                    </View>
+                    <View style={{ alignItems: 'center', paddingRight: 25, marginRight: 25, borderRightWidth: 1, borderColor: '#191970' }}>
+                        <Text style={{ fontSize: 50, color: "green", fontWeight: "bold" }}>{vagasLivres}</Text>
+                        <Text style={{ fontSize: 15 }}>LIVRE</Text>
+                    </View>
+                    <View style={{ alignItems: 'center', marginRight: 50 }}>
+                        <Text style={{ fontSize: 50, color: "#191970", fontWeight: "bold" }}>20</Text>
+                        <Text style={{ fontSize: 15 }}>TOTAL</Text>
+                    </View>
+                </View>
+                </View>  
+                <Text style={{ color: '#C0C0C0', marginTop: 10, fontSize: 15, marginBottom: -10, marginLeft: 17 }}>Definir: Data / Hora</Text>                              
+
+                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop: 0 }}>
+                    <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center', marginBottom: 50 }}>
+                        <TouchableOpacity onPress={() => showMode('date')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
+                            <Icon name="calendar" size={50} color="white" />
+                            <Text style={{ color: 'white' }}>Data Entrada</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ width: '40%', alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => showMode('time')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
+                            <Icon name="clock-o" size={50} color="white" />
+                            <Text style={{ color: 'white' }}>Hora Entrada</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ width: '40%', alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => showMode('date')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
+                            <Icon name="calendar" size={50} color="white" />
+                            <Text style={{ color: 'white' }}>Data Saída</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ width: '40%', alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => showMode('time')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
+                            <Icon name="clock-o" size={50} color="white" />
+                            <Text style={{ color: 'white' }}>Hora Saída</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+
                 {show && (
                 <DateTimePicker
                     testID="dateTimePicker"
@@ -207,14 +184,32 @@ const Painel = () => {
                                         
                 />
             )}
-               
 
-               <TouchableOpacity onPress={() => { gerarTicket(); navigation.navigate("Tickets"); }} style={{ marginTop: 5, width: 200, marginLeft: 90, alignItems: 'center', borderRadius: 5, backgroundColor: 'green' }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon name="ticket" size={40} color="white" />
-                    <Text style={{ marginLeft: 10, color: 'white' }}>Gerar Ticket</Text>
-                </View>
+                <Text style={{ color: '#C0C0C0', marginTop: 10, fontSize: 15, marginBottom: -10, marginLeft: 17 }}>Gere sua Reserva</Text>
+
+                <TouchableOpacity
+                    onPress={() => { gerarTicket(); navigation.navigate("Tickets"); }}
+                    style={{marginTop: 30, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
+                        borderRadius: 3, backgroundColor: '#F1C40F',flexDirection: 'row',}}>
+                       
+                        <View style={{ marginRight: 8 }}>
+                            <Icon name="ticket" size={30} color="#191970" />
+                        </View>
+                        
+                        <View style={{ borderWidth: 2, height: '100%', borderStyle: 'dashed', borderColor: 'white', borderRadius: 1}} />
+                        
+                        <View style={{ marginLeft: 15 }}>
+                            <Text style={{ color: '#191970', fontWeight: 'bold' }}>Gerar Ticket</Text>
+                        </View>
+
                 </TouchableOpacity>
+
+                <View style={{ flexDirection: 'row', marginTop: 36, marginLeft: 85 }}>
+                    <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>
+                    <Pressable onPress={() => navigation.navigate("Termos")}>
+                        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Acesse</Text>
+                    </Pressable>
+                </View>
 
                 </ScrollView>
 
@@ -233,20 +228,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: '#eee',
+        backgroundColor: '#191970',
         paddingVertical: 0,
     },
     button: {
         flex: 1,
         alignItems: 'center',
         paddingVertical: 10,
+        color: 'white'
     },
     buttonText: {
         fontSize: 12,
+        color: 'white'
     },
     activeButton: {
         borderBottomWidth: 2,
-        borderBottomColor: 'blue',
+        borderBottomColor: '#F1C40F',
+        color: 'white'
     },
     logoutButton: {
         position: 'absolute',
@@ -256,7 +254,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 5,
-        backgroundColor: '#eee',
+        backgroundColor: '#DCDCDC',
         flexDirection: 'row',
     },
     logoutText: {
@@ -264,6 +262,15 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'black',
     },
+
+    separator: {
+        borderBottomColor: '#00BFFF',
+        borderBottomWidth: 10,
+        marginVertical: 0,
+        marginHorizontal: 0,        
+        borderBottomEndRadius: 100,
+        borderBottomStartRadius: 100
+      },
 });
 
 export default Painel;

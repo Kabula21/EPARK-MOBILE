@@ -75,14 +75,14 @@ const Login = ({ navigation }) => {
                                 fontSize: 22,
                                 fontWeight: 'bold',
                                 marginVertical: 12,
-                                color: COLORS.black
+                                color: '#F1C40F'
                             }}>
                                 Bem Vindo ! 👋
                             </Text>
 
                             <Text style={{
                                 fontSize: 16,
-                                color: COLORS.black
+                                color: 'white'
                             }}>Olá, nós somos o E-Park!</Text>
                         </View>
 
@@ -90,29 +90,30 @@ const Login = ({ navigation }) => {
                             <Text style={{
                                 fontSize: 16,
                                 fontWeight: 400,
-                                marginVertical: 8
-                            }}>Email</Text>
+                                marginVertical: 8,
+                                color: 'white'
+                            }}></Text>
 
                             <View style={{
                                 width: "100%",
                                 height: 48,
-                                borderColor: COLORS.black,
-                                borderWidth: 1,
-                                borderRadius: 8,
+                                borderColor: 'grey',
+                                borderBottomWidth: 1,
                                 alignItems: "center",
                                 justifyContent: "center",
                                 paddingLeft: 22,
-                                backgroundColor: "white"                               
+                                backgroundColor: "transparent",
+                                color: 'white'                               
                             }}>
                                 <TextInput
                                     placeholder='Digite seu E-mail'
-                                    placeholderTextColor={COLORS.black}
+                                    placeholderTextColor={'white'}
                                     keyboardType='email-address'
                                     value={userMail}
                                     onChangeText={setUserMail}
                                     style={{
                                         width: "100%",
-                                        color: "black"
+                                        color: "white"
                                     }}
                                 />
                             </View>
@@ -122,29 +123,29 @@ const Login = ({ navigation }) => {
                             <Text style={{
                                 fontSize: 16,
                                 fontWeight: 400,
-                                marginVertical: 8
-                            }}>Senha</Text>
+                                marginVertical: 8,
+                                color: 'white'
+                            }}></Text>
 
                             <View style={{
                                 width: "100%",
                                 height: 48,
-                                borderColor: COLORS.black,
-                                borderWidth: 1,
-                                borderRadius: 8,
+                                borderColor: 'white',
+                                borderBottomWidth: 1,
                                 alignItems: "center",
                                 justifyContent: "center",
                                 paddingLeft: 22,
-                                backgroundColor: "white"
+                                backgroundColor: "transparent"
                             }}>
                                 <TextInput
                                     placeholder='Insira a Senha'
-                                    placeholderTextColor={COLORS.black}
+                                    placeholderTextColor={'white'}
                                     secureTextEntry={isPasswordShown}
                                     value={userPass}
                                     onChangeText={setUserPass}
                                     style={{
                                         width: "100%",
-                                        color: "black"
+                                        color: "white"
                                     }}
                                 />
 
@@ -157,9 +158,9 @@ const Login = ({ navigation }) => {
                                 >
                                     {
                                         isPasswordShown ? (
-                                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                                            <Ionicons name="eye-off" size={24} color={'white'} />
                                         ) : (
-                                            <Ionicons name="eye" size={24} color={COLORS.black} />
+                                            <Ionicons name="eye" size={24} color={'white'} />
                                         )
                                     }
                                 </TouchableOpacity>
@@ -175,10 +176,10 @@ const Login = ({ navigation }) => {
                                 style={{ marginRight: 8 }}
                                 value={isChecked}
                                 onValueChange={setIsChecked}
-                                color={isChecked ? COLORS.primary : undefined}
+                                color={isChecked ? COLORS.primary : 'white'}
                             />
 
-                            <Text>Lembrar de mim</Text>
+                            <Text style={{ color: 'white' }}>Lembrar de mim</Text>
                         </View>
 
                         <Button
@@ -189,7 +190,7 @@ const Login = ({ navigation }) => {
                                 marginLeft: 70,
                                 marginTop: 50,
                                 marginBottom: 4,
-                                backgroundColor: '#191970'
+                                backgroundColor: '#F1C40F'
                             }}
                         />  
 
@@ -198,13 +199,13 @@ const Login = ({ navigation }) => {
                             justifyContent: "center",
                             marginVertical: 22
                         }}>
-                            <Text style={{ fontSize: 16, marginTop: 0, color: COLORS.black }}>Esqueci minha senha. </Text>
+                            <Text style={{ fontSize: 16, marginTop: 0, color: 'white' }}>Esqueci minha senha. </Text>
                             <Pressable
                                 onPress={handleForgotPassword}
                             >
                                 <Text style={{
                                     fontSize: 16,
-                                    color: 'blue',
+                                    color: '#F1C40F',
                                     fontWeight: "bold",
                                     marginLeft: 5,
                                     marginTop: 0
@@ -213,12 +214,12 @@ const Login = ({ navigation }) => {
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 10 , marginLeft: 55}}>
-                            <Text style={{ color: 'black' }}>Não Possui Conta ainda? </Text>
+                            <Text style={{ color: 'white' }}>Não Possui Conta ainda? </Text>
                             <Pressable onPress={handleCreateAccount}>
-                                <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 16 }}>Criar Conta</Text>                                
+                                <Text style={{ color: '#F1C40F', fontWeight: 'bold', fontSize: 16 }}>Criar Conta</Text>                                
                             </Pressable>
                         </View> 
-                        <Text style={{ color: 'black', marginTop: 130, marginLeft: 100 }}>powered by TTG-Group </Text> 
+                        <Text style={{ color: 'white', marginTop: 130, marginLeft: 100 }}>powered by TTG-Group </Text> 
                     </View>
                     </ScrollView>
                 </TouchableWithoutFeedback>

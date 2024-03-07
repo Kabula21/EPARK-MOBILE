@@ -14,8 +14,7 @@ const Termos = () => {
     };
 
     return (  
-        <ImageBackground
-            source={require('../assets/background.png')}
+        <ImageBackground            
             style={{
                 flex: 1,                
                 justifyContent: 'center',                
@@ -47,8 +46,8 @@ const Termos = () => {
                 </TouchableWithoutFeedback>
                 
                 <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
-                    <Icon name="sign-out" size={24} color="black" />
-                    <Text style={styles.logoutText}>Voltar</Text>
+                <Icon name="sign-out" size={24} color="black" />
+                <Text style={styles.logoutText}>Voltar</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         </ImageBackground>
@@ -70,6 +69,7 @@ const styles = StyleSheet.create({
 
     bold: {
         fontWeight: 'bold',
+        color: '#191970'
     },
 
     input: {
@@ -86,10 +86,12 @@ const styles = StyleSheet.create({
         right: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 10,
-        backgroundColor: '#eee',
+        paddingVertical: 5,
+        backgroundColor: '#DCDCDC',
+        flexDirection: 'row',
     },
     logoutText: {
+        marginLeft: 5,
         fontSize: 16,
         color: 'black',
     },

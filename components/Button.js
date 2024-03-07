@@ -18,7 +18,7 @@ const Button = (props) => {
             }}
             onPress={props.onPress}
         >
-            <Text style={{ fontSize: 18, ... { color: 'white' } }}>{props.title}</Text>
+            <Text style={{ fontSize: 20,fontWeight: 'bold', ... { color: '#191970' } }}>{props.title}</Text>
         </TouchableOpacity>
     )
 }
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     button: {
         paddingBottom: 16,
         paddingVertical: 10,        
-        borderWidth: 1,
+        borderWidth: 0,
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',

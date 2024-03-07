@@ -87,7 +87,7 @@ const Signup = ({ navigation }) => {
                                 fontSize: 22,
                                 fontWeight: 'bold',
                                 marginVertical: 12,
-                                color: COLORS.black
+                                color: '#F1C40F'
                             }}>
                                 Crie Sua Conta
                             </Text>
@@ -97,29 +97,30 @@ const Signup = ({ navigation }) => {
                             <Text style={{
                                 fontSize: 16,
                                 fontWeight: '400',
-                                marginVertical: 8
+                                marginVertical: 8,
+                                color: 'white'
                                 
-                            }}>Nome</Text>
+                            }}></Text>
 
                             <View style={{
                                 width: '100%',
                                 height: 48,
-                                borderColor: COLORS.black,
-                                borderWidth: 1,
-                                borderRadius: 8,
+                                borderColor: 'grey',
+                                borderBottomWidth: 1,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 paddingLeft: 22,
-                                backgroundColor: 'white'
+                                backgroundColor: 'transparent',
                                 
                                 
                             }}>
                                 <TextInput
                                     placeholder='Nome'
-                                    placeholderTextColor={COLORS.black}
+                                    placeholderTextColor={'white'}
                                     keyboardType='default'
                                     style={{
-                                        width: '100%'
+                                        width: '100%',
+                                        color: 'white'
                                     }}
                                     onChangeText={setUserName}
                                 />
@@ -132,26 +133,26 @@ const Signup = ({ navigation }) => {
                                 fontWeight: '400',
                                 marginVertical: 8,
                                 
-                            }}>Email</Text>
+                            }}></Text>
 
                             <View style={{
                                 width: '100%',
                                 height: 48,
-                                borderColor: COLORS.black,
-                                borderWidth: 1,
-                                borderRadius: 8,
+                                borderColor: 'grey',
+                                borderBottomWidth: 1,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 paddingLeft: 22,
-                                backgroundColor: 'white'
+                                backgroundColor: 'transparent'
                                 
                             }}>
                                 <TextInput
                                     placeholder='Insira seu Email'
-                                    placeholderTextColor={COLORS.black}
+                                    placeholderTextColor={'white'}
                                     keyboardType='email-address'
                                     style={{
-                                        width: '100%'
+                                        width: '100%',
+                                        color: 'white'
                                     }}
                                     onChangeText={setUserMail}
                                 />
@@ -163,25 +164,25 @@ const Signup = ({ navigation }) => {
                                 fontSize: 16,
                                 fontWeight: '400',
                                 marginVertical: 8
-                            }}>Senha</Text>
+                            }}></Text>
 
                             <View style={{
                                 width: '100%',
                                 height: 48,
-                                borderColor: COLORS.black,
-                                borderWidth: 1,
-                                borderRadius: 8,
+                                borderColor: 'grey',
+                                borderBottomWidth: 1,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 paddingLeft: 22,
-                                backgroundColor: 'white'
+                                backgroundColor: 'transparent'
                             }}>
                                 <TextInput
                                     placeholder='Digite sua senha'
-                                    placeholderTextColor={COLORS.black}
+                                    placeholderTextColor={'white'}
                                     secureTextEntry={isPasswordShown}
                                     style={{
-                                        width: '100%'
+                                        width: '100%',
+                                        color: 'white'
                                     }}
                                     onChangeText={setUserPass}
                                 />
@@ -195,9 +196,9 @@ const Signup = ({ navigation }) => {
                                 >
                                     {
                                         isPasswordShown ? (
-                                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                                            <Ionicons name="eye-off" size={24} color={'white'} />
                                         ) : (
-                                            <Ionicons name="eye" size={24} color={COLORS.black} />
+                                            <Ionicons name="eye" size={24} color={'white'} />
                                         )
                                     }
                                 </TouchableOpacity>
@@ -209,25 +210,25 @@ const Signup = ({ navigation }) => {
                                 fontSize: 16,
                                 fontWeight: '400',
                                 marginVertical: 8
-                            }}>Comfirme a sua Senha</Text>
+                            }}></Text>
 
                             <View style={{
                                 width: '100%',
                                 height: 48,
-                                borderColor: COLORS.black,
-                                borderWidth: 1,
-                                borderRadius: 8,
+                                borderColor: 'grey',
+                                borderBottomWidth: 1,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 paddingLeft: 22,
-                                backgroundColor: 'white'
+                                backgroundColor: 'transparent'
                             }}>
                                 <TextInput
                                     placeholder='Confirme a sua senha'
-                                    placeholderTextColor={COLORS.black}
+                                    placeholderTextColor={'white'}
                                     secureTextEntry={isRePasswordShown}
                                     style={{
-                                        width: '100%'
+                                        width: '100%',
+                                        color: 'white'
                                     }}
                                     onChangeText={setUserRePass}
                                 />
@@ -241,9 +242,9 @@ const Signup = ({ navigation }) => {
                                 >
                                     {
                                         isRePasswordShown ? (
-                                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                                            <Ionicons name="eye-off" size={24} color={'white'} />
                                         ) : (
-                                            <Ionicons name="eye" size={24} color={COLORS.black} />
+                                            <Ionicons name="eye" size={24} color={'white'} />
                                         )
                                     }
                                 </TouchableOpacity>
@@ -260,10 +261,10 @@ const Signup = ({ navigation }) => {
                                style={{ marginRight: 8 }}
                                value={isChecked}
                                onValueChange={setIsChecked}
-                               color={isChecked ? COLORS.primary : undefined}
+                               color={isChecked ? COLORS.primary : 'white'}
                             />
 
-                            <Text>Aceito os Termos e Condições</Text>
+                            <Text style={{ color:'white' }}>Aceito os Termos e Condições</Text>
                         </View>
 
                         <Button
@@ -275,7 +276,8 @@ const Signup = ({ navigation }) => {
                                 marginLeft: 70,
                                 marginTop: 18,
                                 marginBottom: 4,
-                                backgroundColor: '#191970'
+                                backgroundColor: '#F1C40F',
+                                fontWeight: 'bold'
                             }}
                         />
 
@@ -284,13 +286,13 @@ const Signup = ({ navigation }) => {
                             justifyContent: 'center',
                             marginVertical: 22
                         }}>
-                            <Text style={{ fontSize: 16, marginTop: 10, color: COLORS.black }}>Já tenho uma conta</Text>
+                            <Text style={{ fontSize: 16, marginTop: 10, color: 'white' }}>Já tenho uma conta</Text>
                             <Pressable
                                onPress={() => navigation.navigate("Login")}
                             >
                                 <Text style={{
                                     fontSize: 16,
-                                    color: 'blue',
+                                    color: '#F1C40F',
                                     fontWeight: 'bold',
                                     marginLeft: 6,
                                     marginTop: 10,
@@ -298,7 +300,7 @@ const Signup = ({ navigation }) => {
                             </Pressable>
                         </View>
                         
-                        <Text style={{ color: 'black', marginTop: 30, marginLeft: 100 }}>powered by TTG-Group </Text>
+                        <Text style={{ color: 'white', marginTop: 30, marginLeft: 100 }}>powered by TTG-Group </Text>
                     </View>
                     </ScrollView>
                     

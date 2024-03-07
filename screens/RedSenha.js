@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from "@expo/vector-icons";
 import COLORS  from '../constants/colors';
+import { FontAwesome } from '@expo/vector-icons';
 
 const RedSenha = () => {   
     const [isPasswordShown, setIsPasswordShown] = useState(true);
@@ -33,29 +34,32 @@ const RedSenha = () => {
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <SafeAreaView style={{ flex: 1 }}>
+                
                 <ScrollView>
-                    <Image
-                        source={require('../assets/senha.png')}
-                        style={{ alignSelf: 'center', width: 200, height: 200, marginTop: 30}}
-                    />
+
+                <FontAwesome name="lock" size={100} color="black" style={styles.icon} />                    
+                    
                 
                     <View style={styles.container}>
-                        <Text style={styles.texto}>Nova Senha</Text>
+                        <Text style={styles.texto}></Text>
                         <TextInput
                             style={styles.input}
                             onChangeText={setNovaSenha}
                             value={novaSenha}
                             secureTextEntry={isPasswordShown}
                             placeholder='Insira a Nova Senha'
+                            placeholderTextColor='white'
+                                                      
                             
                         />
-                        <Text style={styles.texto}>Confirmar Senha</Text>
+                        <Text style={styles.texto}></Text>
                         <TextInput
                             style={styles.input}
                             onChangeText={setConfirmarSenha}
                             value={confirmarSenha}
                             secureTextEntry={isPasswordShown}
                             placeholder='Confirmar a Senha'
+                            placeholderTextColor='white'
                         />
 
                     <TouchableOpacity
@@ -67,9 +71,9 @@ const RedSenha = () => {
                         }}
                     >
                         {isPasswordShown ? (
-                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                            <Ionicons name="eye-off" size={24} color={'white'} />
                         ) : (
-                            <Ionicons name="eye" size={24} color={COLORS.black} />
+                            <Ionicons name="eye" size={24} color={'white'} />
                         )}
                     </TouchableOpacity>
 
@@ -82,9 +86,9 @@ const RedSenha = () => {
                         }}
                     >
                         {isPasswordShown ? (
-                            <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                            <Ionicons name="eye-off" size={24} color={'white'} />
                         ) : (
-                            <Ionicons name="eye" size={24} color={COLORS.black} />
+                            <Ionicons name="eye" size={24} color={'white'} />
                         )}
                     </TouchableOpacity>
 
@@ -121,28 +125,31 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 10,
         textAlign: 'auto',
+        color: 'white'
     },
     input: {
         height: 50,
         width: '80%',
-        borderColor: 'gray',
-        borderWidth: 1,
+        borderColor: 'grey',
+        borderBottomWidth: 1,
         paddingHorizontal: 10,
         marginTop: 0,
-        marginBottom: 20,
-        borderRadius: 8,
-        backgroundColor: 'white'
+        marginBottom: 20,              
+        backgroundColor: 'transparent',
+        color: "#fff"
+        
     },
     button: {
-        backgroundColor: '#191970',
+        backgroundColor: '#F1C40F',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 8,
     },
     buttonText: {
-        color: 'white',
-        fontSize: 16,
+        color: '#191970',
+        fontSize: 18,
         textAlign: 'center',
+        fontWeight: 'bold'
     },
 
     logoutButton: {
@@ -153,7 +160,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 5,
-        backgroundColor: '#eee',
+        backgroundColor: '#DCDCDC',
         flexDirection: 'row',
     },
 
@@ -161,6 +168,13 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: 16,
         color: 'black',
+    },
+
+    icon: {
+        alignSelf: 'center',
+        color: 'white',
+        marginTop: 100
+
     },
 });
 

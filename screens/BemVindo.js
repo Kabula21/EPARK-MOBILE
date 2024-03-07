@@ -22,33 +22,36 @@ const BemVindo = ({ navigation }) => {
                 resizeMode: 'cover',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: 50
+                marginTop:20,               
+        
             }}
         >
 
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Image
-                    source={require('../assets/epark.png')}
-                    style={{ width: 220, height: 300, marginBottom: 0 }}
-                />
-                <Text style={{ color: 'black', fontSize: 24, marginBottom: 50 }}>Bem Vindo ao Epark</Text>
+
+            <Image source={require('../assets/epark.png')} style={style.image}/>
+
+                <Text style={{ color: 'white', fontSize: 24, marginBottom: 50 }}>Bem Vindo ao <Text style={{ fontWeight: 'bold', color: "#F1C40F" }}>EPARK</Text></Text>
+
+                <Text style={{ color: 'white', fontSize: 15, marginBottom: 50, justifyContent: 'center', textAlign: 'center' }}>
+                    Entre ou crie sua conta para começar{"\n"}a utilizar os nossos serviços</Text>
 
                 <Button
                     title={isLoading ? "Carregando..." : "Iniciar"}
                     onPress={handleButtonPress}
                     style={{
-                        marginTop: 20,
-                        backgroundColor: '#191970',
+                        marginTop: 10,
+                        backgroundColor: '#F1C40F',
                         height: 50
 
                     }}
                 />
 
-                <Text style={{ color: 'black', marginTop: 150, marginLeft: 0 }}>powered by TTG-Group </Text>
+                <Text style={{ color: 'white', marginTop: 120, marginLeft: 0 }}>powered by TTG-Group </Text>                
 
                 {isLoading && (
                     <View style={styles.activityIndicatorContainer}>
-                        <ActivityIndicator size="large" color="#191970" />
+                        <ActivityIndicator size="large" color="#F1C40F" />
                     </View>
                 )}
             </View>
@@ -63,10 +66,23 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: 'transparent',
         justifyContent: 'center',
         alignItems: 'center',
+        
     },
 });
+
+const style = StyleSheet.create({
+    image: {
+      width: 230,
+      height: 300,
+      marginBottom: 0,
+      shadowColor: '#fff',
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
+    },
+  });
 
 export default BemVindo;
