@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView, StatusBar } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -13,9 +13,7 @@ const RedSenha = () => {
     const [novaSenha, setNovaSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
 
-    const handleSalvarSenha = () => {        
-        // Aqui você pode adicionar a lógica para salvar a nova senha
-        // Após salvar, você pode navegar de volta para a tela de login
+    const handleSalvarSenha = () => {   
         navigation.navigate('Login'); 
     };
 
@@ -32,13 +30,19 @@ const RedSenha = () => {
                     justifyContent: 'center',                
                 }}
             >
+                <StatusBar
+                    barStyle="light-content" // Define o estilo dos ícones de status
+                    backgroundColor="transparent"
+                    translucent={true} // Define a cor de fundo da barra de status
+                />
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <SafeAreaView style={{ flex: 1 }}>
                 
                 <ScrollView>
 
-                <FontAwesome name="lock" size={100} color="black" style={styles.icon} />                    
-                    
+                <FontAwesome name="lock" size={100} color="black" style={styles.icon} />   
+
+                <Text style={styles.title}>Cadastro de Veículo</Text>
                 
                     <View style={styles.container}>
                         <Text style={styles.texto}></Text>
@@ -96,7 +100,7 @@ const RedSenha = () => {
 
 
                         <TouchableOpacity style={styles.button} onPress={handleSalvarSenha}>
-                            <Text style={styles.buttonText}>Salvar Senha</Text>
+                            <Text style={styles.buttonText}>Salvar</Text>
                         </TouchableOpacity>                          
                     </View>
                     </ScrollView>
@@ -121,9 +125,21 @@ const styles = StyleSheet.create({
         paddingTop: 50
         
     },
+
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginTop: 26,
+        textAlign: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white'
+    },
+
     texto: {
         fontSize: 16,
-        marginBottom: 10,
+        marginBottom: 0,
         textAlign: 'auto',
         color: 'white'
     },

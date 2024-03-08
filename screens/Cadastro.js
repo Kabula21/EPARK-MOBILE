@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator, Alert, Pressable, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator, Alert, Pressable, ScrollView, StatusBar } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from '../constants/colors';
 import { Ionicons } from "@expo/vector-icons";
@@ -77,6 +77,13 @@ const Signup = ({ navigation }) => {
                 justifyContent: 'center',
             }}
         >
+
+                <StatusBar
+                    barStyle="light-content" // Define o estilo dos ícones de status
+                    backgroundColor="transparent"
+                    translucent={true} // Define a cor de fundo da barra de status
+                />
+
             <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <ScrollView>

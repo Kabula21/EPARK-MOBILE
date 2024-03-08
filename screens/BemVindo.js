@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable, ImageBackground, Image, ActivityIndicator, StyleSheet } from 'react-native';
+import React, { useState, useEffect} from 'react';
+import { View, Text, Pressable, ImageBackground, Image, ActivityIndicator, TouchableOpacity, StyleSheet, StatusBar, Platform, NativeModules } from 'react-native';
 import Button from '../components/Button';
 
 const BemVindo = ({ navigation }) => {
@@ -14,19 +14,46 @@ const BemVindo = ({ navigation }) => {
         }, 1000); 
     };
 
+    const [statusBarStyle, setStatusBarStyle] = useState('light-content');
+    const [navBarColor, setNavBarColor] = useState('#000'); 
+
+    useEffect(() => {
+      if (Platform.OS === 'android') {        
+        const contrastColor = calculateContrastColor(navBarColor);
+        setStatusBarStyle(contrastColor === 'light' ? 'dark-content' : 'light-content');
+      }
+    }, [navBarColor]);
+
+    const handleStatusBarPress = () => {     
+      setNavBarColor(navBarColor === '#000' ? '#FFF' : '#000');
+    };
+
+    const calculateContrastColor = (color) => {
+      return color === '#000' ? 'dark' : 'light';
+    };
+
     return (
+        
         <ImageBackground
             source={require('../assets/background.png')}
             style={{
                 flex: 1,
                 resizeMode: 'cover',
                 justifyContent: 'center',
-                alignItems: 'center',
-                marginTop:20,               
+                             
         
             }}
         >
-
+        <TouchableOpacity onPress={handleStatusBarPress}>
+        <StatusBar
+          barStyle={statusBarStyle}
+          translucent={true}
+          backgroundColor="transparent"
+        />
+      </TouchableOpacity>
+                   
+                   
+                
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
             <Image source={require('../assets/epark.png')} style={style.image}/>
@@ -42,12 +69,12 @@ const BemVindo = ({ navigation }) => {
                     style={{
                         marginTop: 10,
                         backgroundColor: '#F1C40F',
-                        height: 50
+                        height: 52
 
                     }}
                 />
 
-                <Text style={{ color: 'white', marginTop: 120, marginLeft: 0 }}>powered by TTG-Group </Text>                
+                <Text style={{ color: 'white', marginTop: 150, marginLeft: 0 }}>powered by TTG-Group </Text>                
 
                 {isLoading && (
                     <View style={styles.activityIndicatorContainer}>
@@ -55,7 +82,9 @@ const BemVindo = ({ navigation }) => {
                     </View>
                 )}
             </View>
+            
         </ImageBackground>
+        
     );
 }
 
@@ -77,7 +106,7 @@ const style = StyleSheet.create({
     image: {
       width: 230,
       height: 300,
-      marginBottom: 0,
+      marginTop: 20,
       shadowColor: '#fff',
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 0.5,

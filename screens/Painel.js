@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, Keyboard, StyleSheet, Button, Pressable, ScrollView, Platform } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ImageBackground, TouchableOpacity, Keyboard, StyleSheet, Button, Pressable, ScrollView, Platform , StatusBar} from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -69,6 +69,25 @@ const Painel = () => {
         navigation.navigate('Login');
     };
 
+
+    const [statusBarStyle, setStatusBarStyle] = useState('light-content');
+    const [navBarColor, setNavBarColor] = useState('#000'); 
+
+    useEffect(() => {
+      if (Platform.OS === 'android') {        
+        const contrastColor = calculateContrastColor(navBarColor);
+        setStatusBarStyle(contrastColor === 'white' ? 'dark-content' : 'light-content');
+      }
+    }, [navBarColor]);
+
+    const handleStatusBarPress = () => {     
+      setNavBarColor(navBarColor === '#000' ? '#FFF' : '#000');
+    };
+
+    const calculateContrastColor = (color) => {
+      return color === '#000' ? 'dark' : 'light';
+    };
+
     return (
         <ImageBackground            
             style={{
@@ -76,7 +95,15 @@ const Painel = () => {
                 justifyContent: 'center',                
             }}
         >
-            
+            <TouchableOpacity onPress={handleStatusBarPress}>
+        <StatusBar
+          barStyle={statusBarStyle}
+          translucent={false}
+          backgroundColor="#191970"
+        />
+      </TouchableOpacity>
+
+
             <SafeAreaView style={{ flex: 1 }}>
                 <TouchableOpacity onPress={Keyboard.dismiss} accessible={false}>
                     <View style={styles.menuBar}>
