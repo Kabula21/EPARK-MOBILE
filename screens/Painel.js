@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, Keyboard, StyleSheet, Button, Pressable, ScrollView, Platform , StatusBar} from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, Keyboard, StyleSheet, Modal, Button, Pressable, ScrollView, Platform , StatusBar} from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -16,8 +16,10 @@ const Painel = () => {
     const [dateSaida, setDateSaida] = useState(new Date());
     const [showEntrada, setShowEntrada] = useState(false);
     const [showSaida, setShowSaida] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [estadoAnterior, setEstadoAnterior] = useState(null);
     const [vagasOcupadas, setVagasOcupadas] = useState(0);
-    const [vagasLivres, setVagasLivres] = useState(20);
+    const [vagasLivres, setVagasLivres] = useState(30);
 
     const onChange = (event, selectedDateTime) => {
         const currentDate = selectedDateTime || date;
@@ -58,12 +60,27 @@ const Painel = () => {
 
     const gerarTicket = () => {
         if (vagasLivres > 0) {
-          setVagasOcupadas(vagasOcupadas + 1);
-          setVagasLivres(vagasLivres - 1);
+            setVagasOcupadas(vagasOcupadas + 1);
+            setVagasLivres(vagasLivres - 1);
+            setModalVisible(true);
+            setEstadoAnterior({ vagasLivres, vagasOcupadas }); 
         } else {
-          alert("Não há vagas disponíveis.");
+            alert("Não há vagas disponíveis."); 
         }
-      };
+    };
+
+    const handleConfirmar = () => {
+        setModalVisible(false);
+        navigation.navigate("Tickets");
+        
+    };
+
+    const handleCancelar = () => {
+        if (estadoAnterior !== null) {
+            setVagasLivres(estadoAnterior.vagasLivres); 
+            setVagasOcupadas(estadoAnterior.vagasOcupadas);         }
+        setModalVisible(false);
+    };
 
     const handleLogout = () => {
         navigation.navigate('Login');
@@ -165,12 +182,13 @@ const Painel = () => {
                         <Text style={{ fontSize: 15 }}>LIVRE</Text>
                     </View>
                     <View style={{ alignItems: 'center', marginRight: 50 }}>
-                        <Text style={{ fontSize: 50, color: "#191970", fontWeight: "bold" }}>20</Text>
-                        <Text style={{ fontSize: 15 }}>TOTAL</Text>
+                    <Text style={{ fontSize: 50, color: "#191970", fontWeight: "bold" }}>30</Text>
+                    <Text style={{ fontSize: 15 }}>TOTAL</Text>
+                    <Text style={{ fontSize: 10, marginTop: 5 }}>10 Especiais*</Text>
                     </View>
-                </View>
+                    </View>
                 </View>  
-                <Text style={{ color: '#C0C0C0', marginTop: 10, fontSize: 15, marginBottom: -10, marginLeft: 17 }}>Definir: Data / Hora</Text>                              
+                <Text style={{ color: '#A9A9A9', marginTop: 10, fontSize: 15, marginBottom: -10, marginLeft: 17 }}>Definir: Data / Hora</Text>                              
 
                 <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop: 0 }}>
                     <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center', marginBottom: 50 }}>
@@ -212,24 +230,50 @@ const Painel = () => {
                 />
             )}
 
-                <Text style={{ color: '#C0C0C0', marginTop: 10, fontSize: 15, marginBottom: -10, marginLeft: 17 }}>Gere sua Reserva</Text>
+                <Text style={{ color: '#A9A9A9', marginTop: 10, fontSize: 15, marginBottom: -10, marginLeft: 17 }}>Gere sua Reserva</Text>
 
-                <TouchableOpacity
-                    onPress={() => { gerarTicket(); navigation.navigate("Tickets"); }}
-                    style={{marginTop: 30, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
-                        borderRadius: 3, backgroundColor: '#F1C40F',flexDirection: 'row',}}>
-                       
-                        <View style={{ marginRight: 8 }}>
-                            <Icon name="ticket" size={30} color="#191970" />
-                        </View>
-                        
-                        <View style={{ borderWidth: 2, height: '100%', borderStyle: 'dashed', borderColor: 'white', borderRadius: 1}} />
-                        
-                        <View style={{ marginLeft: 15 }}>
-                            <Text style={{ color: '#191970', fontWeight: 'bold' }}>Gerar Ticket</Text>
-                        </View>
+            <TouchableOpacity
+                onPress={gerarTicket}
+                style={{
+                    marginTop: 30, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
+                    borderRadius: 3, backgroundColor: '#F1C40F', flexDirection: 'row',
+                }}>
 
-                </TouchableOpacity>
+                <View style={{ marginRight: 8 }}>
+                    <Icon name="ticket" size={30} color="#191970" />
+                </View>
+
+                <View style={{ borderWidth: 2, height: '100%', borderStyle: 'dashed', borderColor: 'white', borderRadius: 1 }} />
+
+                <View style={{ marginLeft: 15 }}>
+                    <Text style={{ color: '#191970', fontWeight: 'bold' }}>Gerar Ticket</Text>
+            </View>
+
+            </TouchableOpacity>
+
+
+                <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(true);
+                }}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                        <Text>Deseja Confirmar?</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, }}>
+                        <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleConfirmar}>
+                                <Text style={{ color: 'white' }}>Sim</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleCancelar}>
+                                <Text style={{ color: 'white' }}>Não</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
 
                 <View style={{ flexDirection: 'row', marginTop: 36, marginLeft: 85 }}>
                     <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>

@@ -74,7 +74,7 @@ const BemVindo = ({ navigation }) => {
                     }}
                 />
 
-                <Text style={{ color: 'white', marginTop: 150, marginLeft: 0 }}>powered by TTG-Group </Text>                
+                <Text style={{ color: 'white', marginTop: 120, marginLeft: 0 }}>powered by TTG-Group </Text>                
 
                 {isLoading && (
                     <View style={styles.activityIndicatorContainer}>
@@ -106,7 +106,7 @@ const style = StyleSheet.create({
     image: {
       width: 230,
       height: 300,
-      marginTop: 20,
+      marginTop: 50,
       shadowColor: '#fff',
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 0.5,

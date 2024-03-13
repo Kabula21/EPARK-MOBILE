@@ -162,9 +162,9 @@ const Card = () => {
                     </TouchableOpacity>
 
 
-            <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
-                <Icon name="sign-out" size={24} color="black" />
-                <Text style={styles.logoutText}>Voltar</Text>
+                <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
+                    <Icon name="sign-out" size={24} color="black" />
+                    <Text style={styles.logoutText}>Voltar</Text>
                 </TouchableOpacity>
 
             </ScrollView>               
@@ -194,7 +194,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 26,
+        marginTop: 30,
+        paddingBottom: 15,
         textAlign: 'center',
         alignSelf: 'center',
         justifyContent: 'center',
@@ -212,6 +213,7 @@ const styles = StyleSheet.create({
 
     card: {
         backgroundColor: '#fff',
+        height:300,
         borderRadius: 8,
         padding: 16,
         marginVertical: 30,
@@ -248,6 +250,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     button: {
+        flex: 1,
         width: '70%',
         height: 40,
         backgroundColor: '#191970',
@@ -256,7 +259,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 60,
         marginTop: 30,
         borderRadius: 5,
-        marginBottom: 135
+        marginBottom: 5000
+        
       },
 
     buttonText: {
@@ -273,7 +277,7 @@ const styles = StyleSheet.create({
 
     logoutButton: {
         position: 'absolute',
-        bottom: 0,
+        top: 635,
         left: 0,
         right: 0,
         alignItems: 'center',

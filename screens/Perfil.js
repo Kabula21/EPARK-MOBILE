@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, Pressable } from 'react-native';
+import React, { useState, useEffect, } from 'react';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, Pressable, value } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
-
+import RNPickerSelect from 'react-native-picker-select';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const Perfil = () => {
     const navigation = useNavigation(); 
@@ -13,11 +14,20 @@ const Perfil = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [foto, setFoto] = useState(null);
+    const [selectedOption, setSelectedOption] = useState('');    
     
 
     useEffect(() => {
+        AsyncStorage.getItem('selectedOption').then(value => {
+            if (value) {
+              setSelectedOption(value);
+            }
+          });
         carregarDadosSalvos();
         carregarFotoSalva();
+            if (value) {
+              setSelectedOption(value);
+            }
     }, []);
 
     const carregarDadosSalvos = async () => {
@@ -68,11 +78,17 @@ const Perfil = () => {
         }
     };
 
+    const handleChange = (value) => {
+        setSelectedOption(value);        
+        AsyncStorage.setItem('selectedOption', value);
+      };
+
+
     const handleSubmit = () => {
         console.log('Nome:', nome);
         console.log('Email:', email);
         console.log('Senha:', senha);
-        
+        console.log('Necessita Vaga Especial:', necessitaVagaEspecial);
     };
 
     return (  
@@ -121,48 +137,58 @@ const Perfil = () => {
                 </View>
                 
                 <View style={styles.separator}></View>
+               
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={styles.container}>
-                <TouchableOpacity onPress={handleChoosePhoto} style={styles.profileImageContainer}>
-                    {foto ? (
-                        <Image source={{ uri: foto }} style={styles.profileImage} />
-                    ) : (
-                        <>
-                            <Icon name="camera" size={30} color="gray" style={styles.cameraIcon} />
-                            <Text style={styles.addPhotoText}>Adicionar Foto</Text>
-                        </>
-                    )}
-                </TouchableOpacity>
 
-                        <Text style={styles.title}>Dados Pessoais</Text>
-                        
-                        <Text style={{ color: 'black', marginTop: 10, fontSize: 25 }}>Nome do Perfil </Text>
-                         <Text style={{ color: 'black', marginTop: 10, fontSize: 25 }}>Email do Usuário</Text>
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={handleChoosePhoto} style={styles.profileImageContainer}>
+                        {foto ? (
+                            <Image source={{ uri: foto }} style={styles.profileImage} />
+                        ) : (
+                            <>
+                                <Icon name="camera" size={30} color="gray" style={styles.cameraIcon} />
+                                <Text style={styles.addPhotoText}>Adicionar Foto</Text>
+                            </>
+                        )}
+                    </TouchableOpacity>
 
-                         
-                    <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            marginVertical: 22
-                        }}>
-                    <Text style={{ fontSize: 16, marginTop: 30, color: 'black' }}>Redefina sua senha</Text>
-                            <Pressable
-                               onPress={() => navigation.navigate("RedSenha")}
-                            >
-                                <Text style={{
-                                    fontSize: 16,
-                                    color: '#F1C40F',
-                                    fontWeight: 'bold',
-                                    marginLeft: 6,
-                                    marginTop: 30,
-                                }}>Aqui!</Text>
-                            </Pressable>
-                        </View>
+                    <Text style={styles.title}>Dados Pessoais</Text>
 
-                         <Text style={{ color: 'black', marginTop: 100 }}>powered by TTG-Group </Text>
+                <Text style={{ color: 'black', marginTop: 10, fontSize: 20 }}>Usuário</Text>
+                <Text style={{ color: 'black', marginTop: 10, fontSize: 20 }}>Email</Text> 
+
+                <View style={style.container}>
+                    <Text style={style.label}>Selecione Vaga Preferencial:</Text>
+                    <View style={style.pickerContainer}>
+                        <FontAwesome5 name="caret-down" size={24} color="#666" />
+                        <RNPickerSelect
+                        onValueChange={(value) => handleChange(value)}
+                        value={selectedOption}
+                        style={{
+                            inputAndroid: style.picker,
+                        }}
+                        useNativeAndroidPickerStyle={false}
+                        fixAndroidTouchableBug={true}
+                        items={[
+                            { label: 'Idoso', value: 'idoso' },
+                            { label: 'Cadeirante', value: 'cadeirante' },
+                        ]}
+                        />
+                        </View>  
                     </View>
-                    
-                </TouchableWithoutFeedback>
+
+                <View style={{flexDirection: 'row',justifyContent: 'center',alignItems: 'center',marginVertical: 0}}>     
+                    <Text style={{ fontSize: 16, marginTop: 30, color: 'black',  }}>Redefina sua senha</Text>
+                    <Pressable
+                        onPress={() => navigation.navigate("RedSenha")}>
+                        <Text style={{ fontSize: 16,color: '#F1C40F',fontWeight: 'bold',marginLeft: 6,marginRight: 0, marginTop: 30,}}>Aqui!</Text>
+                    </Pressable>
+                </View>
+
+                <Text style={{ color: 'black', marginTop: 50, marginBottom: 30 }}>powered by TTG-Group</Text>
+            </View>
+        </TouchableWithoutFeedback>
+
                 
             </SafeAreaView>
         </ImageBackground>
@@ -174,7 +200,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 0,
+        paddingTop: 30,
     },
     menuBar: {
         flexDirection: 'row',
@@ -191,8 +217,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-        color: '#191970'
-        
     },
 
     activeButton: {
@@ -259,6 +283,52 @@ const styles = StyleSheet.create({
         borderBottomEndRadius: 100,
         borderBottomStartRadius: 100
       },
+
+     
 });
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+  label: {
+    fontSize: 20,
+    marginBottom: 10,
+    marginTop: 0,
+    color: '#191970'
+  },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 3,
+    paddingHorizontal: 70,
+    marginBottom: 20,    
+    flexDirection: 'row',
+    alignItems: 'center',
+  },  
+
+  picker: {
+    fontSize: 16, 
+    paddingVertical: 0, 
+    paddingHorizontal: 10,    
+    borderColor: '#ccc',
+    borderRadius: 10, 
+    color: '#333', 
+    
+  },
+
+  selectedOptionText: {
+    marginTop: 20,
+    fontSize: 16,
+    
+  },
+  
+});
+
+
+
 
 export default Perfil;
