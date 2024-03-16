@@ -1,12 +1,15 @@
 import React, { useState, useEffect, } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, Pressable, value } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, Pressable, value, Button } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
-import RNPickerSelect from 'react-native-picker-select';
-import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
+
+
 
 const Perfil = () => {
     const navigation = useNavigation(); 
@@ -14,15 +17,11 @@ const Perfil = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [foto, setFoto] = useState(null);
-    const [selectedOption, setSelectedOption] = useState('');    
+    const [selectedOption, setSelectedOption] = useState('');
+    const [pickedDocument, setPickedDocument] = useState(null);  
     
 
-    useEffect(() => {
-        AsyncStorage.getItem('selectedOption').then(value => {
-            if (value) {
-              setSelectedOption(value);
-            }
-          });
+    useEffect(() => {        
         carregarDadosSalvos();
         carregarFotoSalva();
             if (value) {
@@ -78,11 +77,7 @@ const Perfil = () => {
         }
     };
 
-    const handleChange = (value) => {
-        setSelectedOption(value);        
-        AsyncStorage.setItem('selectedOption', value);
-      };
-
+   
 
     const handleSubmit = () => {
         console.log('Nome:', nome);
@@ -155,37 +150,29 @@ const Perfil = () => {
                     <Text style={styles.title}>Dados Pessoais</Text>
 
                 <Text style={{ color: 'black', marginTop: 10, fontSize: 20 }}>Usuário</Text>
-                <Text style={{ color: 'black', marginTop: 10, fontSize: 20 }}>Email</Text> 
+                <Text style={{ color: 'black', marginTop: 30, fontSize: 20 }}>Email</Text> 
 
-                <View style={style.container}>
-                    <Text style={style.label}>Selecione Vaga Preferencial:</Text>
-                    <View style={style.pickerContainer}>
-                        <FontAwesome5 name="caret-down" size={24} color="#666" />
-                        <RNPickerSelect
-                        onValueChange={(value) => handleChange(value)}
-                        value={selectedOption}
-                        style={{
-                            inputAndroid: style.picker,
-                        }}
-                        useNativeAndroidPickerStyle={false}
-                        fixAndroidTouchableBug={true}
-                        items={[
-                            { label: 'Idoso', value: 'idoso' },
-                            { label: 'Cadeirante', value: 'cadeirante' },
-                        ]}
-                        />
-                        </View>  
-                    </View>
+               
 
                 <View style={{flexDirection: 'row',justifyContent: 'center',alignItems: 'center',marginVertical: 0}}>     
-                    <Text style={{ fontSize: 16, marginTop: 30, color: 'black',  }}>Redefina sua senha</Text>
+                    <Text style={{ fontSize: 16, marginTop: 50, color: 'black',  }}>Redefina sua senha</Text>
                     <Pressable
                         onPress={() => navigation.navigate("RedSenha")}>
-                        <Text style={{ fontSize: 16,color: '#F1C40F',fontWeight: 'bold',marginLeft: 6,marginRight: 0, marginTop: 30,}}>Aqui!</Text>
+                        <Text style={{ fontSize: 16,color: '#F1C40F',fontWeight: 'bold',marginLeft: 6,marginRight: 0, marginTop: 50,}}>Aqui!</Text>
                     </Pressable>
                 </View>
 
-                <Text style={{ color: 'black', marginTop: 50, marginBottom: 30 }}>powered by TTG-Group</Text>
+
+               
+
+                <View style={{ flexDirection: 'row', marginTop: 50, marginLeft: 0 }}>
+                    <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>
+                    <Pressable onPress={() => navigation.navigate("Termos")}>
+                        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Acesse</Text>
+                    </Pressable>
+                </View>
+
+                <Text style={{ color: 'black', marginTop: 40, marginBottom: 30 }}>powered by TTG-Group</Text>
             </View>
         </TouchableWithoutFeedback>
 
@@ -283,7 +270,6 @@ const styles = StyleSheet.create({
         borderBottomEndRadius: 100,
         borderBottomStartRadius: 100
       },
-
      
 });
 

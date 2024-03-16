@@ -43,16 +43,12 @@ const Login = ({ navigation }) => {
 
     const handleCreateAccount = () => {
         setIsLoading(true);
-        // Implement your logic for creating account here
-        // For demonstration purposes, I'm just navigating to the "Cadastro" screen
         navigation.navigate("Cadastro");
         setIsLoading(false);
     };
 
     const handleForgotPassword = () => {
         setIsLoading(true);
-        // Implement your logic for forgot password here
-        // For demonstration purposes, I'm just navigating to the "RedSenha" screen
         navigation.navigate("RedSenha");
         setIsLoading(false);
     };
@@ -76,7 +72,7 @@ const Login = ({ navigation }) => {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <ScrollView>                
                     <View style={{ flex: 1, marginHorizontal: 22, }}>
-                        {isLoading && <ActivityIndicator size="large" color="#191970" style={{ position: 'absolute', alignSelf: 'center', marginTop: '50%' }} />}
+                        {isLoading && <ActivityIndicator size="large" color="#F1C40F" style={{ position: 'absolute', alignSelf: 'center', marginTop: '60%' }} />}
                         <View style={{ marginVertical: 22 }}>
                             <Text style={{
                                 fontSize: 22,

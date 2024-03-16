@@ -10,7 +10,7 @@ const Termos = () => {
     const [texto2, setTexto2] = useState('');
 
     const handlePainel = () => {        
-        navigation.navigate('Painel'); 
+        navigation.navigate('Perfil'); 
     };
 
     const [statusBarStyle, setStatusBarStyle] = useState('light-content');

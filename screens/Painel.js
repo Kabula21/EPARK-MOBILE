@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, Keyboard, StyleSheet, Modal, Button, Pressable, ScrollView, Platform , StatusBar} from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
+import Checkbox from "expo-checkbox"
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePicker from "@react-native-community/datetimepicker";
+import RNPickerSelect from 'react-native-picker-select';
+import { FontAwesome5 } from '@expo/vector-icons';
+
 
 const Painel = () => {
     const navigation = useNavigation();
+    const [isChecked, setIsChecked] = useState(false);
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
@@ -14,12 +19,17 @@ const Painel = () => {
     const [exitTime, setExitTime] = useState(null);
     const [dateEntrada, setDateEntrada] = useState(new Date());
     const [dateSaida, setDateSaida] = useState(new Date());
-    const [showEntrada, setShowEntrada] = useState(false);
-    const [showSaida, setShowSaida] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [estadoAnterior, setEstadoAnterior] = useState(null);
     const [vagasOcupadas, setVagasOcupadas] = useState(0);
     const [vagasLivres, setVagasLivres] = useState(30);
+    const [statusBarStyle, setStatusBarStyle] = useState('light-content');
+    const [navBarColor, setNavBarColor] = useState('#000');
+    const dataAtual = new Date();    
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const textoData = dataAtual.toLocaleDateString('pt-BR', options).replace(/ de /g, ' ');
+    
+    
 
     const onChange = (event, selectedDateTime) => {
         const currentDate = selectedDateTime || date;
@@ -87,9 +97,6 @@ const Painel = () => {
     };
 
 
-    const [statusBarStyle, setStatusBarStyle] = useState('light-content');
-    const [navBarColor, setNavBarColor] = useState('#000'); 
-
     useEffect(() => {
       if (Platform.OS === 'android') {        
         const contrastColor = calculateContrastColor(navBarColor);
@@ -104,6 +111,25 @@ const Painel = () => {
     const calculateContrastColor = (color) => {
       return color === '#000' ? 'dark' : 'light';
     };
+    
+
+    const [open, setOpen] = useState(false);
+
+    const isOpen = () => {
+        const hour = now.getHours();
+        return hour >= 6 && hour < 22;
+    };
+
+    useEffect(() => {
+        setOpen(isOpen());
+        const interval = setInterval(() => {
+            setOpen(isOpen());
+        }, 60000); 
+
+        return () => clearInterval(interval);
+    }, []);
+
+    
 
     return (
         <ImageBackground            
@@ -159,66 +185,73 @@ const Painel = () => {
                             <Text style={styles.buttonText}>Tíckets</Text>
                         </TouchableOpacity>
                     </View>
-
                     <View style={styles.separator}></View> 
                 </TouchableOpacity>
-
-                <ScrollView>
+            <ScrollView>
 
                 
-                <View style={{ flexDirection: 'column', marginTop: 5,  marginLeft: 15, justifyContent: 'center', backgroundColor: '#FFF', 
+                <View style={{ flexDirection: 'column', marginTop: 10,  marginLeft: 15, justifyContent: 'center', backgroundColor: '#FFF', 
                 height: 130, width: 370, borderRadius: 5, borderBottomWidth: 2, borderBottomColor: '#DCDCDC'}}>
+
                     <View style={{ backgroundColor: 'transparent', height: 40, width: '100%', borderTopLeftRadius: 5, borderTopRightRadius: 5, marginTop: 0 }}>
-                        <Text style={{ color: '#191970',fontWeight: 'bold',  marginLeft: 10, marginTop: 20, fontSize: 16 }}>Status</Text>
+                        <Text style={{ color: '#191970',fontWeight: 'bold',  marginLeft: 10, marginTop: 28, fontSize: 16, marginBottom: -10 }}>Status</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginLeft: 50, marginBottom: 30 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginLeft: 50, marginBottom: 31 }}>
                     <View style={{ alignItems: 'center', paddingRight: 25, marginRight: 25, borderRightWidth: 1, borderColor: '#191970' }}>
                         <Text style={{ fontSize: 50, color: "red", fontWeight: "bold" }}>{vagasOcupadas}</Text>
                         <Text style={{ fontSize: 15 }}>OCUPADAS</Text>
                     </View>
+
                     <View style={{ alignItems: 'center', paddingRight: 25, marginRight: 25, borderRightWidth: 1, borderColor: '#191970' }}>
                         <Text style={{ fontSize: 50, color: "green", fontWeight: "bold" }}>{vagasLivres}</Text>
                         <Text style={{ fontSize: 15 }}>LIVRE</Text>
                     </View>
+
                     <View style={{ alignItems: 'center', marginRight: 50 }}>
-                    <Text style={{ fontSize: 50, color: "#191970", fontWeight: "bold" }}>30</Text>
-                    <Text style={{ fontSize: 15 }}>TOTAL</Text>
-                    <Text style={{ fontSize: 10, marginTop: 5 }}>10 Especiais*</Text>
-                    </View>
+                        <Text style={{ fontSize: 50, color: "#191970", fontWeight: "bold" }}>30</Text>
+                        <Text style={{ fontSize: 15 }}>TOTAL</Text>
+                        <Text style={{ fontSize: 10, marginTop: 5 }}>10 Especiais*</Text>
+                        </View>
                     </View>
                 </View>  
-                <Text style={{ color: '#A9A9A9', marginTop: 10, fontSize: 15, marginBottom: -10, marginLeft: 17 }}>Definir: Data / Hora</Text>                              
+                
 
-                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop: 0 }}>
-                    <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center', marginBottom: 50 }}>
-                        <TouchableOpacity onPress={() => showMode('date')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
-                            <Icon name="calendar" size={50} color="white" />
-                            <Text style={{ color: 'white' }}>Data Entrada</Text>
-                        </TouchableOpacity>
+                <View style={styles.container}>
+                    <View style={styles.quadroLaranja}>
+                        <Icon name="calendar" size={20} color="#FFFFFF" style={styles.iconeData} />                        
                     </View>
+                    <Text style={styles.textoData}>{textoData}</Text>
+                </View> 
+                    
+
+                <View style={{ alignItems: 'flex-end', justifyContent: 'center', marginTop: -39, marginRight: 10 }}>
+            <Text style={{ color: 'grey', textAlign: 'center' }}>
+                Funcionamento: {!open ? <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>FECHADO</Text> : <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 15 }}>ABERTO</Text>}
+            </Text>
+            <Text style={{ color: 'grey', textAlign: 'center' }}>Aberto das 6h às 22h</Text>
+        </View>
+
+
+                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
                     <View style={{ width: '40%', alignItems: 'center' }}>
-                        <TouchableOpacity onPress={() => showMode('time')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
+
+                        <TouchableOpacity onPress={() => showMode('time')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 8 }}>
                             <Icon name="clock-o" size={50} color="white" />
-                            <Text style={{ color: 'white' }}>Hora Entrada</Text>
+                            <Text style={{ color: 'white' }}>Entrada</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View>  
+
+                    <View style={{ alignItems: 'center' }}><Icon name="exchange" size={25} color="grey" /></View>                  
+
                     <View style={{ width: '40%', alignItems: 'center' }}>
-                        <TouchableOpacity onPress={() => showMode('date')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
-                            <Icon name="calendar" size={50} color="white" />
-                            <Text style={{ color: 'white' }}>Data Saída</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ width: '40%', alignItems: 'center' }}>
-                        <TouchableOpacity onPress={() => showMode('time')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
+                        <TouchableOpacity onPress={() => showMode('time')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 8 }}>
                             <Icon name="clock-o" size={50} color="white" />
-                            <Text style={{ color: 'white' }}>Hora Saída</Text>
+                            <Text style={{ color: 'white' }}>Saída</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-
-
-                {show && (
+            {show && (
                 <DateTimePicker
                     testID="dateTimePicker"
                     value={date}
@@ -230,12 +263,30 @@ const Painel = () => {
                 />
             )}
 
-                <Text style={{ color: '#A9A9A9', marginTop: 10, fontSize: 15, marginBottom: -10, marginLeft: 17 }}>Gere sua Reserva</Text>
+
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginVertical: 50,
+                    marginBottom: 0,
+                    marginLeft: 100
+                    
+                }}>
+                    <Text style={{ color: 'black'}}>Precisa de Vaga Preferencial?</Text>
+                    <Checkbox
+                        style={{ marginRight: 0, marginLeft: 10 }}
+                        value={isChecked}
+                        onValueChange={setIsChecked}
+                        color= 'green'
+                    />                    
+                </View>
+
+
 
             <TouchableOpacity
                 onPress={gerarTicket}
                 style={{
-                    marginTop: 30, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
+                    marginTop: 50, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
                     borderRadius: 3, backgroundColor: '#F1C40F', flexDirection: 'row',
                 }}>
 
@@ -253,36 +304,28 @@ const Painel = () => {
 
 
                 <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(true);
-                }}
-            >
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-                        <Text>Deseja Confirmar?</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, }}>
-                        <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleConfirmar}>
-                                <Text style={{ color: 'white' }}>Sim</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleCancelar}>
-                                <Text style={{ color: 'white' }}>Não</Text>
-                            </TouchableOpacity>
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        setModalVisible(true);
+                    }}
+                >
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                        <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                            <Text>Deseja Confirmar?</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, }}>
+                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleConfirmar}>
+                                    <Text style={{ color: 'white' }}>Sim</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleCancelar}>
+                                    <Text style={{ color: 'white' }}>Não</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </Modal>
-
-                <View style={{ flexDirection: 'row', marginTop: 36, marginLeft: 85 }}>
-                    <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>
-                    <Pressable onPress={() => navigation.navigate("Termos")}>
-                        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Acesse</Text>
-                    </Pressable>
-                </View>
-
-                </ScrollView>
+                </Modal>
+            </ScrollView>
 
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                     <Icon name="sign-out" size={24} color="black" />
@@ -342,6 +385,40 @@ const styles = StyleSheet.create({
         borderBottomEndRadius: 100,
         borderBottomStartRadius: 100
       },
+
+
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start', 
+        alignItems: 'center',
+        paddingTop: 10,
+        marginLeft: 10
+    },
+    quadroLaranja: {
+        backgroundColor: 'transparent',        
+        justifyContent: 'center',
+        alignItems: 'center',                      
+        marginBottom: 20,
+        marginTop: 0,
+        marginLeft: 10,
+        marginRight: 10, 
+    },
+   
+    textoData: {
+        fontSize: 14,
+        fontStyle: 'italic',
+        textTransform: 'capitalize',
+        marginBottom: 20,
+        marginTop: 0,
+        marginLeft: -5,
+        color: 'grey' 
+    },
+    iconeData: {
+        fontSize: 14, 
+        marginRight: 0, 
+        marginLeft: 0, 
+        color: '#191970'
+    }
 });
 
 export default Painel;
