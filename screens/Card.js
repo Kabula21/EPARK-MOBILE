@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView} from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView, Modal} from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,6 +16,7 @@ const Card = () => {
     const [nome, setNome] = useState('');
     const [validade, setValidade] = useState('');
     const [cvv, setCvv] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
 
     const handleSubmit = () => {
         console.log('Número:', numero);
@@ -43,6 +44,11 @@ const Card = () => {
       const handlePainel = () => {        
         navigation.navigate('Painel'); 
     };
+
+    const handleConfirmar = () => {
+        setModalVisible(true); 
+    };
+    
 
     return (  
         <ImageBackground            
@@ -157,9 +163,31 @@ const Card = () => {
                 
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                        <Text style={styles.buttonSend}>Cadastrar</Text>
-                    </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={handleConfirmar}>
+                <Text style={styles.buttonText}>Cadastrar</Text>
+            </TouchableOpacity>
+
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(false); 
+                }}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalText}>Cadastrado com Sucesso</Text>
+                        <TouchableOpacity
+                            style={styles.closeButton}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={styles.closeButtonText}>Fechar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
 
 
                 <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
@@ -302,6 +330,37 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalText: {
+        fontSize: 18,
+        marginBottom: 10,
+    },
+    closeButton: {
+        backgroundColor: '#191970',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 10,
+    },
+    closeButtonText: {
+        color: 'white',
+        fontSize: 16,
     },
 });
 

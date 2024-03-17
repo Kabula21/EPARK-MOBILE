@@ -9,16 +9,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-
-
 const Perfil = () => {
     const navigation = useNavigation(); 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [foto, setFoto] = useState(null);
-    const [selectedOption, setSelectedOption] = useState('');
-    const [pickedDocument, setPickedDocument] = useState(null);  
     
 
     useEffect(() => {        
@@ -77,7 +73,9 @@ const Perfil = () => {
         }
     };
 
+    
    
+        
 
     const handleSubmit = () => {
         console.log('Nome:', nome);
@@ -149,28 +147,43 @@ const Perfil = () => {
 
                     <Text style={styles.title}>Dados Pessoais</Text>
 
-                <Text style={{ color: 'black', marginTop: 10, fontSize: 20 }}>Usuário</Text>
-                <Text style={{ color: 'black', marginTop: 30, fontSize: 20 }}>Email</Text> 
+                <Text style={{ color: 'black', marginTop: 10, fontSize: 20 }}>Anderson Fernandes</Text>
+                <Text style={{ color: 'black', marginTop: 0, fontSize: 20 }}>adm@adm.com</Text> 
 
                
 
-                <View style={{flexDirection: 'row',justifyContent: 'center',alignItems: 'center',marginVertical: 0}}>     
-                    <Text style={{ fontSize: 16, marginTop: 50, color: 'black',  }}>Redefina sua senha</Text>
-                    <Pressable
-                        onPress={() => navigation.navigate("RedSenha")}>
-                        <Text style={{ fontSize: 16,color: '#F1C40F',fontWeight: 'bold',marginLeft: 6,marginRight: 0, marginTop: 50,}}>Aqui!</Text>
-                    </Pressable>
-                </View>
+            <View style={{ borderRadius: 5, borderWidth: 1, padding: 15, borderColor: 'grey',marginTop: 30 }}>
+            <Text style={{ color: 'grey', fontSize: 15, marginLeft:100,  marginTop: -27, borderWidth: 0, backgroundColor: 'white', width: 97, marginBottom: -25}}>Pré-definições</Text>
+
+            <View style={{flexDirection: 'row',justifyContent: 'center',alignItems: 'center'}}>
+                <Icon name="play" size={10} color="#000" style={{marginRight: 10, marginTop: 30}}/>
+                <Text style={{ fontSize: 16, marginTop: 30, color: 'black' }}>Redefinição de senha</Text>
+                <Pressable
+                    onPress={() => navigation.navigate("RedSenha")}>
+                    <Text style={{ fontSize: 16, color: '#191970', fontWeight: 'bold', marginLeft: 6, marginRight: 0, marginTop: 30 }}>Aqui!*</Text>
+                </Pressable>
+            </View>
 
 
-               
+            <View style={{ flexDirection: 'row', marginTop: 30, marginLeft: 0 }}>
+                <Icon name="play" size={10} color="#000" style={{marginRight: 10, marginTop: 5}}/>
+                <Text style={{ color: 'black', fontSize: 16 }}>Tarifas do Estacionamento </Text>
+                <Pressable onPress={() => navigation.navigate("Termos")}>
+                    <Text style={{ color: '#191970', fontWeight: 'bold', fontSize: 16 }}>Acesse!*</Text>
+                </Pressable>
+            </View>
+            
+            <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
+                <Icon name="play" size={10} color="#000" style={{marginRight: 10, marginTop: 30}}/>
+                <Text style={{color: 'black',fontSize: 16, textAlign: 'center', marginTop: 30,}}>Doc. Vaga Preferencial</Text>
+                <TouchableOpacity style={{marginLeft: 10, marginTop: 30,}}> 
+                    <Button title="Selecionar" onPress={handleChoosePhoto}/>
+                </TouchableOpacity>
+            </View> 
+        </View>
+            
 
-                <View style={{ flexDirection: 'row', marginTop: 50, marginLeft: 0 }}>
-                    <Text style={{ color: 'black' }}>Tarifas do Estacionamento </Text>
-                    <Pressable onPress={() => navigation.navigate("Termos")}>
-                        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Acesse</Text>
-                    </Pressable>
-                </View>
+                
 
                 <Text style={{ color: 'black', marginTop: 40, marginBottom: 30 }}>powered by TTG-Group</Text>
             </View>
@@ -188,6 +201,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: 30,
+        paddingBottom: 0
     },
     menuBar: {
         flexDirection: 'row',
@@ -203,7 +217,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: 0,
     },
 
     activeButton: {
@@ -256,7 +270,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ccc',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 40,
+        marginBottom: 10,
     },
     cameraIcon: {
         marginBottom: 12,
@@ -270,49 +284,11 @@ const styles = StyleSheet.create({
         borderBottomEndRadius: 100,
         borderBottomStartRadius: 100
       },
+
      
 });
 
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    
-  },
-  label: {
-    fontSize: 20,
-    marginBottom: 10,
-    marginTop: 0,
-    color: '#191970'
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 3,
-    paddingHorizontal: 70,
-    marginBottom: 20,    
-    flexDirection: 'row',
-    alignItems: 'center',
-  },  
 
-  picker: {
-    fontSize: 16, 
-    paddingVertical: 0, 
-    paddingHorizontal: 10,    
-    borderColor: '#ccc',
-    borderRadius: 10, 
-    color: '#333', 
-    
-  },
-
-  selectedOptionText: {
-    marginTop: 20,
-    fontSize: 16,
-    
-  },
-  
-});
 
 
 

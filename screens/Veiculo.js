@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView, Modal } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 
 const Veiculo = () => {
-    const navigation = useNavigation(); // Utilização do hook useNavigation
+    const navigation = useNavigation(); 
     const [marca, setMarca] = useState('');
     const [modelo, setModelo] = useState('');
     const [ano, setAno] = useState('');
-    const [plate, setPlate] = useState('');    
+    const [plate, setPlate] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);    
 
     const handleSubmit = () => {
         console.log('Marca:', marca);
@@ -41,6 +42,17 @@ const Veiculo = () => {
 
       const handlePainel = () => {        
         navigation.navigate('Painel'); 
+    };
+
+
+    const handleConfirmar = () => {
+        setModalVisible(true);
+        navigation.navigate("Veículo");
+        
+    };
+
+    const handleCancelar = () => {
+        setModalVisible(false);
     };
 
     return (  
@@ -91,13 +103,13 @@ const Veiculo = () => {
             <ScrollView>
                 
 
-                <Text style={styles.title}>Cadastro de Veículo</Text>
+                <Text style={styles.title}>Cadastro de Veículos</Text>
                 <View style={styles.separator}></View>                
                 <View style={styles.card}>               
                 <View style={{ backgroundColor: '#191970', height: 40, borderTopLeftRadius: 5, borderTopRightRadius: 5, width: 359, marginLeft: -15, marginTop: -12 }}> 
                 <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
                         <View style={styles.infoIcon}><Icon name="info-circle" size={25} color="white" /></View>
-                        <Text style={{ color: 'white', marginLeft: 40 }}>Informações Obrigatórias*</Text>
+                        <Text style={{ color: 'white', marginLeft: 40 }}>Cadastre um ou mais veículos*</Text>
                     </View>                  
               </View>
                 <FontAwesome name="car" size={50} color="black" style={styles.icon} />                            
@@ -134,7 +146,7 @@ const Veiculo = () => {
                     />                    
                 </View>
 
-                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <TouchableOpacity style={styles.button} onPress={handleConfirmar}>
                     <Text style={styles.buttonSend}>Cadastrar</Text>
                     </TouchableOpacity>              
 
@@ -144,6 +156,37 @@ const Veiculo = () => {
                 <Icon name="sign-out" size={24} color="black" />
                 <Text style={styles.logoutText}>Voltar</Text>
                 </TouchableOpacity>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        setModalVisible(true);
+                    }}
+                >
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                        <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                            <Text>Veículo Cadastrado. Deseja Cadastrar outro?</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, }}>
+                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleConfirmar}>
+                                    <Text style={{ color: 'white' }}>Sim</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleCancelar}>
+                                    <Text style={{ color: 'white' }}>Não</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
+
+
+
+
+
+
+
             </ScrollView>
                 
             </SafeAreaView>

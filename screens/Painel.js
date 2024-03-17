@@ -28,6 +28,7 @@ const Painel = () => {
     const dataAtual = new Date();    
     const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
     const textoData = dataAtual.toLocaleDateString('pt-BR', options).replace(/ de /g, ' ');
+    const [selectedValue, setSelectedValue] = useState("java");
     
     
 
@@ -113,21 +114,11 @@ const Painel = () => {
     };
     
 
-    const [open, setOpen] = useState(false);
+    const horarioAtual = new Date().getHours();
+    const abertura = 6;
+    const fechamento = 22;
 
-    const isOpen = () => {
-        const hour = now.getHours();
-        return hour >= 6 && hour < 22;
-    };
-
-    useEffect(() => {
-        setOpen(isOpen());
-        const interval = setInterval(() => {
-            setOpen(isOpen());
-        }, 60000); 
-
-        return () => clearInterval(interval);
-    }, []);
+    const isOpen = horarioAtual >= abertura && horarioAtual < fechamento;
 
     
 
@@ -227,13 +218,13 @@ const Painel = () => {
 
                 <View style={{ alignItems: 'flex-end', justifyContent: 'center', marginTop: -39, marginRight: 10 }}>
             <Text style={{ color: 'grey', textAlign: 'center' }}>
-                Funcionamento: {!open ? <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>FECHADO</Text> : <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 15 }}>ABERTO</Text>}
+                Funcionamento { isOpen ? <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 15 }}>ABERTO</Text> : <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>FECHADO</Text>}
             </Text>
-            <Text style={{ color: 'grey', textAlign: 'center' }}>Aberto das 6h às 22h</Text>
+            <Text style={{ color: 'grey', textAlign: 'center' }}>6:00h às 22:00h</Text>
         </View>
 
-
-                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+        <Text style={{ fontSize: 12, color: 'grey', marginBottom: -30, marginTop: 25, marginLeft: 20 }}>Selecione: Entrada / Saída</Text>        
+                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop: 55 }}>
                     <View style={{ width: '40%', alignItems: 'center' }}>
 
                         <TouchableOpacity onPress={() => showMode('time')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 8 }}>
@@ -264,29 +255,41 @@ const Painel = () => {
             )}
 
 
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginVertical: 50,
-                    marginBottom: 0,
-                    marginLeft: 100
-                    
-                }}>
-                    <Text style={{ color: 'black'}}>Precisa de Vaga Preferencial?</Text>
+                <View style={styles.container}>
+                    <Text style={styles.label}>Selecione uma Placa:    </Text>
+                    <RNPickerSelect
+                        onValueChange={(value) => setSelectedValue(value)}
+                        items={[
+                        { label: 'Placa 1', value: 'placa 1' },
+                        { label: 'Placa 2', value: 'placa 2' },
+                        ]}
+                        value={selectedValue}
+                        style={pickerSelectStyles}
+                    />
+                    </View>
+
+                    <Text style={{ color: 'grey', marginLeft: 20, marginTop: 20, fontSize: 12}}>Vaga Preferencial?</Text>
                     <Checkbox
-                        style={{ marginRight: 0, marginLeft: 10 }}
+                        style={{ marginRight: 0, marginLeft:160, marginTop: -20 }}
                         value={isChecked}
                         onValueChange={setIsChecked}
                         color= 'green'
-                    />                    
+                    /> 
+
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginVertical: 100,
+                    marginTop: -50,
+                    marginLeft: 100
+                    
+                }}>
+                                       
                 </View>
-
-
-
             <TouchableOpacity
                 onPress={gerarTicket}
                 style={{
-                    marginTop: 50, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
+                    marginTop: -15, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
                     borderRadius: 3, backgroundColor: '#F1C40F', flexDirection: 'row',
                 }}>
 
@@ -418,7 +421,27 @@ const styles = StyleSheet.create({
         marginRight: 0, 
         marginLeft: 0, 
         color: '#191970'
-    }
+    },
+    label: {
+        marginTop: 20,
+        marginLeft: 10,
+        color: 'grey',
+        fontSize: 12,
+        
+      },
 });
+
+const pickerSelectStyles = StyleSheet.create({
+    
+    inputAndroid: {
+        fontSize: 16,
+        borderWidth: 0.5,
+        borderColor: 'purple',
+        borderRadius: 8,
+        color: 'black',
+        paddingRight: 195,
+        marginTop: 20,
+    },
+  });
 
 export default Painel;
