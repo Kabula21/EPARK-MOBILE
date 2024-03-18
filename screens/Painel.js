@@ -23,6 +23,7 @@ const Painel = () => {
     const [estadoAnterior, setEstadoAnterior] = useState(null);
     const [vagasOcupadas, setVagasOcupadas] = useState(0);
     const [vagasLivres, setVagasLivres] = useState(30);
+    const [vagasTotal, setVagasTotal] = useState(30);
     const [statusBarStyle, setStatusBarStyle] = useState('light-content');
     const [navBarColor, setNavBarColor] = useState('#000');
     const dataAtual = new Date();    
@@ -117,8 +118,19 @@ const Painel = () => {
     const horarioAtual = new Date().getHours();
     const abertura = 6;
     const fechamento = 22;
-
     const isOpen = horarioAtual >= abertura && horarioAtual < fechamento;
+
+    
+    const handleCheckboxChange = (newValue) => {
+        setIsChecked(newValue);
+        if (newValue) {
+            setVagasLivres(10);
+            setVagasTotal(10);
+        } else {
+            setVagasLivres(30);
+            setVagasTotal(30);
+        }
+    };
 
     
 
@@ -200,7 +212,7 @@ const Painel = () => {
                     </View>
 
                     <View style={{ alignItems: 'center', marginRight: 50 }}>
-                        <Text style={{ fontSize: 50, color: "#191970", fontWeight: "bold" }}>30</Text>
+                        <Text style={{ fontSize: 50, color: "#191970", fontWeight: "bold" }}>{vagasTotal}</Text>
                         <Text style={{ fontSize: 15 }}>TOTAL</Text>
                         <Text style={{ fontSize: 10, marginTop: 5 }}>10 Especiais*</Text>
                         </View>
@@ -268,13 +280,13 @@ const Painel = () => {
                     />
                     </View>
 
-                    <Text style={{ color: 'grey', marginLeft: 20, marginTop: 20, fontSize: 12}}>Vaga Preferencial?</Text>
-                    <Checkbox
-                        style={{ marginRight: 0, marginLeft:160, marginTop: -20 }}
-                        value={isChecked}
-                        onValueChange={setIsChecked}
-                        color= 'green'
-                    /> 
+                    <Text style={{ color: 'grey', marginLeft: 20, marginTop: 20, fontSize: 12 }}>Vaga Preferencial?</Text>
+                        <Checkbox
+                            style={{ marginRight: 0, marginLeft: 160, marginTop: -20 }}
+                            value={isChecked}
+                            onValueChange={handleCheckboxChange}
+                            color='green'
+                        /> 
 
                 <View style={{
                     flexDirection: 'row',
