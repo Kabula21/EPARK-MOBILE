@@ -125,11 +125,6 @@ const Tickets = () => {
                     </Modal>
                 </View>
                 
-                <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
-                    <Icon name="sign-out" size={24} color="black" />
-                    <Text style={styles.logoutText}>Voltar</Text>
-                </TouchableOpacity>
-
 
             </SafeAreaView>
         </ImageBackground>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView, Modal} from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView, Modal, Linking} from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -12,43 +12,9 @@ import { FontAwesome } from '@expo/vector-icons';
 const Card = () => {
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const navigation = useNavigation(); 
-    const [numero, setNumero] = useState('');
-    const [nome, setNome] = useState('');
-    const [validade, setValidade] = useState('');
-    const [cvv, setCvv] = useState('');
-    const [modalVisible, setModalVisible] = useState(false);
-
-    const handleSubmit = () => {
-        console.log('Número:', numero);
-        console.log('Nome:', nome);
-        console.log('Validade:', validade);
-        console.log('CVV:', cvv);
-        // Você pode adicionar aqui a lógica para enviar os dados do cartão para o backend, por exemplo.
-    };
-
-    const formatarNumeroCartao = (numero) => {        
-        const numerosApenas = numero.replace(/[^\d]/g, ""); 
-        const numeroFormatado = numerosApenas.replace(/(\d{4})/g, '$1 ').trim();
-        return numeroFormatado;
-    }        
-    const numeroCartao = "1234567890123456";
-    const numeroFormatado = formatarNumeroCartao(numeroCartao);
-    console.log(numeroFormatado);
-
     
-      const handleCvvChange = (input) => {
-        const formattedCvv = formatCvv(input);
-        setCvv(formattedCvv);
-      };
 
-      const handlePainel = () => {        
-        navigation.navigate('Painel'); 
-    };
-
-    const handleConfirmar = () => {
-        setModalVisible(true); 
-    };
-    
+   
 
     return (  
         <ImageBackground            
@@ -95,109 +61,52 @@ const Card = () => {
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>
                 </View>
-
-                <ScrollView>
                 
-                <Text style={styles.title}>Cadastro do Cartão</Text>
+                <Text style={styles.title}>Forma de Pagamento</Text>
                 <View style={styles.separator}></View>
 
                 <View style={styles.card}>
                 <View style={{ backgroundColor: '#191970', borderTopLeftRadius: 5, borderTopRightRadius: 5, width: 359, marginLeft: -15, marginTop: -12 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
                         <View style={styles.infoIcon}><Icon name="info-circle" size={25} color="white" /></View>
-                        <Text style={{ color: 'white', marginLeft: 40 }}>Informações Obrigatórias*</Text>
+                        <Text style={{ color: 'white', marginLeft: 40 }}>Escolha o método*</Text>
                     </View>
                 </View>
             
                 
 
-                <FontAwesome name="credit-card" size={50} color="black" style={styles.icon} />        
-            
-            <TextInput
-                style={styles.input}
-                placeholder="Número do Cartão *"
-                value={formatarNumeroCartao(numero)}
-                onChangeText={(text) => setNumero(formatarNumeroCartao(text))}
-                keyboardType="numeric"
-                maxLength={19}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Nome do Titular *"
-                value={nome}
-                onChangeText={setNome}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Validade (MM/YY) *"
-                keyboardType="numeric" // Isso garante que apenas números sejam inseridos
-                maxLength={5} // Limita o número máximo de caracteres para 5
-                value={validade}
-                onChangeText={text => {
-                // Aplicar a máscara MM/YY
-                if (text.length <= 5) {
-                    // Permite até 5 caracteres (MM/YY)
-                    let formattedText = text.replace(/\D/g, '').substring(0, 4);
-                    if (formattedText.length > 2) {
-                    // Insere a barra (/) após os primeiros 2 caracteres (MM)
-                    formattedText = formattedText.replace(/(\d{2})(\d)/, '$1/$2');
-                    }
-                    setValidade(formattedText);
-                }
-                }}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="CVV *"
-                secureTextEntry={!isPasswordShown}
-                value={cvv}                                
-                onChangeText={text => {                    
-                    if (text.length <= 3) {
-                        const formattedText = text.replace(/[^0-9]/g, '');                        
-                        setCvv(formattedText);
-                    }
-                    
-                }}
-                keyboardType="numeric"
-            />
-                
-            </View>
+                <FontAwesome name="credit-card" size={50} color="black" style={styles.icon} />
 
-            <TouchableOpacity style={styles.button} onPress={handleConfirmar}>
-                <Text style={styles.buttonText}>Cadastrar</Text>
-            </TouchableOpacity>
-
-
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(false); 
-                }}
-            >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalText}>Cadastrado com Sucesso</Text>
-                        <TouchableOpacity
-                            style={styles.closeButton}
-                            onPress={() => setModalVisible(false)}
-                        >
-                            <Text style={styles.closeButtonText}>Fechar</Text>
-                        </TouchableOpacity>
-                    </View>
+                <View style={styles.innerCard}>
+                    <Text style={styles.innerCardTitle}>Pague Usando Paypal</Text>
+                    <Text style={styles.innerCardSubTitle}>       Rápido, fácil e seguro</Text>
+                    <TouchableOpacity onPress={() => Linking.openURL('https://www.paypal.com/pt/home')}>
+                        <Image source={require('../assets/paypal.png')} style={styles.innerCardImage} />
+                    </TouchableOpacity>
                 </View>
-            </Modal>
 
+                <View style={styles.innerCard}>
+                    <Text style={styles.innerCardTitle}>Pague Usando Pagseguro</Text>
+                    <Text style={styles.innerCardSubTitle}>Pix, Débito ou Crédito</Text>
+                    <TouchableOpacity onPress={() => Linking.openURL('https://pagseguro.uol.com.br/conta-digital')}>
+                    <Image source={require('../assets/pagseguro.png')} style={styles.innerCardImage} />
+                    </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
-                    <Icon name="sign-out" size={24} color="black" />
-                    <Text style={styles.logoutText}>Voltar</Text>
-                </TouchableOpacity>
+                <View style={styles.innerCard}>
+                    <Text style={styles.innerCardTitle}>Pague Usando Mercado Pago</Text>
+                    <Text style={styles.innerCardSubTitle}>Facilite na hora de pagar</Text>
+                    <TouchableOpacity onPress={() => Linking.openURL('https://www.mercadopago.com.br/')}>
+                    <Image source={require('../assets/mercadopago.png')} style={styles.innerCardImage} />
+                    </TouchableOpacity>
+                </View>
 
-            </ScrollView>               
+            </View> 
         </SafeAreaView>
         </TouchableWithoutFeedback>
+
+                <Image source={require('../assets/todoscartoes.png')} style={{width: 300, height: 50, marginVertical: 45, marginLeft: 50 }} />
+
         </ImageBackground>
     );
 };
@@ -241,7 +150,7 @@ const styles = StyleSheet.create({
 
     card: {
         backgroundColor: '#fff',
-        height:300,
+        height:400,
         borderRadius: 8,
         padding: 16,
         marginVertical: 30,
@@ -297,29 +206,6 @@ const styles = StyleSheet.create({
         
     },
 
-    buttonSend: {
-        fontSize: 18,
-        color: 'white',
-        fontWeight: 'bold'
-    },
-
-    logoutButton: {
-        position: 'absolute',
-        top: 635,
-        left: 0,
-        right: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 5,
-        backgroundColor: '#DCDCDC',
-        flexDirection: 'row',
-    },
-    logoutText: {
-        marginLeft: 5,
-        fontSize: 16,
-        color: 'black',
-    },
-
     infoIcon: {
         position: 'absolute',
         top: 8,
@@ -332,36 +218,51 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
+
+
+    innerCard: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        padding: 15,
+        backgroundColor: '#FFF',
+        borderRadius: 3,
+        borderColor: '#00BFFF',
+        borderWidth: 1,
+        marginTop: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        shadowColor: '#00BFFF',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
-    modalContent: {
-        backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 10,
-        alignItems: 'center',
+
+    innerCardTitle: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        textAlign: 'left',
+        marginTop: -35,
     },
-    modalText: {
-        fontSize: 18,
-        marginBottom: 10,
-    },
-    closeButton: {
-        backgroundColor: '#191970',
-        padding: 10,
-        borderRadius: 5,
+
+    innerCardSubTitle: {
+        fontSize: 12,
+        textAlign: 'left',
         marginTop: 10,
+        marginLeft: -230,
+        fontStyle: 'italic'
     },
-    closeButtonText: {
-        color: 'white',
-        fontSize: 16,
+    innerCardImage: {
+        width: 75,
+        height: 40,
+        resizeMode: 'contain',
     },
+
+   
 });
 
 export default Card;

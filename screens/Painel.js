@@ -235,8 +235,19 @@ const Painel = () => {
             <Text style={{ color: 'grey', textAlign: 'center' }}>6:00h às 22:00h</Text>
         </View>
 
-        <Text style={{ fontSize: 12, color: 'grey', marginBottom: -30, marginTop: 25, marginLeft: 20 }}>Selecione: Entrada / Saída</Text>        
-                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop: 55 }}>
+
+        <Text style={{ fontSize: 12, color: 'grey', marginBottom: -30, marginTop: 30, marginLeft: 20, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>Selecione: Entrada / Saída</Text>
+
+        
+        
+        <View style={styles.infoIcon}>
+            <Pressable onPress={() => navigation.navigate("Termos")}>
+            <Icon name="info" size={15} color="white" marginTop={3} />                 
+                </Pressable>
+        </View>
+
+
+                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop: 15 }}>
                     <View style={{ width: '40%', alignItems: 'center' }}>
 
                         <TouchableOpacity onPress={() => showMode('time')} style={{ width: 130, height: 130, backgroundColor: '#191970', justifyContent: 'center', alignItems: 'center', borderRadius: 8 }}>
@@ -267,8 +278,8 @@ const Painel = () => {
             )}
 
 
-                <View style={styles.container}>
-                    <Text style={styles.label}>Selecione uma Placa:    </Text>
+                <View style={styles.container2}>
+                    <Text style={styles.label}>Selecione uma Placa:</Text>
                     <RNPickerSelect
                         onValueChange={(value) => setSelectedValue(value)}
                         items={[
@@ -280,12 +291,12 @@ const Painel = () => {
                     />
                     </View>
 
-                    <Text style={{ color: 'grey', marginLeft: 20, marginTop: 20, fontSize: 12 }}>Vaga Preferencial?</Text>
+                    <Text style={{ color: 'grey', marginLeft: 130, marginTop: 30, fontSize: 12 }}>Vaga Preferencial?</Text>
                         <Checkbox
-                            style={{ marginRight: 0, marginLeft: 160, marginTop: -20 }}
+                            style={{ marginRight: 0, marginLeft: 240, marginTop: -20, borderRadius: 3 }}
                             value={isChecked}
                             onValueChange={handleCheckboxChange}
-                            color='green'
+                            color='#191970'
                         /> 
 
                 <View style={{
@@ -301,7 +312,7 @@ const Painel = () => {
             <TouchableOpacity
                 onPress={gerarTicket}
                 style={{
-                    marginTop: -15, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
+                    marginTop: -10, width: 150, height: 40, alignItems: 'center', justifyContent: 'center', marginLeft: 120,
                     borderRadius: 3, backgroundColor: '#F1C40F', flexDirection: 'row',
                 }}>
 
@@ -407,8 +418,22 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start', 
         alignItems: 'center',
         paddingTop: 10,
-        marginLeft: 10
+        marginLeft: 10,        
     },
+
+    container2: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start', 
+        alignItems: 'center',
+        marginLeft: 40,
+        marginTop:30,
+        borderRadius: 5, 
+        borderWidth: 1,
+        borderColor: '#191970',
+        width: 315,
+        height: 40         
+    },
+
     quadroLaranja: {
         backgroundColor: 'transparent',        
         justifyContent: 'center',
@@ -416,7 +441,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginTop: 0,
         marginLeft: 10,
-        marginRight: 10, 
+        marginRight: 10,
+        
     },
    
     textoData: {
@@ -435,24 +461,35 @@ const styles = StyleSheet.create({
         color: '#191970'
     },
     label: {
-        marginTop: 20,
+        marginTop: 0,
         marginLeft: 10,
         color: 'grey',
         fontSize: 12,
         
       },
+
+      infoIcon: {
+        alignItems: 'center',
+        backgroundColor: '#00BFFF',
+        borderRadius: 100,
+        width: 22,
+        height: 22,
+        marginLeft: 360,
+        marginTop: 10        
+    },
+
+
+
+
 });
 
 const pickerSelectStyles = StyleSheet.create({
     
     inputAndroid: {
-        fontSize: 16,
-        borderWidth: 0.5,
-        borderColor: 'purple',
-        borderRadius: 8,
+        fontSize: 12,
         color: 'black',
         paddingRight: 195,
-        marginTop: 20,
+        marginTop: -7        
     },
   });
 

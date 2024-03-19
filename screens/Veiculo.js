@@ -152,11 +152,6 @@ const Veiculo = () => {
 
                 
 
-                <TouchableOpacity style={styles.logoutButton} onPress={handlePainel}>
-                <Icon name="sign-out" size={24} color="black" />
-                <Text style={styles.logoutText}>Voltar</Text>
-                </TouchableOpacity>
-
                 <Modal
                     animationType="slide"
                     transparent={true}
