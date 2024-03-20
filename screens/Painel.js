@@ -232,7 +232,7 @@ const Painel = () => {
             <Text style={{ color: 'grey', textAlign: 'center' }}>
                 Funcionamento { isOpen ? <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 15 }}>ABERTO</Text> : <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>FECHADO</Text>}
             </Text>
-            <Text style={{ color: 'grey', textAlign: 'center' }}>6:00h às 22:00h</Text>
+            <Text style={{ color: 'grey', textAlign: 'center' }}>6:00h às 18:00h</Text>
         </View>
 
 

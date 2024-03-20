@@ -153,7 +153,7 @@ const Perfil = () => {
                
 
             <View style={{ borderRadius: 5, borderWidth: 1, padding: 15, borderColor: 'grey',marginTop: 30 }}>
-            <Text style={{ color: 'grey', fontSize: 15, marginLeft:100,  marginTop: -27, borderWidth: 0, backgroundColor: 'white', width: 97, marginBottom: -25}}>Pré-definições</Text>
+            <Text style={{ color: 'grey', fontSize: 15, marginLeft:100,  marginTop: -27, borderWidth: 0, backgroundColor: '#f2f2f2', width: 97, marginBottom: -25}}>Pré-definições</Text>
 
             <View style={{flexDirection: 'row',justifyContent: 'center',alignItems: 'center'}}>
                 <Icon name="play" size={10} color="#000" style={{marginRight: 10, marginTop: 30}}/>

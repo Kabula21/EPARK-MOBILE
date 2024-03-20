@@ -176,12 +176,6 @@ const Veiculo = () => {
                 </Modal>
 
 
-
-
-
-
-
-
             </ScrollView>
                 
             </SafeAreaView>
