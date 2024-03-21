@@ -77,29 +77,29 @@ const Card = () => {
 
                 <FontAwesome name="credit-card" size={50} color="black" style={styles.icon} />
 
-                <View style={styles.innerCard}>
+                <TouchableOpacity style={styles.innerCard}>
                     <Text style={styles.innerCardTitle}>Pague Usando Paypal</Text>
                     <Text style={styles.innerCardSubTitle}>       Rápido, fácil e seguro</Text>
                     <TouchableOpacity onPress={() => Linking.openURL('https://www.paypal.com/pt/home')}>
                         <Image source={require('../assets/paypal.png')} style={styles.innerCardImage} />
                     </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
 
-                <View style={styles.innerCard}>
+                <TouchableOpacity style={styles.innerCard}>
                     <Text style={styles.innerCardTitle}>Pague Usando Pagseguro</Text>
                     <Text style={styles.innerCardSubTitle}>Pix, Débito ou Crédito</Text>
                     <TouchableOpacity onPress={() => Linking.openURL('https://pagseguro.uol.com.br/conta-digital')}>
                     <Image source={require('../assets/pagseguro.png')} style={styles.innerCardImage} />
                     </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
 
-                <View style={styles.innerCard}>
+                <TouchableOpacity style={styles.innerCard}>
                     <Text style={styles.innerCardTitle}>Pague Usando Mercado Pago</Text>
                     <Text style={styles.innerCardSubTitle}>Facilite na hora de pagar</Text>
                     <TouchableOpacity onPress={() => Linking.openURL('https://www.mercadopago.com.br/')}>
                     <Image source={require('../assets/mercadopago.png')} style={styles.innerCardImage} />
                     </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
 
             </View> 
         </SafeAreaView>

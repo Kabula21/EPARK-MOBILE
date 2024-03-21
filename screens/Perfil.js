@@ -1,5 +1,5 @@
 import React, { useState, useEffect, } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, Pressable, value, Button } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, Pressable, value, Button, Modal } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,6 +15,7 @@ const Perfil = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [foto, setFoto] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
     
 
     useEffect(() => {        
@@ -74,7 +75,15 @@ const Perfil = () => {
     };
 
     
-   
+    const handleConfirmar = () => {
+        setModalVisible(true);
+        navigation.navigate("Perfil");
+        
+    };
+
+    const handleCancelar = () => {
+        setModalVisible(false);
+    };
         
 
     const handleSubmit = () => {
@@ -153,7 +162,7 @@ const Perfil = () => {
                
 
             <View style={{ borderRadius: 5, borderWidth: 1, padding: 15, borderColor: 'grey',marginTop: 30 }}>
-            <Text style={{ color: 'grey', fontSize: 15, marginLeft:100,  marginTop: -27, borderWidth: 0, backgroundColor: 'white', width: 97, marginBottom: -25}}>Pré-definições</Text>
+            <Text style={{ color: 'grey', fontSize: 15, marginLeft:100,  marginTop: -27, borderWidth: 0, backgroundColor: '#f2f2f2', width: 97, marginBottom: -25}}>Pré-definições</Text>
 
             <View style={{flexDirection: 'row',justifyContent: 'center',alignItems: 'center'}}>
                 <Icon name="play" size={10} color="#000" style={{marginRight: 10, marginTop: 30}}/>
@@ -181,7 +190,35 @@ const Perfil = () => {
                 </TouchableOpacity>
             </View> 
         </View>
-            
+
+        <TouchableOpacity onPress={handleConfirmar}>
+                <Text style={{ fontSize: 16, color: '#191970', marginLeft: 6, marginRight: 0, marginTop: 30 }}>Excluir Conta*</Text>
+                </TouchableOpacity>
+
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        setModalVisible(true);
+                    }}
+                >
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                        <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                            <Text>Deseja realmente excluir a conta??</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, }}>
+                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleConfirmar}>
+                                    <Text style={{ color: 'white' }}>Sim</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleCancelar}>
+                                    <Text style={{ color: 'white' }}>Não</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
 
                 
 
