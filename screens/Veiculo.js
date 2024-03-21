@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
+import RNPickerSelect from 'react-native-picker-select';
 
 const Veiculo = () => {
     const navigation = useNavigation(); 
@@ -11,7 +12,10 @@ const Veiculo = () => {
     const [modelo, setModelo] = useState('');
     const [ano, setAno] = useState('');
     const [plate, setPlate] = useState('');
-    const [modalVisible, setModalVisible] = useState(false);    
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
+    const [placas, setPlacas] = useState(['ABC1234', 'DEF5678', 'GHI91011']);
+      
 
     const handleSubmit = () => {
         console.log('Marca:', marca);
@@ -54,6 +58,18 @@ const Veiculo = () => {
     const handleCancelar = () => {
         setModalVisible(false);
     };
+
+
+    const handleExcluirPlaca = (placa) => {
+        console.log(`Placa ${placa} excluída`);
+        setModalVisible2(false);
+        
+      };
+    
+      const handleCancel = () => {
+        setModalVisible2(false);
+      };
+    
 
     return (  
         <ImageBackground            
@@ -100,7 +116,7 @@ const Veiculo = () => {
                         <Text style={styles.buttonText}>Tíckets</Text>
                     </TouchableOpacity>
                 </View>
-            <ScrollView>
+          
                 
 
                 <Text style={styles.title}>Cadastro de Veículos</Text>
@@ -148,9 +164,7 @@ const Veiculo = () => {
 
                 <TouchableOpacity style={styles.button} onPress={handleConfirmar}>
                     <Text style={styles.buttonSend}>Cadastrar</Text>
-                    </TouchableOpacity>              
-
-                
+                        </TouchableOpacity> 
 
                 <Modal
                     animationType="slide"
@@ -176,8 +190,38 @@ const Veiculo = () => {
                 </Modal>
 
 
-            </ScrollView>
+
+                <TouchableOpacity style={styles.buttonexcluir} onPress={() => setModalVisible2(true)}>
+                    <Text style={styles.buttonClear}>Excluir</Text>
+                </TouchableOpacity>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible2}
+                    onRequestClose={() => {
+                    setModalVisible2(false);
+                    }}
+                >
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                        <Text>Escolha uma placa:</Text>
+                        {placas.map((placa, index) => (
+                        <TouchableOpacity key={index} style={{ backgroundColor: '#191970', padding: 10, borderRadius: 5, marginTop: 10, alignItems: 'center' }} onPress={() => {
+                            setModalVisible2(true);
+                           
+                        }}>
+                            <Text style={{ color: 'white' }}>{placa}</Text>
+                        </TouchableOpacity>
+                        ))}
+                        <TouchableOpacity style={{ backgroundColor: '#ccc', padding: 10, borderRadius: 5, marginTop: 10, alignItems: 'center' }} onPress={handleCancel}>
+                        <Text style={{ color: 'black' }}>Cancelar</Text>
+                        </TouchableOpacity>
+                    </View>
+                    </View>
+                </Modal>
                 
+
             </SafeAreaView>
             </TouchableWithoutFeedback>
             
@@ -286,7 +330,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 60,
         marginTop: 30,
         borderRadius: 5,
-        marginBottom: 150
       },
     
 
@@ -297,21 +340,28 @@ const styles = StyleSheet.create({
        
         
     },
-    logoutButton: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        alignItems: 'center',
+
+    buttonexcluir: {
+        width: '70%',
+        height: 40,
+        backgroundColor: 'transparent',
         justifyContent: 'center',
-        paddingVertical: 5,
-        backgroundColor: '#DCDCDC',
-        flexDirection: 'row',
-    },
-    logoutText: {
-        marginLeft: 5,
-        fontSize: 16,
-        color: 'black',
+        alignItems: 'center',
+        marginHorizontal: 60,
+        marginTop: 20,
+        borderRadius: 5,
+        borderColor:'#191970',
+        borderWidth: 1,
+       
+      },
+    
+
+    buttonClear: {
+        fontSize: 18,
+        color: '#191970',
+        fontWeight: 'bold',
+       
+        
     },
 
     infoIcon: {
@@ -325,6 +375,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
+
 });
+
+
 
 export default Veiculo;
