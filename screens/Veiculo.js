@@ -5,10 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
+<<<<<<< HEAD
 
 import { createVeiculo, updateProfile } from 'firebase/auth';
 import { firebaseApp, auth } from '../src/firebase.config';
 import { collection, getFirestore, getDocs, addDoc, doc, deleteDoc} from 'firebase/firestore';
+=======
+>>>>>>> c818a9ac16d61f568745d5cf55d199d85da1e935
 
 const Veiculo = () => {
     const navigation = useNavigation(); 
@@ -18,6 +21,12 @@ const Veiculo = () => {
     const [plate, setPlate] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    const [modalVisible2, setModalVisible2] = useState(false);
+    const [placas, setPlacas] = useState(['ABC1234', 'DEF5678', 'GHI91011']);
+      
+>>>>>>> c818a9ac16d61f568745d5cf55d199d85da1e935
 =======
     const [modalVisible2, setModalVisible2] = useState(false);
     const [placas, setPlacas] = useState(['ABC1234', 'DEF5678', 'GHI91011']);
