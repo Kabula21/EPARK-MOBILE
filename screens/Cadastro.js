@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ImageBackground, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ActivityIndicator, Alert, Pressable, ScrollView, StatusBar } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from '../constants/colors';
@@ -6,8 +6,8 @@ import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import Button from '../components/Button';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../src/firebase.config';
-
+import { auth, firebaseApp } from '../src/firebase.config';
+import { collection, getFirestore, getDocs, addDoc, doc, deleteDoc} from 'firebase/firestore';
 
 
 const Signup = ({ navigation }) => {
@@ -15,13 +15,36 @@ const Signup = ({ navigation }) => {
     const [userPass, setUserPass] = useState('');
     const [userRePass, setUserRePass] = useState('');
     const [userName, setUserName] = useState('');
+    const [users, setUsers] = useState([]);
 
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isRePasswordShown, setIsRePasswordShown] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);  
+    const [isLoading, setIsLoading] = useState(false); 
+    
+    const db = getFirestore(firebaseApp);
+    const userCollectionRef = collection(db, "usuario");
 
-    const handleSignup = () => {
+    useEffect(() => {
+        const getUsers = async () => {
+            const data = await getDocs(userCollectionRef)
+            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+        };
+        getUsers();
+    }, []);
+
+    async function criarUser() {
+        const user = await addDoc(userCollectionRef, {
+            userName, userPass, userMail
+        });
+    }
+
+    async function deleteUser(id) {
+        const userDoc = doc(db, "usuario", id)
+        await deleteDoc(userDoc);
+    }
+
+   const handleSignup = async () => {
         
         if (isChecked === true) {
             if (userMail === '' || userPass === '' || userRePass === '') {
@@ -62,6 +85,8 @@ const Signup = ({ navigation }) => {
                     }
                     
                 });
+            criarUser()
+
             
         } else {
             Alert.alert("Aceite os Termos e Condições", "");
@@ -106,9 +131,7 @@ const Signup = ({ navigation }) => {
                                 fontWeight: '400',
                                 marginVertical: 8,
                                 color: 'white'
-                                
                             }}></Text>
-
                             <View style={{
                                 width: '100%',
                                 height: 48,
@@ -141,7 +164,6 @@ const Signup = ({ navigation }) => {
                                 marginVertical: 8,
                                 
                             }}></Text>
-
                             <View style={{
                                 width: '100%',
                                 height: 48,
@@ -172,7 +194,6 @@ const Signup = ({ navigation }) => {
                                 fontWeight: '400',
                                 marginVertical: 8
                             }}></Text>
-
                             <View style={{
                                 width: '100%',
                                 height: 48,
@@ -211,7 +232,6 @@ const Signup = ({ navigation }) => {
                                 </TouchableOpacity>
                             </View>
                         </View>
-
                         <View style={{ marginBottom: 12 }}>
                             <Text style={{
                                 fontSize: 16,
