@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Login, Cadastro, BemVindo, Painel, Perfil, Card, Veiculo, Tickets, Termos, RedSenha } from "./screens";
+import { Login, Cadastro, BemVindo, Painel, Perfil, Card, Veiculo, Tickets, Termos, RedSenha, Aceite } from "./screens";
 import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
@@ -89,6 +89,15 @@ export default function App() {
             headerShown: false
           }}
         />
+
+        <Stack.Screen
+          name="Aceite"
+          component={Aceite}
+          options={{
+            headerShown: false
+          }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

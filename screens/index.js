@@ -7,7 +7,8 @@ import Card from "./Card";
 import Veiculo from "./Veiculo";
 import Tickets from "./Tickets";
 import Termos from "./Termos";
-import RedSenha from "./RedSenha"
+import RedSenha from "./RedSenha";
+import Aceite from "./Aceite";
 
 
 export {
@@ -21,4 +22,5 @@ export {
     Tickets,
     Termos,
     RedSenha,
+    Aceite,
 }

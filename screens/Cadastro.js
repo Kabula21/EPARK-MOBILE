@@ -3,6 +3,8 @@ import { View, Text, ImageBackground, TextInput, TouchableOpacity, TouchableWith
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from '../constants/colors';
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native'; 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Checkbox from "expo-checkbox";
 import Button from '../components/Button';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
@@ -11,15 +13,21 @@ import { auth } from '../src/firebase.config';
 
 
 const Signup = ({ navigation }) => {
+    
+
     const [userMail, setUserMail] = useState('');
     const [userPass, setUserPass] = useState('');
     const [userRePass, setUserRePass] = useState('');
     const [userName, setUserName] = useState('');
+    
+   
 
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isRePasswordShown, setIsRePasswordShown] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);  
+    const [isLoading, setIsLoading] = useState(false); 
+    
+    
 
     const handleSignup = () => {
         
@@ -68,6 +76,7 @@ const Signup = ({ navigation }) => {
         }
         
     };
+   
 
     return (
         <ImageBackground
@@ -93,7 +102,8 @@ const Signup = ({ navigation }) => {
                             <Text style={{
                                 fontSize: 22,
                                 fontWeight: 'bold',
-                                marginVertical: 12,
+                                marginVertical: 10,
+                                marginBottom: -20,
                                 color: '#F1C40F'
                             }}>
                                 Crie Sua Conta
@@ -271,8 +281,18 @@ const Signup = ({ navigation }) => {
                                color={isChecked ? COLORS.primary : 'white'}
                             />
 
-                            <Text style={{ color:'white' }}>Aceito os Termos e Condições</Text>
+           
+
+                        <Text style={{ color:'white' }}>Aceito os Termos e Condições</Text>
                         </View>
+
+                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginRight: 10, marginTop: -30 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Aceite")}>
+                                    <View style={{ width: 28, height: 28, borderRadius: 50, borderColor: 'white', borderWidth: 2, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Icon name="info" size={15} color="white" />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
 
                         <Button
                             title="Cadastrar"
@@ -281,12 +301,13 @@ const Signup = ({ navigation }) => {
                             disabled={!isChecked}
                             style={{
                                 marginLeft: 70,
-                                marginTop: 18,
+                                marginTop: 40,
                                 marginBottom: 4,
                                 backgroundColor: '#F1C40F',
                                 fontWeight: 'bold'
                             }}
                         />
+
 
                         <View style={{
                             flexDirection: 'row',
