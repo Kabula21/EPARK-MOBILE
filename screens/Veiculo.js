@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView, Modal } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, View, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, Image, ScrollView, Modal } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
+<<<<<<< HEAD
+
+import { createVeiculo, updateProfile } from 'firebase/auth';
+import { firebaseApp, auth } from '../src/firebase.config';
+import { collection, getFirestore, getDocs, addDoc, doc, deleteDoc} from 'firebase/firestore';
+=======
+>>>>>>> c818a9ac16d61f568745d5cf55d199d85da1e935
 
 const Veiculo = () => {
     const navigation = useNavigation(); 
@@ -13,17 +20,42 @@ const Veiculo = () => {
     const [ano, setAno] = useState('');
     const [plate, setPlate] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
     const [modalVisible2, setModalVisible2] = useState(false);
     const [placas, setPlacas] = useState(['ABC1234', 'DEF5678', 'GHI91011']);
       
+>>>>>>> c818a9ac16d61f568745d5cf55d199d85da1e935
+=======
+    const [modalVisible2, setModalVisible2] = useState(false);
+    const [placas, setPlacas] = useState(['ABC1234', 'DEF5678', 'GHI91011']);
+      
+>>>>>>> c818a9ac16d61f568745d5cf55d199d85da1e935
 
-    const handleSubmit = () => {
-        console.log('Marca:', marca);
-        console.log('Modelo:', modelo);
-        console.log('Ano:', ano);
-        console.log('Placa do veículo:', plate);
-       
-    };
+    const [veiculos, setVeiculos] = useState([]);
+
+     const db = getFirestore(firebaseApp);
+        const userCollectionRef = collection(db, "veiculo");
+
+        useEffect(() => {
+            const getVeiculos = async () => {
+                const data = await getDocs(userCollectionRef)
+                setVeiculos(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+            };
+            getVeiculos();
+        }, []);
+
+        async function criarVeiculo() {
+            const user = await addDoc(userCollectionRef, {
+                marca, modelo, ano, plate
+            });
+        }
+
+        async function deleteVeiculo(id) {
+            const userDoc = doc(db, "veiculo", id)
+            await deleteDoc(userDoc);
+        }
       
     const handlePlateChange = (text) => {
         let formattedText = '';
@@ -50,9 +82,35 @@ const Veiculo = () => {
 
 
     const handleConfirmar = () => {
+        if (marca === '' || modelo === '' || ano === '' || plate === '') {
+                        Alert.alert("Todos os campos devem ser preenchidos", "")
+        }
+        createVeiculo(marca, modelo, ano, plate)
+            .then((UserCredential) => {
+                const user = UserCredential.user;
+                updateProfile(user, {
+                    displayName: userName,
+                }).then(() => {
+                    criarVeiculo()
+                    Alert.alert("O veículo " + modelo + " foi criado.");
+                    navigation.navigate("Veiculo");
+                }).catch((error) => {
+                    console.error("Erro ao atualizar veículo:", error);
+                });
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+
+                switch (errorMessage) {
+                    case "Firebase: Error (auth/email-already-in-use).":
+                        Alert.alert("Veículo já cadastrado.");
+                        break;
+                }
+
+            });
+
         setModalVisible(true);
-        navigation.navigate("Veículo");
-        
+
     };
 
     const handleCancelar = () => {
