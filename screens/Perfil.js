@@ -5,16 +5,26 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-
+import useUser from './api_bd/user';
 
 const Perfil = () => {
-    const navigation = useNavigation(); 
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const [foto, setFoto] = useState(null);
+
+    const { userMail,
+        setUserMail,
+        userPass,
+        setUserPass,
+        userRePass,
+        setUserRePass,
+        userName,
+        setUserName,
+        users,
+        foto,
+        setFoto,
+        criarUser,
+        deleteUser} = useUser();
+    
+    const navigation = useNavigation();
+    
     const [modalVisible, setModalVisible] = useState(false);
     
 
@@ -206,12 +216,12 @@ const Perfil = () => {
                 >
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                         <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-                            <Text>Deseja realmente excluir a conta??</Text>
+                            <Text>Deseja realmente excluir a conta?</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, }}>
-                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleConfirmar}>
+                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={deleteUser}>
                                     <Text style={{ color: 'white' }}>Sim</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleCancelar}>
+                                <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={() => navigation.navigate('Perfil')}>
                                     <Text style={{ color: 'white' }}>Não</Text>
                                 </TouchableOpacity>
                             </View>

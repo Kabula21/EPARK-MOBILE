@@ -9,53 +9,28 @@ import Checkbox from "expo-checkbox";
 import Button from '../components/Button';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, firebaseApp } from '../src/firebase.config';
-import { collection, getFirestore, getDocs, addDoc, doc, deleteDoc} from 'firebase/firestore';
+import { collection, getFirestore, getDocs, addDoc, doc, deleteDoc } from 'firebase/firestore';
+import useUser from './api_bd/user'; 
 
 
 const Signup = ({ navigation }) => {
-    
-
-    const [userMail, setUserMail] = useState('');
-    const [userPass, setUserPass] = useState('');
-    const [userRePass, setUserRePass] = useState('');
-    const [userName, setUserName] = useState('');
-<<<<<<< HEAD
-    
-   
-=======
-    const [users, setUsers] = useState([]);
->>>>>>> 296b5b0aea4cf108d3d374c6afa62726d4ad492b
+    const { userMail,
+        setUserMail,
+        userPass,
+        setUserPass,
+        userRePass,
+        setUserRePass,
+        userName,
+        setUserName,
+        users,
+        criarUser,
+        deleteUser} = useUser();
 
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isRePasswordShown, setIsRePasswordShown] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(false); 
-    
-<<<<<<< HEAD
-    
-=======
-    const db = getFirestore(firebaseApp);
-    const userCollectionRef = collection(db, "usuario");
->>>>>>> 296b5b0aea4cf108d3d374c6afa62726d4ad492b
 
-    useEffect(() => {
-        const getUsers = async () => {
-            const data = await getDocs(userCollectionRef)
-            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-        };
-        getUsers();
-    }, []);
-
-    async function criarUser() {
-        const user = await addDoc(userCollectionRef, {
-            userName, userPass, userMail
-        });
-    }
-
-    async function deleteUser(id) {
-        const userDoc = doc(db, "usuario", id)
-        await deleteDoc(userDoc);
-    }
 
    const handleSignup = async () => {
         
@@ -118,9 +93,9 @@ const Signup = ({ navigation }) => {
         >
 
                 <StatusBar
-                    barStyle="light-content" // Define o estilo dos ícones de status
+                    barStyle="light-content"
                     backgroundColor="transparent"
-                    translucent={true} // Define a cor de fundo da barra de status
+                    translucent={true}
                 />
 
             <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>

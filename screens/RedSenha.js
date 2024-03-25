@@ -42,7 +42,7 @@ const RedSenha = () => {
 
                 <FontAwesome name="lock" size={100} color="black" style={styles.icon} />   
 
-                <Text style={styles.title}>Cadastro de Veículo</Text>
+                <Text style={styles.title}>Redefinir Senha </Text>
                 
                     <View style={styles.container}>
                         <Text style={styles.texto}></Text>
