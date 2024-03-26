@@ -16,7 +16,8 @@ const Tickets = () => {
        
     ]);
     const [selectedTicket, setSelectedTicket] = useState(null);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible,] = useState(false);
+    const [modalVisivel, definirModalVisivel] = useState(false);
 
     const openModal = (ticket) => {
         setSelectedTicket(ticket);
@@ -30,6 +31,16 @@ const Tickets = () => {
 
     const handlePainel = () => {        
         navigation.navigate('Painel'); 
+    };
+
+    const handleConfirmarExclusao = () => {
+        // Lógica para confirmar a exclusão do ticket
+        // Por exemplo, você pode chamar uma função aqui que executa a exclusão
+        definirModalVisivel(false); // Fechar o modal após a confirmação
+    };
+
+    const handleCancelarExclusao = () => {
+        definirModalVisivel(false); // Fechar o modal se o usuário cancelar
     };
 
     return (  
@@ -83,10 +94,10 @@ const Tickets = () => {
                 <View style={styles.container}>
                     <Text style={styles.title}>Tickets</Text>
                     {tickets.map(ticket => (
-                    <TouchableOpacity
+                    <View
                         key={ticket.id}
                         style={styles.card}
-                        onPress={() => openModal(ticket)}>
+                        >
                         <View style={styles.infoIcon}>
                             <Icon name="info-circle" size={30} color="white" />
                         </View>
@@ -94,11 +105,12 @@ const Tickets = () => {
                         <Text style={styles.cardTitle}>{ticket.title}</Text>                        
                         <View style={styles.titleLine}></View>
                         <Text>{ticket.description}</Text>
-                        <View style={styles.arrowContainer}>
-                    <Icon name="arrow-right" size={20} color="#C0C0C0" />
-                        </View>                        
+                        <View style={styles.qrcodeContainer}>
+                    <Icon name="qrcode" size={20} color="#00BFFF" onPress={() => openModal(ticket)}/>
+                        </View> 
+                        <Icon style={styles.iconTrash} name="trash" size={20} color="#00BFFF" onPress={() => definirModalVisivel(true)} />                
                     </View>
-                    </TouchableOpacity>
+                    </View>
             ))}
 
                    
@@ -124,6 +136,32 @@ const Tickets = () => {
                         </View>
                     </Modal>
                 </View>
+
+                
+            
+                <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisivel}
+                onRequestClose={() => {
+                    definirModalVisivel(false);
+                }}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                        <Text>Deseja excluir o Ticket?</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleConfirmarExclusao}>
+                                <Text style={{ color: 'white' }}>Sim</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ backgroundColor: '#191970', padding: 10, borderRadius: 2 }} onPress={handleCancelarExclusao}>
+                                <Text style={{ color: 'white' }}>Não</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+        
                 
 
             </SafeAreaView>
@@ -136,7 +174,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 250
+        marginBottom: 180
       
     },
     menuBar: {
@@ -208,7 +246,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    arrowContainer: {
+    qrcodeContainer: {
         position: 'absolute',
         top: 0,
         right: 0,
@@ -260,8 +298,6 @@ const styles = StyleSheet.create({
         color: '#191970'
     },
 
-    
-
     separator: {
         borderBottomColor: '#00BFFF',
         borderBottomWidth: 10,
@@ -270,6 +306,10 @@ const styles = StyleSheet.create({
         borderBottomEndRadius: 100,
         borderBottomStartRadius: 100
       },
+
+    iconTrash:{
+        marginLeft: 255,
+      }
     
 });
 
