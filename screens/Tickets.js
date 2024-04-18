@@ -10,14 +10,15 @@ import QRCode from 'react-native-qrcode-svg';
 const Tickets = () => {
     const navigation = useNavigation(); 
     const [tickets, setTickets] = useState([
-        { id: 1, title: 'Ticket 1', description: 'Nome: Anderson / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
-        { id: 2, title: 'Ticket 1', description: 'Nome: Matheus / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
-        { id: 3, title: 'Ticket 1', description: 'Nome: Leonardo / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
+        { id: 1, title: 'Ticket', description: 'Nome: Anderson / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
+        { id: 2, title: 'Ticket', description: 'Nome: Matheus / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
+        { id: 3, title: 'Ticket', description: 'Nome: Leonardo / Carro: Agile / Placa: DDD-999 / Data:  07/04 / Entrada: 17h / Saída: 18h / Pagamento: Confirmado' },
        
     ]);
     const [selectedTicket, setSelectedTicket] = useState(null);
     const [modalVisible, setModalVisible,] = useState(false);
     const [modalVisivel, definirModalVisivel] = useState(false);
+    const [ticketToDelete, setTicketToDelete] = useState(null);
 
     const openModal = (ticket) => {
         setSelectedTicket(ticket);
@@ -34,13 +35,15 @@ const Tickets = () => {
     };
 
     const handleConfirmarExclusao = () => {
-        // Lógica para confirmar a exclusão do ticket
-        // Por exemplo, você pode chamar uma função aqui que executa a exclusão
-        definirModalVisivel(false); // Fechar o modal após a confirmação
+        if (ticketToDelete) {
+            setTickets(tickets.filter(ticket => ticket.id !== ticketToDelete));
+            definirModalVisivel(false); 
+        }
+        definirModalVisivel(false); 
     };
 
     const handleCancelarExclusao = () => {
-        definirModalVisivel(false); // Fechar o modal se o usuário cancelar
+        definirModalVisivel(false); 
     };
 
     return (  
@@ -89,6 +92,7 @@ const Tickets = () => {
                         <Text style={styles.activeButton}>Tíckets</Text>
                     </TouchableOpacity>
                 </View>
+
                 <View style={styles.separator}></View>
 
                 <View style={styles.container}>
@@ -108,7 +112,10 @@ const Tickets = () => {
                         <View style={styles.qrcodeContainer}>
                     <Icon name="qrcode" size={20} color="#00BFFF" onPress={() => openModal(ticket)}/>
                         </View> 
-                        <Icon style={styles.iconTrash} name="trash" size={20} color="#00BFFF" onPress={() => definirModalVisivel(true)} />                
+                        <Icon style={styles.iconTrash} name="trash" size={20} color="#00BFFF" onPress={() => {
+                            setTicketToDelete(ticket.id);
+                            definirModalVisivel(true);
+                        }} />                 
                     </View>
                     </View>
             ))}
